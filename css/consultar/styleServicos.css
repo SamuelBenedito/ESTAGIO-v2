@@ -1,0 +1,395 @@
+/* Reset e configuração básica */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+/* Container principal */
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Centraliza o texto e os botões no container */
+}
+
+/* Estilo do título */
+.container h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333; /* Cor do título para maior contraste */
+}
+
+/* Estilo do formulário */
+form {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #343a40;
+  text-align: left
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="tel"] {
+  width: calc(100% - 22px); /* Ajustado para compensar o padding e bordas */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="tel"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Grupo de rádio */
+.radio-group {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  gap: 10px;
+}
+
+.radio-group input[type="radio"] {
+  display: none;
+}
+
+.radio-group label {
+  display: inline-block;
+  background-color: #f2f2f2;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.radio-group input[type="radio"]:checked + label {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.radio-group label:hover {
+  background-color: #e9ecef;
+}
+
+/* Estilo dos checkboxes */
+.checkbox-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.checkbox-group label {
+  display: inline-block;
+  background-color: #f2f2f2;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.checkbox-group label:hover {
+  background-color: #e9ecef;
+}
+
+.checkbox-group input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox-group input[type="checkbox"]:checked + label {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Estilo da tabela */
+.servicos-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.servicos-table th,
+.servicos-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.servicos-table th {
+  background-color: #f2f2f2;
+  color: #343a40;
+}
+
+.servicos-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.servicos-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Estilo dos botões */
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+  padding: 4px 8px;
+  margin: 0 2px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.btn-edit {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #d9534f;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #ec971f;
+}
+
+.btn-delete:hover {
+  background-color: #c9302c;
+}
+
+/* Estilo do modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content input[type="password"],
+.modal-content input[type="tel"] {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content input[type="email"]:focus,
+.modal-content input[type="password"]:focus,
+.modal-content input[type="tel"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.modal-content button[type="submit"],
+.modal-content button[type="button"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.modal-content button[type="submit"]:hover,
+.modal-content button[type="button"]:hover {
+  background-color: #0056b3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content .radio-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.modal-content .radio-group input[type="radio"] {
+  display: none;
+}
+
+.modal-content .radio-group label {
+  display: inline-block;
+  background-color: #f2f2f2;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.modal-content .radio-group input[type="radio"]:checked + label {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.modal-content .radio-group label:hover {
+  background-color: #e9ecef;
+}
+
+/* Estilo da tabela dentro do modal */
+.modal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.modal-table th,
+.modal-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.modal-table th {
+  background-color: #f2f2f2;
+  color: #343a40;
+}
+
+.modal-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.modal-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.modal-table th,
+.modal-table td {
+  text-align: center; /* Centraliza o texto nas células da tabela */
+}
+
+/* Estilo dos botões dentro da tabela */
+.table-actions button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.table-actions button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo dos modais */
+.modal, .confirmation-dialog {
+  display: none; /* Inicialmente oculto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content, .confirmation-dialog-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+}
+
+/* Estilo do botão de fechar */
+.close-modal {
+  background-color: #d9534f; /* Cor vermelha */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px; /* Espaço no topo */
+}
+
+/* Botões de confirmação na caixa de diálogo */
+.confirmation-dialog-content p {
+  margin-bottom: 20px;
+}
+
+.confirmation-dialog button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+#confirm-yes {
+  background-color: #28a745;
+  color: white;
+}
+
+#confirm-no {
+  background-color: #dc3545;
+  color: white;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salão System</title>
+    
+    <!-- Estilos do FullCalendar -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+
+    <!-- Seu arquivo de estilo -->
+    <link rel="stylesheet" href="css/calendar.css">
+</head>
+<body>
+    <div class="navbar">
+        <a onclick="toggleDropdown()">Consultar</a>
+        <a onclick="toggleRelatorioDropdown()">Relatórios</a>
+        <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
+    </div>
+
+    <div id="dropdown" class="dropdown-content">
+        <a href="clientes.html">Clientes</a>
+        <a href="temas.html">Temas</a>
+        <a href="servicos.html">Serviços</a>
+        <a href="brinquedos.html">Brinquedos</a>
+        <a href="formas_pagamento.html">Formas de pagamento</a>
+    </div>
+
+    <div id="dropdownRelatorios" class="dropdown-content">
+        <a href="re_reservas.html">Relatórios de Reservas</a>
+        <a href="re_cliente.html">Relatórios de Clientes</a>
+        <a href="re_alterações.html">Relatórios de Alterações</a>
+    </div>
+
+    <div id="userDropdown" class="dropdown-content">
+        <a href="login.html">Sair</a>
+    </div>
+
+    <div class="button-bar">
+        <button onclick="cadastrar()">Cadastrar</button>
+        <button onclick="excluir()">Excluir</button>
+    </div>
+
+    <div id="calendar"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

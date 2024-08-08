@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salão System - Temas</title>
+    <link rel="stylesheet" href="css/consultar/styleTemas.css">
+    <link rel="stylesheet" href="css/calendar.css">
+</head>
+<body>
+    <div class="navbar">
+        <a onclick="toggleDropdown()">Consultar</a>
+        <a href="#relatorios">Relatórios</a>
+        <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
+    </div>
+    <div id="dropdown" class="dropdown-content">
+        <a href="clientes.html">Clientes</a>
+        <a href="temas.html">Temas</a>
+        <a href="servicos.html">Serviços</a>
+        <a href="brinquedos.html">Brinquedos</a>
+        <a href="formas_pagamento.html">Formas de pagamento</a>
+
+        <div id="userDropdown" class="dropdown-content">
+            <a href="login.html">Sair</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Cadastro de Temas</h1>
+        <form id="temasForm">
+            <div class="form-group">
+                <label for="temas">Tema:</label>
+                <input type="text" id="temas" name="temas" placeholder="Nome do Tema" required>
+            </div>
+            <button type="submit">Cadastrar Tema</button>
+        </form>
+
+        <h2>Lista de Temas</h2>
+        <table class="temas-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do Tema</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aqui serão listados dinamicamente os temas cadastrados -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para Alterar Tema -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Alterar Tema</h2>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="editTema">Tema:</label>
+                    <input type="text" id="editTema" name="editTema" required>
+                </div>
+                <button type="submit">Salvar</button>
+                <button type="button" id="closeEditModal" class="close-modal">Fechar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div id="confirmationModal" class="confirmation-dialog">
+        <div class="confirmation-dialog-content">
+            <p>Tem certeza de que deseja excluir este tema?</p>
+            <button id="confirm-yes" class="btn">SIM</button>
+            <button id="confirm-no" class="btn">NÃO</button>
+        </div>
+    </div>
+
+    <script src="js/consultar/scriptTemas.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/template/index.global.js"></script>
+</body>
+</html>

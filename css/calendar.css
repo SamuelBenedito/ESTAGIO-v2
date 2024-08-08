@@ -1,0 +1,212 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #9FC1EA;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #343a40;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #007bff;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 1em;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.navbar a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.navbar .menu-button {
+    font-size: 1.5em;
+    line-height: 1;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+/* Dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 10px;
+    left: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+#userDropdown {
+    right: 10px;
+    left: auto;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button Bar */
+.button-bar {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.button-bar button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    margin: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.button-bar button:hover {
+    background-color: #0056b3;
+}
+
+/* Calendar */
+#calendar {
+    max-width: 50%;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.fc-header-toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    flex-wrap: wrap;
+}
+
+.fc-toolbar-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #4a4a4a;
+}
+
+.fc-button-group .fc-button {
+    background: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    padding: 8px 16px;
+    margin: 2px;
+    transition: background-color 0.3s ease;
+}
+
+.fc-button-group .fc-button:hover {
+    background: #0056b3;
+}
+
+.fc-button-group .fc-button.fc-button-primary {
+    background: #28a745;
+}
+
+.fc-button-group .fc-button.fc-button-primary:hover {
+    background: #218838;
+}
+
+.fc-daygrid-event {
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 0.85em;
+}
+
+.fc-daygrid-event:hover {
+    background: #f8f9fa;
+    color: #333;
+}
+
+.fc-daygrid-block-event .fc-event-time {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.fc-day-today {
+    background: #e9ecef;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar a, .button-bar button {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .dropdown-content {
+        left: 0;
+        width: 100%;
+    }
+
+    #calendar {
+        padding: 10px;
+        margin: 10px auto;
+        width: 100%;
+    }
+
+    .fc-toolbar-title {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar a, .button-bar button {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+
+    .fc-toolbar-title {
+        font-size: 1em;
+    }
+
+    .fc-button-group .fc-button {
+        padding: 6px 10px;
+    }
+}
