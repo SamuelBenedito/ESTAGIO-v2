@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="css/consultar/styleClientes.css">
     <link rel="stylesheet" href="css/calendar.css">
 </head>
+
 <body>
     <div class="navbar">
         <a onclick="toggleDropdown()">Consultar</a>
@@ -62,43 +64,7 @@
                 <!-- Aqui serão listados dinamicamente os clientes cadastrados -->
             </tbody>
         </table>
-    </div>
-
-    <!-- Modal de edição -->
-    <div class="modal" id="editClientModal">
-        <div class="modal-content">
-            <h2>Editar Cliente</h2>
-            <form id="editClientForm">
-                <div class="form-group">
-                    <label for="editCliente">Cliente:</label>
-                    <input type="text" id="editCliente" name="cliente" required>
-                </div>
-                <div class="form-group">
-                    <label for="editTelefone">Telefone:</label>
-                    <input type="text" id="editTelefone" name="telefone" required>
-                </div>
-                <div class="form-group">
-                    <label for="editEmail">Email:</label>
-                    <input type="email" id="editEmail" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="editCpf">CPF:</label>
-                    <input type="text" id="editCpf" name="cpf" required>
-                </div>
-                <button type="submit">Salvar</button>
-                <button type="button" class="close-modal" onclick="closeEditClientModal()">Fechar</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Caixa de diálogo de confirmação de exclusão -->
-    <div class="confirmation-dialog" id="confirmDeleteDialog">
-        <div class="confirmation-dialog-content">
-            <p>Tem certeza que deseja excluir este cliente?</p>
-            <button id="confirm-yes">SIM</button>
-            <button id="confirm-no" onclick="closeConfirmDeleteDialog()">NÃO</button>
-        </div>
-    </div>
+    </div>;
 
     <script src="js/consultar/scriptClientes.js"></script>
     <script src="js/script.js"></script>

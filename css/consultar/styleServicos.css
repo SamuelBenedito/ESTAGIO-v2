@@ -38,7 +38,7 @@ form {
   display: block;
   margin-bottom: 5px;
   color: #343a40;
-  text-align: left
+  text-align: left;
 }
 
 .form-group input[type="text"],

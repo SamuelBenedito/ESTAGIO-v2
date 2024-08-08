@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salão System - Cadastro de Reservas</title>
+    
+    <!-- Estilos do FullCalendar -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+
+    <!-- Seu arquivo de estilo -->
+    <link rel="stylesheet" href="css/cadReservas.css">
+    <link rel="stylesheet" href="css/consultar/styleClientes.css">
+
+</head>
+<body>
+    <div class="navbar">
+        <a onclick="toggleDropdown()">Consultar</a>
+        <a onclick="toggleRelatorioDropdown()">Relatórios</a>
+        <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
+    </div>
+
+    <div id="dropdown" class="dropdown-content">
+        <a href="clientes.html">Clientes</a>
+        <a href="temas.html">Temas</a>
+        <a href="servicos.html">Serviços</a>
+        <a href="brinquedos.html">Brinquedos</a>
+        <a href="formas_pagamento.html">Formas de pagamento</a>
+    </div>
+
+    <div id="dropdownRelatorios" class="dropdown-content">
+        <a href="re_reservas.html">Relatórios de Reservas</a>
+        <a href="re_cliente.html">Relatórios de Clientes</a>
+        <a href="re_servicos.html">Relatórios de Serviços</a>
+    </div>
+
+    <div id="userDropdown" class="dropdown-content">
+        <a href="login.html">Sair</a>
+    </div>
+
+    <div class="container">
+        <h1>Cadastro de Reservas</h1>
+        <form id="clientForm">
+            <div class="form-group">
+                <label for="cliente">Cliente:</label>
+                <input type="text" id="cliente" name="cliente" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Tema:</label>
+                <input type="text" id="tema" name="tema" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Serviço:</label>
+                <input type="text" id="servico" name="servicos" required>
+            </div>
+            <div class="form-group">
+                <label for="cpf">Brinquedos:</label>
+                <input type="text" id="brinquedos" name="brinquedos"required>
+            </div>
+            <div class="form-group">
+                <label for="cpf">Forma de Pagamento:</label>
+                <input type="text" id="formaPag" name="formaPag"required>
+            </div>
+            <div class="selectdata">
+                <div class="form-group">
+                    <label for="data">Selecione o dia e horario da reserva:</label>
+                    <input type="datetime-local" id="day" name="day"required>
+                </div>
+                <div class="form-group">
+                    <label for="data">Valor da Reserva:</label>
+                    <input type="text" id="valor" name="valor"required>
+                </div>
+                <div class="form-group">
+                    <label for="data">Observações:</label>
+                    <input type="text" id="obs" name="obs" required>
+                </div>
+
+            </div>
+            
+            <button type="submit">Cadastrar Reserva</button>
+        </form>
+
+        <h2>Lista de Reservas</h2>
+        <table class="clients-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Tema</th>
+                    <th>Serviço</th>
+                    <th>Brinquedos</th>
+                    <th>Forma de Pag.</th>
+                    <th>Dia e Horario</th>
+                    <th>Valor</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody id="clientsTableBody">
+                <!-- Aqui serão listados dinamicamente os clientes cadastrados -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

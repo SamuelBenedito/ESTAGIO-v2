@@ -20,9 +20,22 @@ document.addEventListener('DOMContentLoaded', function () {
         dayMaxEvents: true,
         events: [
             {
-                title: 'Registro teste',
+                title: 'Registro teste 1',
+                start: '2024-08-05'
+            },
+            {
+                title: 'Registro teste 2',
+                start: '2024-08-06'
+            },
+            {
+                title: 'Registro teste 3',
                 start: '2024-08-07'
+            },
+            {
+                title: 'Registro teste 4',
+                start: '2024-08-08'
             }
+
         ],
         eventClick: function (info) {
             alert('Evento: ' + info.event.title);
