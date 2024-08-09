@@ -6,7 +6,6 @@
     <title>Salão System - Temas</title>
     <link rel="stylesheet" href="css/consultar/styleTemas.css">
     <link rel="stylesheet" href="css/calendar.css">
-    <link rel="stylesheet" href="css/dropdown.css"> <!-- Adicione um arquivo CSS para os dropdowns -->
 </head>
 <body>
     <div class="navbar">
@@ -58,9 +57,32 @@
         </table>
     </div>
 
+    <!-- Modal para Alterar Tema -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Alterar Tema</h2>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="editTema">Tema:</label>
+                    <input type="text" id="editTema" name="editTema" required>
+                </div>
+                <button type="submit">Salvar</button>
+                <button type="button" id="closeEditModal" class="close-modal">Fechar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div id="confirmationModal" class="confirmation-dialog">
+        <div class="confirmation-dialog-content">
+            <p>Tem certeza de que deseja excluir este tema?</p>
+            <button id="confirm-yes" class="btn">SIM</button>
+            <button id="confirm-no" class="btn">NÃO</button>
+        </div>
+    </div>
+
     <script src="js/consultar/scriptTemas.js"></script>
     <script src="js/script.js"></script>
     <script src="js/template/index.global.js"></script>
-    <script src="js/dropdown.js"></script> <!-- Adicione um arquivo JavaScript para os dropdowns -->
 </body>
 </html>

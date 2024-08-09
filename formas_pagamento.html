@@ -6,7 +6,6 @@
     <title>Salão System - Formas de Pagamento</title>
     <link rel="stylesheet" href="css/consultar/styleFormaPagamento.css">
     <link rel="stylesheet" href="css/calendar.css">
-    <link rel="stylesheet" href="css/dropdown.css"> <!-- Adicione um arquivo CSS para os dropdowns -->
 </head>
 <body>
     <div class="navbar">
@@ -58,9 +57,31 @@
         </table>
     </div>
 
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Alterar Forma de Pagamento</h2>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="editFormaDePagamento">Forma de Pagamento:</label>
+                    <input type="text" id="editFormaDePagamento" name="editFormaDePagamento" required>
+                </div>
+                <button type="submit">Salvar</button>
+                <button type="button" id="closeEditModal" class="close-modal">Fechar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div id="confirmationModal" class="confirmation-dialog">
+        <div class="confirmation-dialog-content">
+            <p>Tem certeza de que deseja excluir este brinquedo?</p>
+            <button id="confirm-yes" class="btn">SIM</button>
+            <button id="confirm-no" class="btn">NÃO</button>
+        </div>
+    </div>
+
     <script src="js/consultar/scriptFormaPagamento.js"></script>
     <script src="js/script.js"></script>
     <script src="js/template/index.global.js"></script>
-    <script src="js/dropdown.js"></script> <!-- Adicione um arquivo JavaScript para os dropdowns -->
 </body>
 </html>

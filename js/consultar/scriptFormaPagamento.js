@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tableBody = document.querySelector('.formasPagamento-table tbody');
     const editModal = document.getElementById('editModal');
     const editForm = document.getElementById('editForm');
-    const editInput = document.getElementById('editFormaPagamento');
+    const editInput = document.getElementById('editFormaDePagamento');
     const closeEditModal = document.getElementById('closeEditModal');
     const confirmationModal = document.getElementById('confirmationModal');
     const confirmYes = document.getElementById('confirm-yes');

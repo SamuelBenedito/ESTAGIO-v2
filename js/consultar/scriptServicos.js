@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tableBody = document.querySelector('.servicos-table tbody');
     const editModal = document.getElementById('editModal');
     const editForm = document.getElementById('editForm');
-    const editInputNome = document.getElementById('editNome');
+    const editInputNome = document.getElementById('editServico');
     const editInputValor = document.getElementById('editValor');
     const editInputDescricao = document.getElementById('editDescricao');
     const editInputBrinquedosSim = document.getElementById('editBrinquedosSim');
