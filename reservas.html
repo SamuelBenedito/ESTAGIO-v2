@@ -10,7 +10,6 @@
 
     <!-- Seu arquivo de estilo -->
     <link rel="stylesheet" href="css/reservas.css">
-    <link rel="stylesheet" href="css/consultar/styleClientes.css">
 
 </head>
 <body>
@@ -43,7 +42,8 @@
         <form id="clientForm">
             <div class="form-group">
                 <label for="cliente">Cliente:</label>
-                <input type="text" id="cliente" name="cliente" required>
+                <input type="text" id="cliente" name="cliente" required autocomplete="off">
+                <div id="suggestions" class="autocomplete-suggestions"></div>
             </div>
             <div class="form-group">
                 <label for="telefone">Tema:</label>
@@ -77,10 +77,17 @@
 
             </div>
             
-            <button type="submit">Cadastrar Reserva</button>
+            <form>
+                <!-- Outros campos do formulário -->
+                <div class="button-container">
+                    <button type="submit">Cadastrar Reservar</button>
+                </div>
+            </form>
+            
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
     <script src="js/calendar.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/reservas.js"></script>
 </body>
 </html>
