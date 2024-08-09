@@ -1,12 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const clientForm = document.getElementById("clientForm");
-    const editClientForm = document.getElementById("editClientForm");
     const clientsTableBody = document.getElementById("clientsTableBody");
-    const editClientModal = document.getElementById("editClientModal");
-    const confirmDeleteDialog = document.getElementById("confirmDeleteDialog");
     let clients = JSON.parse(localStorage.getItem("clients")) || [];
-    let currentEditIndex = null;
-    let deleteIndex = null;
 
     function saveClientsToLocalStorage() {
         localStorage.setItem("clients", JSON.stringify(clients));
@@ -32,36 +27,87 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     window.editClient = function(index) {
-        currentEditIndex = index;
         const client = clients[index];
-        document.getElementById("editCliente").value = client.cliente;
-        document.getElementById("editTelefone").value = client.telefone;
-        document.getElementById("editEmail").value = client.email;
-        document.getElementById("editCpf").value = client.cpf;
+        const editFormHtml = `
+            <div id="editClientModal" class="modal">
+                <div class="modal-content">
+                    <h2>Editar Cliente</h2>
+                    <form id="editClientForm">
+                        <div class="form-group">
+                            <label for="editCliente">Cliente:</label>
+                            <input type="text" id="editCliente" name="cliente" value="${client.cliente}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editTelefone">Telefone:</label>
+                            <input type="text" id="editTelefone" name="telefone" value="${client.telefone}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editEmail">Email:</label>
+                            <input type="email" id="editEmail" name="email" value="${client.email}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCpf">CPF:</label>
+                            <input type="text" id="editCpf" name="cpf" value="${client.cpf}" required>
+                        </div>
+                        <button type="submit">Salvar</button>
+                        <button type="button" class="close-modal" onclick="closeEditClientModal()">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', editFormHtml);
+
+        const editClientModal = document.getElementById("editClientModal");
         editClientModal.style.display = "flex";
+
+        document.getElementById("editClientForm").addEventListener("submit", (event) => {
+            event.preventDefault();
+            clients[index] = {
+                cliente: event.target.cliente.value,
+                telefone: event.target.telefone.value,
+                email: event.target.email.value,
+                cpf: event.target.cpf.value
+            };
+            saveClientsToLocalStorage();
+            renderClients();
+            closeEditClientModal();
+        });
     };
 
     window.closeEditClientModal = function() {
-        editClientModal.style.display = "none";
+        const editClientModal = document.getElementById("editClientModal");
+        editClientModal.parentNode.removeChild(editClientModal);
     };
 
     window.confirmDeleteClient = function(index) {
-        deleteIndex = index;
+        const confirmDialogHtml = `
+            <div id="confirmDeleteDialog" class="confirmation-dialog">
+                <div class="confirmation-dialog-content">
+                    <p>Tem certeza que deseja excluir este cliente?</p>
+                    <button id="confirm-yes">Sim</button>
+                    <button id="confirm-no">Não</button>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', confirmDialogHtml);
+
+        const confirmDeleteDialog = document.getElementById("confirmDeleteDialog");
         confirmDeleteDialog.style.display = "flex";
+
+        document.getElementById("confirm-yes").addEventListener("click", () => {
+            clients.splice(index, 1);
+            saveClientsToLocalStorage();
+            renderClients();
+            closeConfirmDeleteDialog();
+        });
+
+        document.getElementById("confirm-no").addEventListener("click", closeConfirmDeleteDialog);
     };
 
     window.closeConfirmDeleteDialog = function() {
-        confirmDeleteDialog.style.display = "none";
+        const confirmDeleteDialog = document.getElementById("confirmDeleteDialog");
+        confirmDeleteDialog.parentNode.removeChild(confirmDeleteDialog);
     };
-
-    document.getElementById("confirm-yes").addEventListener("click", () => {
-        clients.splice(deleteIndex, 1);
-        saveClientsToLocalStorage();
-        renderClients();
-        closeConfirmDeleteDialog();
-    });
-
-    document.getElementById("confirm-no").addEventListener("click", closeConfirmDeleteDialog);
 
     clientForm.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -75,20 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
         saveClientsToLocalStorage();
         renderClients();
         event.target.reset();
-    });
-
-    editClientForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const updatedClient = {
-            cliente: event.target.cliente.value,
-            telefone: event.target.telefone.value,
-            email: event.target.email.value,
-            cpf: event.target.cpf.value
-        };
-        clients[currentEditIndex] = updatedClient;
-        saveClientsToLocalStorage();
-        renderClients();
-        closeEditClientModal();
     });
 
     renderClients();

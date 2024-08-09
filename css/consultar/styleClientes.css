@@ -20,6 +20,7 @@ body {
   color: white;
   text-decoration: none;
   padding: 10px;
+  position: relative;
 }
 
 .menu-button {
@@ -32,8 +33,9 @@ body {
   display: none;
   position: absolute;
   background-color: #343a40;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  margin-top: 10px;
 }
 
 .dropdown-content a {
@@ -59,7 +61,7 @@ body {
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
