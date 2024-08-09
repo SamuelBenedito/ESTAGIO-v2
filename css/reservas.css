@@ -9,7 +9,7 @@ body {
 /* Navbar */
 .navbar {
     background-color: #343a40;
-    padding: 10px 15px;
+    padding: 5px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -125,7 +125,8 @@ button[type="submit"] {
     text-decoration: none;
     display: inline-block;
     font-size: 1em;
-    margin: 5px 0;
+    margin: 5px;
+    margin-bottom: 20px;
     border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
