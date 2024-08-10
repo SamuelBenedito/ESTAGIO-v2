@@ -48,13 +48,18 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-sizing: border-box;
   font-size: 1rem;
+}
+
+select {
+  height: 40px; /* Ajusta a altura do select para corresponder ao input */
 }
 
 .signup-link {
@@ -77,6 +82,24 @@ input[type="password"] {
 
 .btn-entrar:hover {
   background-color: #45a049;
+}
+
+/* Estilo para a mensagem de erro */
+.error-message {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: none; /* Inicialmente escondido */
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.error-message.show {
+  display: block;
 }
 
 /* Media Query para dispositivos móveis */

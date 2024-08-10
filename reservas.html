@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salão System - Cadastro de Reservas</title>
-    
-    <!-- Estilos do FullCalendar -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
-
-    <!-- Seu arquivo de estilo -->
     <link rel="stylesheet" href="css/reservas.css">
 
 </head>
@@ -58,35 +54,35 @@
             </div>
             <div class="form-group">
                 <label for="cpf">Brinquedos:</label>
-                <input type="text" id="brinquedos" name="brinquedos"required>
+                <input type="text" id="brinquedos" name="brinquedos" required>
             </div>
             <div class="form-group">
                 <label for="cpf">Forma de Pagamento:</label>
-                <input type="text" id="formaPag" name="formaPag"required>
+                <input type="text" id="formaPag" name="formaPag" required>
             </div>
             <div class="selectdata">
                 <div class="form-group">
-                    <label for="data">Selecione o dia e horario da reserva:</label>
-                    <input type="datetime-local" id="day" name="day"required>
+                    <label for="data">Selecione o dia e horário da reserva:</label>
+                    <input type="datetime-local" id="day" name="day" required>
                 </div>
                 <div class="form-group">
                     <label for="data">Valor da Reserva:</label>
-                    <input type="text" id="valor" name="valor"required>
+                    <input type="text" id="valor" name="valor" required>
                 </div>
                 <div class="form-group">
                     <label for="data">Observações:</label>
                     <input type="text" id="obs" name="obs" required>
                 </div>
-
             </div>
             
-            <form>
-                <!-- Outros campos do formulário -->
-                <div class="button-container">
-                    <button type="submit">Cadastrar Reservar</button>
-                </div>
-            </form>
-            
+            <div class="button-container">
+                <button type="submit">Cadastrar Reserva</button>
+            </div>
+        </form>
+
+        
+        
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
     <script src="js/calendar.js"></script>

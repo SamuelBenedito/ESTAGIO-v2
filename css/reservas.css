@@ -9,20 +9,21 @@ body {
 /* Navbar */
 .navbar {
     background-color: #343a40;
-    padding: 5px 10px;
+    padding: 1px 1px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 3px solid #007bff;
     position: relative;
     flex-wrap: wrap;
-  }
-  
-  .navbar-item {
+}
+
+.navbar-item {
     display: flex;
     align-items: center;
-  }
-  .logo{
+}
+
+.logo {
     background-color: #343a40;
     padding: 1px;
     display: flex;
@@ -30,13 +31,13 @@ body {
     align-items: center;
     position: relative;
     flex-wrap: wrap;
-  }
-  
-  .logo-image {
+}
+
+.logo-image {
     width: 100px;
-  }
-  
-  .navbar a {
+}
+
+.navbar a {
     color: #fff;
     text-decoration: none;
     padding: 10px 20px;
@@ -45,16 +46,16 @@ body {
     font-size: 1em;
     margin: 5px 0;
     cursor: pointer;
-  }
-  
-  .navbar a:hover {
+}
+
+.navbar a:hover {
     background-color: #007bff;
     color: #fff;
-  }
-  
-  .navbar a.logo:hover {
+}
+
+.navbar a.logo:hover {
     background-color: #343a40;
-  }
+}
 
 .navbar .menu-button {
     font-size: 1.5em;
@@ -71,10 +72,12 @@ body {
     z-index: 1000;
     background-color: white;
 }
+
 .autocomplete-suggestion {
     padding: 8px;
     cursor: pointer;
 }
+
 .autocomplete-suggestion:hover {
     background-color: #f0f0f0;
 }
@@ -85,7 +88,7 @@ body {
     position: absolute;
     background-color: #343a40;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     margin-top: 10px;
     left: 10px;
@@ -99,7 +102,7 @@ body {
 }
 
 .dropdown-content a {
-    color:#fff;
+    color: #fff;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -154,7 +157,7 @@ form {
     box-sizing: border-box;
 }
 
-.selectdata{
+.selectdata {
     width: 50%;
     margin-left: auto;
     box-sizing: border-box;
@@ -187,7 +190,8 @@ button[type="submit"]:hover {
     margin-top: 20px;
 }
 
-.clients-table th, .clients-table td {
+.clients-table th,
+.clients-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -239,4 +243,4 @@ button[type="submit"]:hover {
     .form-group input {
         font-size: 0.9em;
     }
-}
+};
