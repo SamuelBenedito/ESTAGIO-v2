@@ -25,6 +25,56 @@ body {
   color: #333; /* Cor do título para maior contraste */
 }
 
+/* Navbar */
+.navbar {
+  background-color: #343a40;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #007bff;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.navbar-item {
+  display: flex;
+  align-items: center;
+}
+.logo{
+  background-color: #343a40;
+  padding: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.logo-image {
+  width: 100px;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1em;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.navbar a:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.navbar a.logo:hover {
+  background-color: #343a40;
+}
+
 /* Estilo do formulário */
 form {
   margin-bottom: 20px;

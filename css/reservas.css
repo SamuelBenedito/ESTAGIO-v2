@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: #fff;
+    background-color: #9FC1EA;
     color: #333;
 }
 
@@ -16,9 +16,27 @@ body {
     border-bottom: 3px solid #007bff;
     position: relative;
     flex-wrap: wrap;
-}
-
-.navbar a {
+  }
+  
+  .navbar-item {
+    display: flex;
+    align-items: center;
+  }
+  .logo{
+    background-color: #343a40;
+    padding: 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    flex-wrap: wrap;
+  }
+  
+  .logo-image {
+    width: 100px;
+  }
+  
+  .navbar a {
     color: #fff;
     text-decoration: none;
     padding: 10px 20px;
@@ -27,12 +45,16 @@ body {
     font-size: 1em;
     margin: 5px 0;
     cursor: pointer;
-}
-
-.navbar a:hover {
+  }
+  
+  .navbar a:hover {
     background-color: #007bff;
     color: #fff;
-}
+  }
+  
+  .navbar a.logo:hover {
+    background-color: #343a40;
+  }
 
 .navbar .menu-button {
     font-size: 1.5em;
@@ -92,7 +114,7 @@ body {
     max-width: 900px;
     margin: 20px auto;
     padding: 20px;
-    background: #9FC1EA;
+    background: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

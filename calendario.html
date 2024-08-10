@@ -6,15 +6,19 @@
     <title>Salão System</title>
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/calendar.css">
-    
 </head>
 <body>
     <div class="navbar">
-        <a onclick="toggleDropdown()">Consultar</a>
+        <div class="navbar-item">
+            <a class="logo" href="calendario.html">
+                <img src="image/Logo.png" alt="Logo" class="logo-image">
+            </a>
+            <a onclick="toggleDropdown()">Consultar</a>
+        </div>
         <a onclick="toggleRelatorioDropdown()">Relatórios</a>
         <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
     </div>
-
+    
     <div id="dropdown" class="dropdown-content">
         <a href="clientes.html">Clientes</a>
         <a href="temas.html">Temas</a>

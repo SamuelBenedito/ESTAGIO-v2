@@ -18,6 +18,24 @@ body {
     flex-wrap: wrap;
 }
 
+.navbar-item {
+    display: flex;
+    align-items: center;
+}
+.logo{
+    background-color: #343a40;
+    padding: 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.logo-image {
+    width: 100px;
+}
+
 .navbar a {
     color: #fff;
     text-decoration: none;
@@ -32,6 +50,10 @@ body {
 .navbar a:hover {
     background-color: #007bff;
     color: #fff;
+}
+
+.navbar a.logo:hover {
+    background-color: #343a40;
 }
 
 .navbar .menu-button {
