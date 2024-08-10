@@ -30,12 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 title: 'Registro teste 3',
                 start: '2024-08-07'
-            },
-            {
-                title: 'Registro teste 4',
-                start: '2024-08-08'
             }
-
         ],
         eventClick: function (info) {
             alert('Evento: ' + info.event.title);
