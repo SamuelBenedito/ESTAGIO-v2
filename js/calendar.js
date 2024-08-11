@@ -22,14 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 title: 'Registro teste 1',
                 start: '2024-08-05'
-            },
-            {
-                title: 'Registro teste 2',
-                start: '2024-08-06'
-            },
-            {
-                title: 'Registro teste 3',
-                start: '2024-08-07'
             }
         ],
         eventClick: function (info) {

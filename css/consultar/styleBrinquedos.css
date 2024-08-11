@@ -36,6 +36,18 @@ body {
   flex-wrap: wrap;
 }
 
+/* Navbar */
+.navbar {
+  background-color: #343a40;
+  padding: 1px 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #007bff;
+  position: relative;
+  flex-wrap: wrap;
+}
+
 .navbar-item {
   display: flex;
   align-items: center;
@@ -72,6 +84,13 @@ body {
 
 .navbar a.logo:hover {
   background-color: #343a40;
+}
+
+.navbar .menu-button {
+  font-size: 1.5em;
+  line-height: 1;
+  margin-left: auto;
+  cursor: pointer;
 }
 
 /* Estilo do formulário */

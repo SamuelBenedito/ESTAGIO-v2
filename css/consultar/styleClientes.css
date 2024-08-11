@@ -14,18 +14,30 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 3px solid #007bff;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.navbar-item {
+  display: flex;
+  align-items: center;
 }
 
 .navbar a {
-  color: white;
+  color: #fff;
   text-decoration: none;
-  padding: 10px;
-  position: relative;
+  padding: 10px 20px;
+  border-radius: 3px;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1em;
+  margin: 5px 0;
+  cursor: pointer;
 }
 
-.menu-button {
-  font-size: 1.5em;
-  cursor: pointer;
+.navbar a:hover {
+  background-color: #007bff;
+  color: #fff;
 }
 
 /* Dropdown menu */
@@ -67,7 +79,7 @@ body {
 
 /* Estilo do título */
 .container h2 {
-  font-size: 1.5em;
+  font-size: 2em;
   margin-bottom: 20px;
 }
 
