@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Reservas</title>
+    <link rel="stylesheet" href="css/consultar/styleClientes.css">
+    <link rel="stylesheet" href="css/relatorios/styleRelatorioReservas.css">
+    <link rel="stylesheet" href="css/calendar.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <a class="logo" href="calendario.html">
+            <img src="image/Logo.png" alt="Logo" class="logo-image">
+        </a>
+        <a onclick="toggleDropdown()">Consultar</a>
+        <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
+        <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
+    </div>
+
+    <div id="dropdown" class="dropdown-content">
+        <a href="clientes.html">Clientes</a>
+        <a href="temas.html">Temas</a>
+        <a href="servicos.html">Serviços</a>
+        <a href="brinquedos.html">Brinquedos</a>
+        <a href="formas_pagamento.html">Formas de pagamento</a>
+    </div>
+
+    <div id="dropdownRelatorios" class="dropdown-content">
+        <a href="re_reservas.html">Relatórios de Reservas</a>
+        <a href="re_cliente.html">Relatórios de Clientes</a>
+        <a href="re_servicos.html">Relatórios de Serviços</a>
+    </div>
+
+    <div id="userDropdown" class="dropdown-content">
+        <a href="login.html">Sair</a>
+    </div>
+
+    <script src="js/consultar/scriptClientes.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/relatorios/scriptRelatorioReservas.js"></script>
+    <script src="js/template/index.global.js"></script>
+</body>
+</html>
