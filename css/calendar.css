@@ -1,8 +1,8 @@
 body {
     margin: 0;
-    padding: 0;
+    padding-top: 100px; /* Adicionado padding para compensar o navbar fixo */
     font-family: 'Roboto', sans-serif;
-    background-color: #9FC1EA;
+    background-color: hsl(213, 64%, 77%);
     color: #333;
 }
 
@@ -14,7 +14,11 @@ body {
     justify-content: space-between;
     align-items: center;
     border-bottom: 3px solid #007bff;
-    position: relative;
+    position: fixed; /* Mudado de relative para fixed */
+    top: 0; /* Alinhado no topo da página */
+    left: 0;
+    width: 100%; /* Garante que o navbar ocupe toda a largura da página */
+    z-index: 1000; /* Garante que o navbar fique acima de outros elementos */
     flex-wrap: wrap;
 }
 
@@ -43,7 +47,7 @@ body {
     border-radius: 3px;
     transition: background-color 0.3s, color 0.3s;
     font-size: 1em;
-    margin: 5px 0;
+    margin: 5px 1px;
     cursor: pointer;
 }
 
@@ -100,6 +104,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    margin: 5px 1px;
     margin-bottom: 20px;
 }
 
@@ -230,5 +235,46 @@ body {
 
     .fc-button-group .fc-button {
         padding: 6px 10px;
+    }
+}
+
+#calendar {
+    flex: 3;
+}
+
+.notas-container {
+    flex: 1;
+    margin: 50px;
+}
+
+.notas-container h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#notas {
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    resize: vertical;
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    #calendar, .notas-container {
+        flex: none;
+        width: 100%;
+        margin: 0;
+    }
+
+    #notas {
+        height: 200px;
     }
 }

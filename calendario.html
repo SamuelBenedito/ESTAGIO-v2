@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/calendar.css">
 </head>
+
 <body>
     <div class="navbar">
         <div class="navbar-item">
@@ -18,7 +20,7 @@
         <a onclick="toggleRelatorioDropdown()">Relatórios</a>
         <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
     </div>
-    
+
     <div id="dropdown" class="dropdown-content">
         <a href="clientes.html">Clientes</a>
         <a href="temas.html">Temas</a>
@@ -42,6 +44,11 @@
     </div>
 
     <div id="calendar"></div>
+
+    <div class="notas-container">
+        <h3>Notas Rapidas</h3>
+        <textarea id="notas" placeholder="Digite suas notas aqui..."></textarea>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
     <script src="js/calendar.js"></script>

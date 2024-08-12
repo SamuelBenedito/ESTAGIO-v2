@@ -1,7 +1,7 @@
 /* Reset e configuração básica */
 body {
   margin: 0;
-  padding: 0;
+  padding-top: 100px;
   font-family: 'Roboto', sans-serif;
   background-color: #f4f4f9;
   color: #333;
@@ -14,8 +14,9 @@ body {
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  text-align: center; /* Centraliza o texto e os botões no container */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  /* Centraliza o texto e os botões no container */
 }
 
 /* Estilo do título */
@@ -32,7 +33,15 @@ body {
   justify-content: space-between;
   align-items: center;
   border-bottom: 3px solid #007bff;
-  position: relative;
+  position: fixed;
+  /* Mudado de relative para fixed */
+  top: 0;
+  /* Alinhado no topo da página */
+  left: 0;
+  width: 100%;
+  /* Garante que o navbar ocupe toda a largura da página */
+  z-index: 1000;
+  /* Garante que o navbar fique acima de outros elementos */
   flex-wrap: wrap;
 }
 
@@ -52,7 +61,8 @@ body {
   display: flex;
   align-items: center;
 }
-.logo{
+
+.logo {
   background-color: #343a40;
   padding: 1px;
   display: flex;
@@ -73,7 +83,7 @@ body {
   border-radius: 3px;
   transition: background-color 0.3s, color 0.3s;
   font-size: 1em;
-  margin: 5px 0;
+  margin: 5px 1px;
   cursor: pointer;
 }
 
@@ -93,6 +103,41 @@ body {
   cursor: pointer;
 }
 
+/* Dropdown */
+.dropdown-content {
+  display: none;
+  position: fixed;
+  /* Mudado de absolute para fixed */
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  /* Um nível acima do navbar */
+  margin-top: 10px;
+  left: 10px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+#userDropdown {
+  right: 10px;
+  left: auto;
+  top: 50px;
+  /* Ajuste conforme a altura do navbar */
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #c5e1ff;
+}
+
+
 /* Estilo do formulário */
 form {
   margin-bottom: 20px;
@@ -110,7 +155,8 @@ form {
 }
 
 .form-group input[type="text"] {
-  width: calc(100% - 20px); /* Ajustado para compensar o padding */
+  width: calc(100% - 20px);
+  /* Ajustado para compensar o padding */
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -127,7 +173,8 @@ form {
   width: 100%;
   margin-top: 20px;
   border-collapse: collapse;
-  text-align: left; /* Alinha o texto à esquerda */
+  text-align: left;
+  /* Alinha o texto à esquerda */
 }
 
 .brinquedos-table th,
@@ -197,8 +244,10 @@ button[type="submit"]:hover {
 }
 
 /* Estilo dos modais */
-.modal, .confirmation-dialog {
-  display: none; /* Inicialmente oculto */
+.modal,
+.confirmation-dialog {
+  display: none;
+  /* Inicialmente oculto */
   position: fixed;
   top: 0;
   left: 0;
@@ -210,7 +259,8 @@ button[type="submit"]:hover {
   z-index: 1000;
 }
 
-.modal-content, .confirmation-dialog-content {
+.modal-content,
+.confirmation-dialog-content {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -221,14 +271,16 @@ button[type="submit"]:hover {
 
 /* Estilo do botão de fechar */
 .close-modal {
-  background-color: #d9534f; /* Cor vermelha */
+  background-color: #d9534f;
+  /* Cor vermelha */
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1em;
-  margin-top: 10px; /* Espaço no topo */
+  margin-top: 10px;
+  /* Espaço no topo */
 }
 
 /* Botões de confirmação na caixa de diálogo */

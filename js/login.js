@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
 
         if (!userType) {
-            errorMessage.textContent = 'Por favor, informe o usuário.';
+            errorMessage.textContent = 'Preencha as informações corretamente.';
             errorMessage.classList.add('show');
         } else if (!password) {
-            errorMessage.textContent = 'Por favor, informe a senha.';
+            errorMessage.textContent = 'Preencha as informações corretamente.';
             errorMessage.classList.add('show');
         } else {
             window.location.href = 'calendario.html';
