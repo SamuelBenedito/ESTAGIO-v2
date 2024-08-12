@@ -8,14 +8,43 @@ body {
 
 /* Navbar */
 .navbar {
-    background-color: #343a40;
-    padding: 1px 1px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px solid #007bff;
-    position: relative;
-    flex-wrap: wrap;
+  background-color: #343a40;
+  padding: 1px 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #007bff;
+  position: fixed;
+  /* Mudado de relative para fixed */
+  top: 0;
+  /* Alinhado no topo da página */
+  left: 0;
+  width: 100%;
+  /* Garante que o navbar ocupe toda a largura da página */
+  z-index: 1000;
+  /* Garante que o navbar fique acima de outros elementos */
+  flex-wrap: wrap;
+}
+
+.navbar-item {
+  display: flex;
+  align-items: center;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1em;
+  margin: 5px 1px;
+  cursor: pointer;
+}
+
+.navbar a:hover {
+  background-color: #007bff;
+  color: #fff;
 }
 
 .navbar-item {
@@ -85,11 +114,11 @@ body {
 /* Dropdown */
 .dropdown-content {
     display: none;
-    position: absolute;
-    background-color: #343a40;
+    position: fixed; /* Mudado de absolute para fixed */
+    background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1001; /* Um nível acima do navbar */
     margin-top: 10px;
     left: 10px;
     border-radius: 3px;
@@ -99,23 +128,26 @@ body {
 #userDropdown {
     right: 10px;
     left: auto;
+    margin-top: 58px;
+    top: 50px; /* Ajuste conforme a altura do navbar */
 }
 
 .dropdown-content a {
-    color: #fff;
+    color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: #007bff;
+    background-color: #c5e1ff;
 }
+
 
 /* Container */
 .container {
     max-width: 900px;
-    margin: 20px auto;
+    margin: 129px auto;
     padding: 20px;
     background: #fff;
     border-radius: 10px;
