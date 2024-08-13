@@ -8,43 +8,43 @@ body {
 
 /* Navbar */
 .navbar {
-  background-color: #343a40;
-  padding: 1px 1px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 3px solid #007bff;
-  position: fixed;
-  /* Mudado de relative para fixed */
-  top: 0;
-  /* Alinhado no topo da página */
-  left: 0;
-  width: 100%;
-  /* Garante que o navbar ocupe toda a largura da página */
-  z-index: 1000;
-  /* Garante que o navbar fique acima de outros elementos */
-  flex-wrap: wrap;
+    background-color: #343a40;
+    padding: 1px 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #007bff;
+    position: fixed;
+    /* Mudado de relative para fixed */
+    top: 0;
+    /* Alinhado no topo da página */
+    left: 0;
+    width: 100%;
+    /* Garante que o navbar ocupe toda a largura da página */
+    z-index: 1000;
+    /* Garante que o navbar fique acima de outros elementos */
+    flex-wrap: wrap;
 }
 
 .navbar-item {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .navbar a {
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 3px;
-  transition: background-color 0.3s, color 0.3s;
-  font-size: 1em;
-  margin: 5px 1px;
-  cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 1em;
+    margin: 5px 1px;
+    cursor: pointer;
 }
 
 .navbar a:hover {
-  background-color: #007bff;
-  color: #fff;
+    background-color: #007bff;
+    color: #fff;
 }
 
 .navbar-item {
@@ -73,7 +73,7 @@ body {
     border-radius: 3px;
     transition: background-color 0.3s, color 0.3s;
     font-size: 1em;
-    margin: 5px 0;
+    margin: 5px 1px;
     cursor: pointer;
 }
 
@@ -114,11 +114,13 @@ body {
 /* Dropdown */
 .dropdown-content {
     display: none;
-    position: fixed; /* Mudado de absolute para fixed */
+    position: fixed;
+    /* Mudado de absolute para fixed */
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1001; /* Um nível acima do navbar */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    /* Um nível acima do navbar */
     margin-top: -20px;
     left: 10px;
     border-radius: 3px;
@@ -129,7 +131,8 @@ body {
     right: 10px;
     left: auto;
     margin-top: 58px;
-    top: 50px; /* Ajuste conforme a altura do navbar */
+    top: 50px;
+    /* Ajuste conforme a altura do navbar */
 }
 
 .dropdown-content a {
@@ -181,7 +184,7 @@ form {
     margin-bottom: 5px;
 }
 
-.form-group input {
+.form-group input{
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -190,9 +193,16 @@ form {
 }
 
 .selectdata {
-    width: 50%;
-    margin-left: auto;
+    width: 37%;
+    margin: auto;
     box-sizing: border-box;
+}
+
+#clientForm .button-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    gap: 10px;
 }
 
 button[type="submit"] {
@@ -275,4 +285,6 @@ button[type="submit"]:hover {
     .form-group input {
         font-size: 0.9em;
     }
-};
+}
+
+;
