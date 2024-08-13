@@ -196,6 +196,55 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
+/* Estilos gerais para a paginação */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pagination button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.pagination button:focus {
+  outline: none;
+}
+
+.pagination span {
+  align-self: center;
+  font-size: 16px;
+  color: #333;
+  margin: 0 10px;
+}
+
+/* Estilo específico para a navegação de páginas */
+.pagination .prev, .pagination .next {
+  font-weight: bold;
+}
+
+
 .btn {
   padding: 4px 8px;
   margin: 0 2px;
@@ -285,4 +334,33 @@ button[type="submit"]:hover {
 #confirm-no {
   background-color: #dc3545;
   color: white;
+}
+
+/* Estilo geral da mensagem de ausência de resultados */
+.no-results-message {
+  display: none; /* Inicialmente escondido */
+  padding: 10px;
+  margin: 15px 0;
+  border: 1px solid #f44336; /* Borda vermelha para destacar a mensagem */
+  background-color: #ffe6e6; /* Fundo suave em rosa claro */
+  color: #f44336; /* Cor do texto vermelha */
+  border-radius: 5px; /* Bordas arredondadas */
+  text-align: center; /* Centraliza o texto */
+  font-size: 16px; /* Tamanho da fonte */
+  font-weight: bold; /* Fonte em negrito */
+}
+
+.no-results-message i {
+  margin-right: 8px; /* Espaçamento entre ícone e texto */
+  color: #f44336; /* Cor do ícone */
+}
+
+/* Estilo do ícone de pesquisa */
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  cursor: pointer;
 }

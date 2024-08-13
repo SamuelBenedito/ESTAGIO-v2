@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de Serviços</title>
+    <title>Relatório de Reservas</title>
     <link rel="stylesheet" href="css/consultar/styleClientes.css">
     <link rel="stylesheet" href="css/relatorios/styleRelatorioServicos.css">
     <link rel="stylesheet" href="css/calendar.css">
@@ -38,11 +38,43 @@
         <a href="login.html">Sair</a>
     </div>
 
-    <script src="js/consultar/scriptClientes.js"></script>
+    <!-- Container para o valor total de reservas -->
+    <di class="opcoes">
+        <div class="total-servicos">
+            <h2>Valor Total de Serviços: R$ <span id="valorTotalServ">0,00</span></h2>
+        </div>
+         <!-- Botões de Exportação -->
+        <div class="export-buttons">
+            <button onclick="exportToExcel()">Exportar para Excel</button>
+            <button onclick="exportToPDF()">Exportar para PDF</button>
+        </div>
+    </di>
+
+
+    <!-- Tabela de visualização dos dados -->
+    <div class="dados-grid">
+        <table id="servicosTable">
+            <thead>
+                <tr>
+                    <th>SERVIÇO</th>
+                    <th>VALOR DO SERVIÇO</th>
+                    <th>BRINQUEDO LIBERADO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados serão inseridos dinamicamente aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <script src="js/consultar/scriptServicos.js"></script>
     <script src="js/calendar.js"></script>
     <script src="js/script.js"></script>
     <script src="js/login.js"></script>
     <script src="js/relatorios/scriptRelatorioServicos.js"></script>
-    <script src="js/template/index.global.js"></script>
 </body>
+
 </html>

@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('temasForm');
     const tableBody = document.querySelector('.temas-table tbody');
+    const searchInput = document.getElementById('searchTema');
+    const noResultsMessage = document.getElementById('noResultsMessage');
     const editModal = document.getElementById('editModal');
     const editForm = document.getElementById('editForm');
     const editInput = document.getElementById('editTema');
@@ -8,77 +10,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const confirmationModal = document.getElementById('confirmationModal');
     const confirmYes = document.getElementById('confirm-yes');
     const confirmNo = document.getElementById('confirm-no');
+    const prevPageButton = document.getElementById('prevPage');
+    const nextPageButton = document.getElementById('nextPage');
+    const pageNumberSpan = document.getElementById('pageNumber');
     let rowToDelete;
     let rowToEdit;
+    let currentPage = 1;
+    const rowsPerPage = 10;
+    let temas = [];
 
-    // Função para salvar a tabela no localStorage
-    function saveTableToLocalStorage() {
-        const rows = tableBody.querySelectorAll('tr');
-        const tableData = Array.from(rows).map(row => ({
-            id: row.children[0].textContent,
-            name: row.children[1].textContent
-        }));
-        localStorage.setItem('temas', JSON.stringify(tableData));
-    }
+    function renderTable() {
+        tableBody.innerHTML = '';
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const filteredTemas = temas.filter(t => t.name.toLowerCase().includes(searchInput.value.toLowerCase()));
+        const paginatedTemas = filteredTemas.slice(start, end);
 
-    // Função para carregar a tabela do localStorage
-    function loadTableFromLocalStorage() {
-        const storedData = localStorage.getItem('temas');
-        if (storedData) {
-            const tableData = JSON.parse(storedData);
-            tableData.forEach(data => {
-                const newRow = document.createElement('tr');
-                const idCell = document.createElement('td');
-                const nomeCell = document.createElement('td');
-                const actionsCell = document.createElement('td');
-
-                idCell.textContent = data.id;
-                nomeCell.textContent = data.name;
-
-                const editButton = document.createElement('button');
-                editButton.textContent = 'Alterar';
-                editButton.classList.add('btn', 'btn-edit');
-                editButton.addEventListener('click', function() {
-                    openEditModal(newRow);
-                });
-
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Excluir';
-                deleteButton.classList.add('btn', 'btn-delete');
-                deleteButton.addEventListener('click', function() {
-                    rowToDelete = newRow;
-                    confirmationModal.style.display = 'flex';
-                });
-
-                actionsCell.appendChild(editButton);
-                actionsCell.appendChild(deleteButton);
-
-                newRow.appendChild(idCell);
-                newRow.appendChild(nomeCell);
-                newRow.appendChild(actionsCell);
-
-                tableBody.appendChild(newRow);
-            });
+        if (filteredTemas.length === 0) {
+            noResultsMessage.style.display = 'block';
+        } else {
+            noResultsMessage.style.display = 'none';
         }
-    }
 
-    // Carrega a tabela do localStorage quando a página é carregada
-    loadTableFromLocalStorage();
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Impede o envio do formulário
-
-        const temaInput = document.getElementById('temas');
-        const temaValue = temaInput.value.trim();
-
-        if (temaValue) {
+        paginatedTemas.forEach((data, index) => {
             const newRow = document.createElement('tr');
             const idCell = document.createElement('td');
             const nomeCell = document.createElement('td');
             const actionsCell = document.createElement('td');
 
-            idCell.textContent = tableBody.rows.length + 1;
-            nomeCell.textContent = temaValue;
+            idCell.textContent = start + index + 1;
+            nomeCell.textContent = data.name;
 
             const editButton = document.createElement('button');
             editButton.textContent = 'Alterar';
@@ -103,8 +64,42 @@ document.addEventListener('DOMContentLoaded', function() {
             newRow.appendChild(actionsCell);
 
             tableBody.appendChild(newRow);
+        });
 
-            saveTableToLocalStorage(); // Salva no localStorage
+        updatePaginationControls();
+    }
+
+    function updatePaginationControls() {
+        const filteredTemas = temas.filter(t => t.name.toLowerCase().includes(searchInput.value.toLowerCase()));
+        prevPageButton.disabled = currentPage === 1;
+        nextPageButton.disabled = currentPage * rowsPerPage >= filteredTemas.length;
+        pageNumberSpan.textContent = `Página ${currentPage}`;
+    }
+
+    function saveTableToLocalStorage() {
+        localStorage.setItem('temas', JSON.stringify(temas));
+    }
+
+    function loadTableFromLocalStorage() {
+        const storedData = localStorage.getItem('temas');
+        if (storedData) {
+            temas = JSON.parse(storedData);
+            renderTable();
+        }
+    }
+
+    loadTableFromLocalStorage();
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const temaInput = document.getElementById('temas');
+        const temaValue = temaInput.value.trim();
+
+        if (temaValue) {
+            temas.push({ id: temas.length + 1, name: temaValue });
+            saveTableToLocalStorage();
+            renderTable();
             temaInput.value = '';
         } else {
             alert('Por favor, insira o nome do tema.');
@@ -122,9 +117,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const updatedValue = editInput.value.trim();
 
         if (updatedValue) {
-            rowToEdit.children[1].textContent = updatedValue;
+            const index = Array.from(tableBody.children).indexOf(rowToEdit);
+            temas[(currentPage - 1) * rowsPerPage + index].name = updatedValue;
+            renderTable();
             editModal.style.display = 'none';
-            saveTableToLocalStorage(); // Salva no localStorage
+            saveTableToLocalStorage();
         } else {
             alert('Por favor, insira o nome do tema.');
         }
@@ -136,13 +133,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     confirmYes.addEventListener('click', function() {
         if (rowToDelete) {
-            tableBody.removeChild(rowToDelete);
-            saveTableToLocalStorage(); // Salva no localStorage
+            const index = Array.from(tableBody.children).indexOf(rowToDelete);
+            temas.splice((currentPage - 1) * rowsPerPage + index, 1);
+            renderTable();
+            saveTableToLocalStorage();
             confirmationModal.style.display = 'none';
         }
     });
 
     confirmNo.addEventListener('click', function() {
         confirmationModal.style.display = 'none';
+    });
+
+    searchInput.addEventListener('input', function() {
+        currentPage = 1; // Reset to the first page on search
+        renderTable();
+    });
+
+    prevPageButton.addEventListener('click', function() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+        }
+    });
+
+    nextPageButton.addEventListener('click', function() {
+        const filteredTemas = temas.filter(t => t.name.toLowerCase().includes(searchInput.value.toLowerCase()));
+        if (currentPage * rowsPerPage < filteredTemas.length) {
+            currentPage++;
+            renderTable();
+        }
     });
 });
