@@ -46,6 +46,13 @@
         </form>
 
         <h2>Lista de Brinquedos</h2>
+        <div class="form-group">
+            <label for="searchBrinquedo">Pesquisar Brinquedo:</label>
+            <input type="text" id="searchBrinquedo" placeholder="Digite o nome do brinquedo para pesquisar">
+        </div>
+        <div id="noResultsMessage" class="no-results-message">
+            <i class="fas fa-info-circle"></i> Nenhum brinquedo cadastrado encontrado.
+        </div>
         <table class="brinquedos-table">
             <thead>
                 <tr>
@@ -58,6 +65,13 @@
                 <!-- Aqui serão listados dinamicamente os brinquedos cadastrados -->
             </tbody>
         </table>
+        
+        <!-- Botões de Paginação -->
+        <div class="pagination">
+            <button id="prevPage" disabled>Anterior</button>
+            <span id="pageNumber">Página 1</span>
+            <button id="nextPage">Próxima</button>
+        </div>
     </div>
 
     <!-- Modal para Alterar Brinquedo -->

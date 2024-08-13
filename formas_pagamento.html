@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="css/consultar/styleFormaPagamento.css">
     <link rel="stylesheet" href="css/calendar.css">
 </head>
+
 <body>
     <div class="navbar">
         <a class="logo" href="calendario.html">
@@ -40,12 +42,20 @@
         <form id="formasPagamentoForm">
             <div class="form-group">
                 <label for="formasPagamento">Forma de Pagamento:</label>
-                <input type="text" id="formasPagamento" name="formasPagamento" placeholder="Nome da Forma de Pagamento" required>
+                <input type="text" id="formasPagamento" name="formasPagamento" placeholder="Nome da Forma de Pagamento"
+                    required>
             </div>
             <button type="submit">Cadastrar Forma de Pagamento</button>
         </form>
 
         <h2>Lista das Formas de Pagamento</h2>
+        <div class="form-group">
+            <label for="searchFormPag">Pesquisar Forma de Pagamento:</label>
+            <input type="text" id="searchFormPag" placeholder="Digite o nome da dorma de pagamento para pesquisar">
+        </div>
+        <div id="noResultsMessage" class="no-results-message">
+            <i class="fas fa-info-circle"></i> Nenhuma forma de pagamento cadastrada encontrada.
+        </div>
         <table class="formasPagamento-table">
             <thead>
                 <tr>
@@ -58,7 +68,15 @@
                 <!-- Aqui serão listados dinamicamente formas de pagamento cadastradas -->
             </tbody>
         </table>
+        <!-- Botões de Paginação -->
+        <div class="pagination">
+            <button id="prevPage" disabled>Anterior</button>
+            <span id="pageNumber">Página 1</span>
+            <button id="nextPage">Próxima</button>
+        </div>
     </div>
+
+
 
     <div id="editModal" class="modal">
         <div class="modal-content">
@@ -89,4 +107,5 @@
     <script src="js/login.js"></script>
     <script src="js/template/index.global.js"></script>
 </body>
+
 </html>
