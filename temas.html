@@ -52,9 +52,6 @@
             <label for="searchTema">Pesquisar Tema:</label>
             <input type="text" id="searchTema" placeholder="Digite o nome do tema para pesquisar">
         </div>
-        <div id="noResultsMessage" class="no-results-message">
-            <i class="fas fa-info-circle"></i> Nenhum tema cadastrado encontrado.
-        </div>
         <table class="temas-table">
             <thead>
                 <tr>
@@ -67,6 +64,10 @@
                 <!-- Aqui serão listados dinamicamente os temas cadastrados -->
             </tbody>
         </table>
+
+        <div id="noResultsMessage" class="no-results-message">
+            <i class="fas fa-info-circle"></i> Nenhum tema cadastrado encontrado.
+        </div>
 
         <!-- Navegação da paginação -->
         <div class="pagination">

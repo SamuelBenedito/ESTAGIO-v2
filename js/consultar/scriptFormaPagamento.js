@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('formasPagamentoForm');
     const tableBody = document.querySelector('.formasPagamento-table tbody');
+    const noResultsMessage = document.getElementById('noResultsMessage');
     const editModal = document.getElementById('editModal');
     const editForm = document.getElementById('editForm');
     const editInput = document.getElementById('editFormaDePagamento');
@@ -39,6 +40,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const startIndex = (currentPage - 1) * rowsPerPage;
         const endIndex = startIndex + rowsPerPage;
         const paginatedData = filteredData.slice(startIndex, endIndex);
+
+        if (filteredData.length === 0) {
+            noResultsMessage.style.display = 'block'; // Mostrar mensagem de nenhum resultado
+        } else {
+            noResultsMessage.style.display = 'none'; // Ocultar mensagem de nenhum resultado
+        }
 
         paginatedData.forEach(data => {
             const newRow = document.createElement('tr');

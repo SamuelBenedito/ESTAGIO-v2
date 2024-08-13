@@ -51,10 +51,7 @@
         <h2>Lista das Formas de Pagamento</h2>
         <div class="form-group">
             <label for="searchFormPag">Pesquisar Forma de Pagamento:</label>
-            <input type="text" id="searchFormPag" placeholder="Digite o nome da dorma de pagamento para pesquisar">
-        </div>
-        <div id="noResultsMessage" class="no-results-message">
-            <i class="fas fa-info-circle"></i> Nenhuma forma de pagamento cadastrada encontrada.
+            <input type="text" id="searchFormPag" placeholder="Digite o nome da forma de pagamento para pesquisar">
         </div>
         <table class="formasPagamento-table">
             <thead>
@@ -68,6 +65,12 @@
                 <!-- Aqui serão listados dinamicamente formas de pagamento cadastradas -->
             </tbody>
         </table>
+
+        <div id="noResultsMessage" class="no-results-message">
+            <i class="fas fa-info-circle"></i> Nenhuma forma de pagamento cadastrada encontrada.
+        </div>
+        
+        
         <!-- Botões de Paginação -->
         <div class="pagination">
             <button id="prevPage" disabled>Anterior</button>
@@ -75,8 +78,6 @@
             <button id="nextPage">Próxima</button>
         </div>
     </div>
-
-
 
     <div id="editModal" class="modal">
         <div class="modal-content">
@@ -105,7 +106,6 @@
     <script src="js/calendar.js"></script>
     <script src="js/script.js"></script>
     <script src="js/login.js"></script>
-    <script src="js/template/index.global.js"></script>
 </body>
 
 </html>

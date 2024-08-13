@@ -1,7 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     const clientForm = document.getElementById("clientForm");
     const clientsTableBody = document.getElementById("clientsTableBody");
+    const searchCliente = document.getElementById("searchCliente");
+    const noResultsMessage = document.getElementById("noResultsMessage");
     let clients = JSON.parse(localStorage.getItem("clients")) || [];
+    const itemsPerPage = 10; // Ajustado para 10
+    let currentPage = 1;
 
     function saveClientsToLocalStorage() {
         localStorage.setItem("clients", JSON.stringify(clients));
@@ -9,21 +13,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderClients() {
         clientsTableBody.innerHTML = "";
-        clients.forEach((client, index) => {
+        const filteredClients = filterClients(searchCliente.value);
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedClients = filteredClients.slice(start, end);
+
+        if (paginatedClients.length === 0) {
+            noResultsMessage.style.display = "block";
+        } else {
+            noResultsMessage.style.display = "none";
+        }
+
+        paginatedClients.forEach((client, index) => {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td>${index + 1}</td>
+                <td>${start + index + 1}</td>
                 <td>${client.cliente}</td>
                 <td>${client.telefone}</td>
                 <td>${client.email}</td>
                 <td>${client.cpf}</td>
                 <td>
-                    <button class="btn btn-edit" onclick="editClient(${index})">Alterar</button>
-                    <button class="btn btn-delete" onclick="confirmDeleteClient(${index})">Excluir</button>
+                    <button class="btn btn-edit" onclick="editClient(${clients.indexOf(client)})">Alterar</button>
+                    <button class="btn btn-delete" onclick="confirmDeleteClient(${clients.indexOf(client)})">Excluir</button>
                 </td>
             `;
             clientsTableBody.appendChild(row);
         });
+
+        updatePagination(filteredClients.length);
+    }
+
+    function filterClients(searchTerm) {
+        return clients.filter(client =>
+            client.cliente.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            client.telefone.includes(searchTerm) ||
+            client.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            client.cpf.includes(searchTerm)
+        );
+    }
+
+    function updatePagination(totalItems) {
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        document.getElementById("pageNumber").textContent = `Página ${currentPage} de ${totalPages}`;
+        document.getElementById("prevPage").disabled = currentPage === 1;
+        document.getElementById("nextPage").disabled = currentPage === totalPages;
     }
 
     window.editClient = function(index) {
@@ -123,5 +156,43 @@ document.addEventListener("DOMContentLoaded", () => {
         event.target.reset();
     });
 
-    renderClients();
+    searchCliente.addEventListener("input", () => {
+        currentPage = 1; // Reset to the first page when searching
+        renderClients();
+    });
+
+    document.getElementById("prevPage").addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderClients();
+        }
+    });
+
+    document.getElementById("nextPage").addEventListener("click", () => {
+        const totalPages = Math.ceil(filterClients(searchCliente.value).length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderClients();
+        }
+    });
+
+    // Load initial clients in batches of 10
+    function loadInitialClients() {
+        // For demonstration, assuming `clients` could be initially empty
+        if (clients.length === 0) {
+            for (let i = 0; i < 10; i++) {
+                // Sample client data, replace with actual data
+                clients.push({
+                    cliente: `Cliente ${i + 1}`,
+                    telefone: `12345678${i}`,
+                    email: `cliente${i + 1}@example.com`,
+                    cpf: `123.456.789-${i}`
+                });
+            }
+            saveClientsToLocalStorage();
+        }
+        renderClients();
+    }
+
+    loadInitialClients();
 });

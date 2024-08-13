@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="css/consultar/styleServicos.css">
     <link rel="stylesheet" href="css/calendar.css">
 </head>
+
 <body>
     <div class="navbar">
         <a class="logo" href="calendario.html">
@@ -63,6 +65,10 @@
         </form>
 
         <h2>Lista de Serviços</h2>
+        <div class="form-group">
+            <label for="searchSevico">Pesquisar Serviço:</label>
+            <input type="text" id="searchSevico" placeholder="Digite um dado do serviço para pesquisar">
+        </div>
         <table class="servicos-table">
             <thead>
                 <tr>
@@ -78,6 +84,18 @@
                 <!-- Aqui serão listados dinamicamente os serviços cadastrados -->
             </tbody>
         </table>
+
+        <div id="noResultsMessage" class="no-results-message" style="display: none;">
+            <i class="fas fa-info-circle"></i> Nenhum serviço cadastrado encontrado.
+        </div>
+        
+
+        <!-- Navegação da paginação -->
+        <div class="pagination">
+            <button id="prevPage" disabled>« Anterior</button>
+            <span id="pageNumber">Página 1</span>
+            <button id="nextPage">Próxima »</button>
+        </div>
     </div>
 
     <!-- Modal para Alterar Serviço -->
@@ -127,4 +145,5 @@
     <script src="js/login.js"></script>
     <script src="js/template/index.global.js"></script>
 </body>
+
 </html>

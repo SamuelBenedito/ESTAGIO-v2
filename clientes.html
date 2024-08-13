@@ -60,6 +60,11 @@
         </form>
 
         <h2>Lista de Clientes</h2>
+        <div class="form-group">
+            <label for="searchCliente">Pesquisar Cliente:</label>
+            <input type="text" id="searchCliente" placeholder="Digite um dado do cliente para pesquisar">
+        </div>
+        
         <table class="clients-table">
             <thead>
                 <tr>
@@ -75,6 +80,16 @@
                 <!-- Aqui serão listados dinamicamente os clientes cadastrados -->
             </tbody>
         </table>
+        <div id="noResultsMessage" class="no-results-message">
+            <i class="fas fa-info-circle"></i> Nenhum cliente cadastrado encontrado.
+        </div>
+
+        <!-- Navegação da paginação -->
+        <div class="pagination">
+            <button id="prevPage" disabled>« Anterior</button>
+            <span id="pageNumber">Página 1</span>
+            <button id="nextPage">Próxima »</button>
+        </div>
     </div>
 
     <script src="js/consultar/scriptClientes.js"></script>
@@ -83,4 +98,5 @@
     <script src="js/login.js"></script>
     <script src="js/template/index.global.js"></script>
 </body>
+
 </html>

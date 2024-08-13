@@ -12,75 +12,126 @@ document.addEventListener('DOMContentLoaded', function() {
     const confirmationModal = document.getElementById('confirmationModal');
     const confirmYes = document.getElementById('confirm-yes');
     const confirmNo = document.getElementById('confirm-no');
+    const searchInput = document.getElementById('searchSevico');
+    const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
+    const pageNumberDisplay = document.getElementById('pageNumber');
+
     let rowToDelete;
     let rowToEdit;
+    let currentPage = 1;
+    const rowsPerPage = 10;
+    let filteredData = [];
 
     // Função para salvar a tabela no localStorage
     function saveTableToLocalStorage() {
-        const rows = tableBody.querySelectorAll('tr');
-        const tableData = Array.from(rows).map(row => ({
-            id: row.children[0].textContent,
-            name: row.children[1].textContent,
-            valor: row.children[2].textContent,
-            descricao: row.children[3].textContent,
-            brinquedos: row.children[4].textContent
-        }));
-        localStorage.setItem('servicos', JSON.stringify(tableData));
+        localStorage.setItem('servicos', JSON.stringify(filteredData));
     }
 
     // Função para carregar a tabela do localStorage
     function loadTableFromLocalStorage() {
         const storedData = localStorage.getItem('servicos');
         if (storedData) {
-            const tableData = JSON.parse(storedData);
-            tableData.forEach(data => {
+            filteredData = JSON.parse(storedData);
+            displayTable();
+        }
+    }
+
+    // Função para exibir a tabela com paginação
+    function displayTable() {
+        tableBody.innerHTML = '';
+    
+        const startIndex = (currentPage - 1) * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+    
+        const dataToDisplay = filteredData.slice(startIndex, endIndex);
+    
+        if (dataToDisplay.length > 0) {
+            dataToDisplay.forEach((data, index) => {
                 const newRow = document.createElement('tr');
-                const idCell = document.createElement('td');
-                const nomeCell = document.createElement('td');
-                const valorCell = document.createElement('td');
-                const descricaoCell = document.createElement('td');
-                const brinquedosCell = document.createElement('td');
-                const actionsCell = document.createElement('td');
-
-                idCell.textContent = data.id;
-                nomeCell.textContent = data.name;
-                valorCell.textContent = data.valor;
-                descricaoCell.textContent = data.descricao;
-                brinquedosCell.textContent = data.brinquedos;
-
-                const editButton = document.createElement('button');
-                editButton.textContent = 'Alterar';
-                editButton.classList.add('btn', 'btn-edit');
+    
+                newRow.innerHTML = `
+                    <td>${startIndex + index + 1}</td>
+                    <td>${data.name}</td>
+                    <td>${data.valor}</td>
+                    <td>${data.descricao}</td>
+                    <td>${data.brinquedos}</td>
+                    <td>
+                        <button class="btn btn-edit">Alterar</button>
+                        <button class="btn btn-delete">Excluir</button>
+                    </td>
+                `;
+    
+                tableBody.appendChild(newRow);
+    
+                const editButton = newRow.querySelector('.btn-edit');
+                const deleteButton = newRow.querySelector('.btn-delete');
+    
                 editButton.addEventListener('click', function() {
                     openEditModal(newRow);
                 });
-
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Excluir';
-                deleteButton.classList.add('btn', 'btn-delete');
+    
                 deleteButton.addEventListener('click', function() {
                     rowToDelete = newRow;
                     confirmationModal.style.display = 'flex';
                 });
-
-                actionsCell.appendChild(editButton);
-                actionsCell.appendChild(deleteButton);
-
-                newRow.appendChild(idCell);
-                newRow.appendChild(nomeCell);
-                newRow.appendChild(valorCell);
-                newRow.appendChild(descricaoCell);
-                newRow.appendChild(brinquedosCell);
-                newRow.appendChild(actionsCell);
-
-                tableBody.appendChild(newRow);
             });
+    
+            // Esconder a mensagem de nenhum resultado
+            document.getElementById('noResultsMessage').style.display = 'none';
+        } else {
+            tableBody.innerHTML = '<tr><td colspan="6">Nenhum serviço encontrado.</td></tr>';
+            
+            // Mostrar a mensagem de nenhum resultado
+            document.getElementById('noResultsMessage').style.display = 'block';
         }
+    
+        updatePaginationButtons();
     }
+    
+
+    // Função para atualizar os botões de paginação
+    function updatePaginationButtons() {
+        prevPageBtn.disabled = currentPage === 1;
+        nextPageBtn.disabled = currentPage * rowsPerPage >= filteredData.length;
+        pageNumberDisplay.textContent = `Página ${currentPage}`;
+    }
+
+    // Função para realizar a pesquisa na tabela
+    searchInput.addEventListener('input', function() {
+        const searchValue = searchInput.value.trim().toLowerCase();
+
+        filteredData = JSON.parse(localStorage.getItem('servicos')).filter(data =>
+            data.name.toLowerCase().includes(searchValue) ||
+            data.valor.toLowerCase().includes(searchValue) ||
+            data.descricao.toLowerCase().includes(searchValue) ||
+            data.brinquedos.toLowerCase().includes(searchValue)
+        );
+
+        currentPage = 1; // Resetar para a primeira página ao pesquisar
+        displayTable();
+    });
+
+    // Evento para mudar para a página anterior
+    prevPageBtn.addEventListener('click', function() {
+        if (currentPage > 1) {
+            currentPage--;
+            displayTable();
+        }
+    });
+
+    // Evento para mudar para a próxima página
+    nextPageBtn.addEventListener('click', function() {
+        if (currentPage * rowsPerPage < filteredData.length) {
+            currentPage++;
+            displayTable();
+        }
+    });
 
     // Carrega a tabela do localStorage quando a página é carregada
     loadTableFromLocalStorage();
 
+    // Função para adicionar novo serviço
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Impede o envio do formulário
 
@@ -96,48 +147,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const brinquedosValue = brinquedosSimInput.checked ? 'SIM' : (brinquedosNaoInput.checked ? 'NÃO' : '');
 
         if (servicoValue && valorValue && descricaoValue && brinquedosValue) {
-            const newRow = document.createElement('tr');
-            const idCell = document.createElement('td');
-            const nomeCell = document.createElement('td');
-            const valorCell = document.createElement('td');
-            const descricaoCell = document.createElement('td');
-            const brinquedosCell = document.createElement('td');
-            const actionsCell = document.createElement('td');
+            const newRow = {
+                id: filteredData.length + 1,
+                name: servicoValue,
+                valor: valorValue,
+                descricao: descricaoValue,
+                brinquedos: brinquedosValue
+            };
 
-            idCell.textContent = tableBody.rows.length + 1;
-            nomeCell.textContent = servicoValue;
-            valorCell.textContent = valorValue;
-            descricaoCell.textContent = descricaoValue;
-            brinquedosCell.textContent = brinquedosValue;
+            filteredData.push(newRow);
+            saveTableToLocalStorage();
+            displayTable();
 
-            const editButton = document.createElement('button');
-            editButton.textContent = 'Alterar';
-            editButton.classList.add('btn', 'btn-edit');
-            editButton.addEventListener('click', function() {
-                openEditModal(newRow);
-            });
-
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Excluir';
-            deleteButton.classList.add('btn', 'btn-delete');
-            deleteButton.addEventListener('click', function() {
-                rowToDelete = newRow;
-                confirmationModal.style.display = 'flex';
-            });
-
-            actionsCell.appendChild(editButton);
-            actionsCell.appendChild(deleteButton);
-
-            newRow.appendChild(idCell);
-            newRow.appendChild(nomeCell);
-            newRow.appendChild(valorCell);
-            newRow.appendChild(descricaoCell);
-            newRow.appendChild(brinquedosCell);
-            newRow.appendChild(actionsCell);
-
-            tableBody.appendChild(newRow);
-
-            saveTableToLocalStorage(); // Salva no localStorage
+            // Limpar campos de entrada
             servicoInput.value = '';
             valorInput.value = '';
             descricaoInput.value = '';
@@ -148,6 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Função para abrir o modal de edição
     function openEditModal(row) {
         rowToEdit = row;
         editInputNome.value = row.children[1].textContent;
@@ -164,20 +187,26 @@ document.addEventListener('DOMContentLoaded', function() {
         editModal.style.display = 'block';
     }
 
+    // Função para salvar as edições
     editForm.addEventListener('submit', function(event) {
         event.preventDefault();
+
         const updatedNome = editInputNome.value.trim();
         const updatedValor = editInputValor.value.trim();
         const updatedDescricao = editInputDescricao.value.trim();
         const updatedBrinquedos = editInputBrinquedosSim.checked ? 'SIM' : (editInputBrinquedosNao.checked ? 'NÃO' : '');
 
         if (updatedNome && updatedValor && updatedDescricao && updatedBrinquedos) {
-            rowToEdit.children[1].textContent = updatedNome;
-            rowToEdit.children[2].textContent = updatedValor;
-            rowToEdit.children[3].textContent = updatedDescricao;
-            rowToEdit.children[4].textContent = updatedBrinquedos;
+            const index = Array.from(tableBody.children).indexOf(rowToEdit);
+
+            filteredData[index].name = updatedNome;
+            filteredData[index].valor = updatedValor;
+            filteredData[index].descricao = updatedDescricao;
+            filteredData[index].brinquedos = updatedBrinquedos;
+
             editModal.style.display = 'none';
-            saveTableToLocalStorage(); // Salva no localStorage
+            saveTableToLocalStorage();
+            displayTable();
         } else {
             alert('Por favor, preencha todos os campos.');
         }
@@ -187,11 +216,14 @@ document.addEventListener('DOMContentLoaded', function() {
         editModal.style.display = 'none';
     });
 
+    // Função para confirmar exclusão
     confirmYes.addEventListener('click', function() {
         if (rowToDelete) {
-            tableBody.removeChild(rowToDelete);
-            saveTableToLocalStorage(); // Salva no localStorage
+            const index = Array.from(tableBody.children).indexOf(rowToDelete);
+            filteredData.splice(index, 1);
+            saveTableToLocalStorage();
             confirmationModal.style.display = 'none';
+            displayTable();
         }
     });
 

@@ -50,9 +50,6 @@
             <label for="searchBrinquedo">Pesquisar Brinquedo:</label>
             <input type="text" id="searchBrinquedo" placeholder="Digite o nome do brinquedo para pesquisar">
         </div>
-        <div id="noResultsMessage" class="no-results-message">
-            <i class="fas fa-info-circle"></i> Nenhum brinquedo cadastrado encontrado.
-        </div>
         <table class="brinquedos-table">
             <thead>
                 <tr>
@@ -65,6 +62,10 @@
                 <!-- Aqui serão listados dinamicamente os brinquedos cadastrados -->
             </tbody>
         </table>
+
+        <div id="noResultsMessage" class="no-results-message">
+            <i class="fas fa-info-circle"></i> Nenhum brinquedo cadastrado encontrado.
+        </div>
         
         <!-- Botões de Paginação -->
         <div class="pagination">
