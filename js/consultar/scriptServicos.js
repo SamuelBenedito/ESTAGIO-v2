@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Esconder a mensagem de nenhum resultado
             document.getElementById('noResultsMessage').style.display = 'none';
         } else {
-            tableBody.innerHTML = '<tr><td colspan="6">Nenhum serviço encontrado.</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="6"></td></tr>';
             
             // Mostrar a mensagem de nenhum resultado
             document.getElementById('noResultsMessage').style.display = 'block';

@@ -169,42 +169,33 @@ document.addEventListener("DOMContentLoaded", () => {
             updateDropzoneFileList(dropZoneElement, inputElement.files[0]);
         }
     });
+});
 
-    dropZoneElement.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropZoneElement.classList.add("dropzone--over");
-    });
+document.addEventListener("DOMContentLoaded", () => {
+    const clientForm = document.getElementById("clientForm");
+    let reservations = JSON.parse(localStorage.getItem("reservations")) || [];
 
-    ["dragleave", "dragend"].forEach((type) => {
-        dropZoneElement.addEventListener(type, (e) => {
-            dropZoneElement.classList.remove("dropzone--over");
-        });
-    });
+    function saveReservationsToLocalStorage() {
+        localStorage.setItem("reservations", JSON.stringify(reservations));
+    }
 
-    dropZoneElement.addEventListener("drop", (e) => {
-        e.preventDefault();
-        if (e.dataTransfer.files.length) {
-            inputElement.files = e.dataTransfer.files;
-            updateDropzoneFileList(dropZoneElement, e.dataTransfer.files[0]);
-        }
-        dropZoneElement.classList.remove("dropzone--over");
-    });
-
-    const updateDropzoneFileList = (dropzoneElement, file) => {
-        let dropzoneFileMessage = dropzoneElement.querySelector(".file-info");
-        dropzoneFileMessage.innerHTML = `
-            ${file.name}, ${file.size} bytes
-        `;
-    };
-
-    dropzoneBox.addEventListener("reset", (e) => {
-        let dropzoneFileMessage = dropZoneElement.querySelector(".file-info");
-        dropzoneFileMessage.innerHTML = `Nenhum Arquivo Selecionado`;
-    });
-
-    dropzoneBox.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const myFile = document.getElementById("upload-file");
-        console.log(myFile.files[0]);
+    clientForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const newReservation = {
+            cliente: event.target.cliente.value,
+            tema: event.target.tema.value,
+            servico: event.target.servico.value,
+            brinquedos: event.target.brinquedos.value,
+            formaPag: event.target.formaPag.value,
+            day: event.target.day.value,
+            valor: event.target.valor.value,
+            obs: event.target.obs.value,
+        };
+        reservations.push(newReservation);
+        saveReservationsToLocalStorage();
+        event.target.reset();
+        // Redireciona para o calendário após cadastrar a reserva
+        window.location.href = 'calendario.html';
     });
 });
+
