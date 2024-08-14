@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/calendar.css">
 </head>
+
 <body>
     <div class="navbar">
         <div class="navbar-item">
@@ -16,37 +17,54 @@
             </a>
             <a onclick="toggleDropdown()">Consultar</a>
         </div>
+        <div class="button-bar">
+            <a onclick="window.location.href='reservas.html';">Cadastrar Reserva</a>
+        </div>
         <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
         <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
     </div>
 
     <div id="dropdown" class="dropdown-content">
-        <a href="clientes.html">Clientes</a>
-        <a href="temas.html">Temas</a>
-        <a href="servicos.html">Serviços</a>
-        <a href="brinquedos.html">Brinquedos</a>
-        <a href="formas_pagamento.html">Formas de pagamento</a>
+        <a href="clientes.html">Consulta de Clientes</a>
+        <a href="temas.html">Consulta de Temas</a>
+        <a href="servicos.html">Consulta de Serviços</a>
+        <a href="brinquedos.html">Consulta de Brinquedos</a>
+        <a href="formas_pagamento.html">Consulta de Formas de pagamento</a>
     </div>
 
     <div id="dropdownRelatorios" class="dropdown-content">
-        <a href="re_reservas.html">Relatórios de Reservas</a>
-        <a href="re_cliente.html">Relatórios de Clientes</a>
-        <a href="re_servicos.html">Relatórios de Serviços</a>
+        <a href="re_reservas.html">Relatórios de Reservas Cadastras</a>
+        <a href="re_cliente.html">Relatórios de Clientes Cadastros</a>
+        <a href="re_servicos.html">Relatórios de Serviços Realizados</a>
     </div>
 
     <div id="userDropdown" class="dropdown-content">
         <a href="login.html">Sair</a>
     </div>
 
-    <div class="button-bar">
-        <button onclick="window.location.href='reservas.html';">Cadastrar Reserva</button>
-    </div>
+    
 
     <div id="calendar"></div>
+
+    <!-- Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Detalhes da Reserva</h2>
+            <p><strong>Cliente:</strong> <span id="modalCliente"></span></p>
+            <p><strong>Tema:</strong> <span id="modalTema"></span></p>
+            <p><strong>Brinquedos:</strong> <span id="modalBrinquedos"></span></p>
+            <p><strong>Forma de Pagamento:</strong> <span id="modalFormaPag"></span></p>
+            <p><strong>Valor:</strong> <span id="modalValor"></span></p>
+            <p><strong>Observações:</strong> <span id="modalObs"></span></p>
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
     <script src="js/calendar.js"></script>
     <script src="js/script.js"></script>
     <script src="js/login.js"></script>
 </body>
+
 </html>

@@ -1,6 +1,7 @@
 body {
     margin: 0;
-    padding-top: 100px; /* Adicionado padding para compensar o navbar fixo */
+    padding-top: 100px;
+    /* Adicionado padding para compensar o navbar fixo */
     font-family: 'Roboto', sans-serif;
     background-color: hsl(213, 64%, 77%);
     color: #333;
@@ -14,11 +15,15 @@ body {
     justify-content: space-between;
     align-items: center;
     border-bottom: 3px solid #007bff;
-    position: fixed; /* Mudado de relative para fixed */
-    top: 0; /* Alinhado no topo da página */
+    position: fixed;
+    /* Mudado de relative para fixed */
+    top: 0;
+    /* Alinhado no topo da página */
     left: 0;
-    width: 100%; /* Garante que o navbar ocupe toda a largura da página */
-    z-index: 1000; /* Garante que o navbar fique acima de outros elementos */
+    width: 100%;
+    /* Garante que o navbar ocupe toda a largura da página */
+    z-index: 1000;
+    /* Garante que o navbar fique acima de outros elementos */
     flex-wrap: wrap;
 }
 
@@ -26,7 +31,8 @@ body {
     display: flex;
     align-items: center;
 }
-.logo{
+
+.logo {
     background-color: #343a40;
     padding: 1px;
     display: flex;
@@ -90,63 +96,38 @@ body {
 /* Dropdown */
 .dropdown-content {
     display: none;
-    position: fixed; /* Mudado de absolute para fixed */
+    position: fixed;
+    /* Mudado de absolute para fixed */
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1001; /* Um nível acima do navbar */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    /* Um nível acima do navbar */
     margin-top: 10px;
     left: 10px;
     border-radius: 3px;
     overflow: hidden;
-  }
-  
-  #userDropdown {
+    width: 23%;
+}
+
+#userDropdown {
     right: 10px;
     left: auto;
     margin-top: 58px;
-    top: 50px; /* Ajuste conforme a altura do navbar */
-  }
-  
-  .dropdown-content a {
+    top: 50px;
+    width: 1%;
+    /* Ajuste conforme a altura do navbar */
+}
+
+.dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
-  
-  .dropdown-content a:hover {
+}
+
+.dropdown-content a:hover {
     background-color: #c5e1ff;
-  }
-
-/* Button Bar */
-.button-bar {
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 5px 1px;
-    margin-bottom: 20px;
-}
-
-.button-bar button {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1em;
-    margin: 5px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.button-bar button:hover {
-    background-color: #0056b3;
 }
 
 /* Calendar */
@@ -195,27 +176,6 @@ body {
     background: #218838;
 }
 
-.fc-daygrid-event {
-    border: none;
-    border-radius: 4px;
-    padding: 5px;
-    font-size: 0.85em;
-}
-
-.fc-daygrid-event:hover {
-    background: #03366d;
-    color: #333;
-}
-
-.fc-daygrid-block-event .fc-event-time {
-    font-weight: bold;
-    margin-right: 5px;
-}
-
-.fc-day-today {
-    background: #e9ecef;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
     .navbar {
@@ -223,7 +183,8 @@ body {
         align-items: flex-start;
     }
 
-    .navbar a, .button-bar button {
+    .navbar a,
+    .button-bar button {
         width: 100%;
         text-align: center;
         padding: 10px;
@@ -246,7 +207,9 @@ body {
 }
 
 @media (max-width: 480px) {
-    .navbar a, .button-bar button {
+
+    .navbar a,
+    .button-bar button {
         padding: 8px 10px;
         font-size: 0.9em;
     }
@@ -258,4 +221,42 @@ body {
     .fc-button-group .fc-button {
         padding: 6px 10px;
     }
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
