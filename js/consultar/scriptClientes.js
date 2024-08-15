@@ -176,21 +176,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Load initial clients in batches of 10
+    // Remove this function if you do not want to initialize with any clients
     function loadInitialClients() {
-        // For demonstration, assuming `clients` could be initially empty
-        if (clients.length === 0) {
-            for (let i = 0; i < 10; i++) {
-                // Sample client data, replace with actual data
-                clients.push({
-                    cliente: `Cliente ${i + 1}`,
-                    telefone: `12345678${i}`,
-                    email: `cliente${i + 1}@example.com`,
-                    cpf: `123.456.789-${i}`
-                });
-            }
-            saveClientsToLocalStorage();
-        }
+        // Removed example client data
         renderClients();
     }
 

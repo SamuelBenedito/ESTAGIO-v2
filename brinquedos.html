@@ -14,6 +14,9 @@
         </a>
         <a onclick="toggleDropdown()">Consultar</a>
         <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
+        <div class="button-bar">
+            <a onclick="window.location.href='reservas.html';">Cadastrar Reserva</a>
+        </div>
         <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
     </div>
 
@@ -40,7 +43,7 @@
         <form id="brinquedoForm">
             <div class="form-group">
                 <label for="brinquedos">Brinquedo:</label>
-                <input type="text" id="brinquedos" name="brinquedos" placeholder="Nome do Brinquedo" required>
+                <input type="text" id="brinquedos" name="brinquedos" placeholder="Nome do Brinquedo" maxlength="50" required>
             </div>
             <button type="submit">Cadastrar Brinquedo</button>
         </form>

@@ -133,6 +133,7 @@ body {
     left: auto;
     margin-top: 58px;
     top: 50px;
+    width: 1%;
     /* Ajuste conforme a altura do navbar */
 }
 
@@ -185,7 +186,7 @@ form {
     margin-bottom: 5px;
 }
 
-.form-group input{
+.form-group input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -288,4 +289,40 @@ button[type="submit"]:hover {
     }
 }
 
-;
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.input-container input {
+    flex: 1;
+    padding: 10px; 
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 5px; /* Espaço entre o input e o botão */
+}
+
+.input-container button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 10px; /* Reduzir o padding para tornar o botão menor */
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 0.8em; /* Reduzir o tamanho da fonte */
+}
+
+.input-container button img {
+    height: 16px; /* Ajustar a altura da imagem para um tamanho menor */
+    width: auto; /* Manter a proporção da imagem */
+}
+
+.input-container button:hover {
+    background-color: #0056b3;
+}

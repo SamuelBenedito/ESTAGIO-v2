@@ -15,10 +15,10 @@
             <img src="image/Logo.png" alt="Logo" class="logo-image">
         </a>
         <a onclick="toggleDropdown()">Consultar</a>
+        <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
         <div class="button-bar">
             <a onclick="window.location.href='reservas.html';">Cadastrar Reserva</a>
         </div>
-        <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
         <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
     </div>
 
@@ -45,7 +45,7 @@
         <form id="temasForm">
             <div class="form-group">
                 <label for="temas">Tema:</label>
-                <input type="text" id="temas" name="temas" placeholder="Nome do Tema" required>
+                <input type="text" id="temas" name="temas" placeholder="Nome do Tema" maxlength="50" required>
             </div>
             <button type="submit">Cadastrar Tema</button>
         </form>

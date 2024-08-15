@@ -44,37 +44,52 @@
             <div class="infoReserva">
                 <div class="form-group">
                     <label for="cliente">Cliente:</label>
-                    <input type="text" id="cliente" name="cliente" required autocomplete="off">
+                    <div class="input-container">
+                        <input type="text" id="cliente" name="cliente" required autocomplete="off">
+                        <button type="button" id="addCliente"><img src="image/adicionar.png" alt="adicionarCliente"></button>
+                    </div>
                     <div id="suggestions" class="autocomplete-suggestions"></div>
                 </div>
                 <div class="form-group">
-                    <label for="telefone">Tema:</label>
-                    <input type="text" id="tema" name="tema" required>
+                    <label for="tema">Tema:</label>
+                    <div class="input-container">
+                        <input type="text" id="tema" name="tema" required>
+                        <button type="button" id="addTema"><img src="image/adicionar.png" alt="adicionarTema"></button>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="email">Serviço:</label>
-                    <input type="text" id="servico" name="servicos" required>
+                    <label for="servico">Serviço:</label>
+                    <div class="input-container">
+                        <input type="text" id="servico" name="servicos" required>
+                        <button type="button" id="addServico"><img src="image/adicionar.png" alt="adicionarServico"></button>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="cpf">Brinquedos:</label>
-                    <input type="text" id="brinquedos" name="brinquedos" required>
+                    <label for="brinquedos">Brinquedos:</label>
+                    <div class="input-container">
+                        <input type="text" id="brinquedos" name="brinquedos" required>
+                        <button type="button" id="addBrinquedo"><img src="image/adicionar.png" alt="adicionarBrinquedo"></button>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="cpf">Forma de Pagamento:</label>
-                    <input type="text" id="formaPag" name="formaPag" required>
+                    <label for="formaPag">Forma de Pagamento:</label>
+                    <div class="input-container">
+                        <input type="text" id="formaPag" name="formaPag" required>
+                        <button type="button" id="addFormaPag"><img src="image/adicionar.png" alt="adcionarFormaPag"></button>
+                    </div>
                 </div>
             </div>
             <div class="selectdata">
                 <div class="form-group">
-                    <label for="data">Selecione o dia e horário da reserva:</label>
+                    <label for="day">Selecione o dia e horário da reserva:</label>
                     <input type="datetime-local" id="day" name="day" required>
                 </div>
                 <div class="form-group">
-                    <label for="data">Valor da Reserva:</label>
+                    <label for="valor">Valor da Reserva:</label>
                     <input type="number" id="valor" name="valor" required>
                 </div>
                 <div class="form-group">
-                    <label for="data">Observações:</label>
+                    <label for="obs">Observações:</label>
                     <input type="text" id="obs" name="obs" required>
                 </div>
             </div>

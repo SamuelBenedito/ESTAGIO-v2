@@ -231,3 +231,11 @@ document.addEventListener('DOMContentLoaded', function() {
         confirmationModal.style.display = 'none';
     });
 });
+
+document.getElementById('valor').addEventListener('input', function(e) {
+    let input = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+    input = (input / 100).toFixed(2); // Formata como decimal com 2 casas
+    input = input.replace('.', ','); // Substitui o ponto por vírgula
+    input = input.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'); // Adiciona pontos como separador de milhares
+    e.target.value = 'R$ ' + input; // Adiciona o prefixo "R$"
+});

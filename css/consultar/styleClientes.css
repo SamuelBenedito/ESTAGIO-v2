@@ -15,15 +15,11 @@ body {
   justify-content: space-between;
   align-items: center;
   border-bottom: 3px solid #007bff;
-  position: fixed;
-  /* Mudado de relative para fixed */
-  top: 0;
-  /* Alinhado no topo da página */
+  position: fixed; /* Mudado de relative para fixed */
+  top: 0; /* Alinhado no topo da página */
   left: 0;
-  width: 100%;
-  /* Garante que o navbar ocupe toda a largura da página */
-  z-index: 1000;
-  /* Garante que o navbar fique acima de outros elementos */
+  width: 100%; /* Garante que o navbar ocupe toda a largura da página */
+  z-index: 1000; /* Garante que o navbar fique acima de outros elementos */
   flex-wrap: wrap;
 }
 
@@ -80,8 +76,6 @@ body {
   background-color: #c5e1ff;
 }
 
-
-
 .navbar a:hover+.dropdown-content,
 .dropdown-content:hover {
   display: block;
@@ -89,7 +83,8 @@ body {
 
 /* Container principal */
 .container {
-  max-width: 800px;
+  width: 90%; /* Ajusta o container para 90% da largura da página */
+  max-width: 1200px; /* Define uma largura máxima para evitar que o container fique muito largo em telas grandes */
   margin: 20px auto;
   padding: 20px;
   background-color: #fff;
@@ -121,6 +116,7 @@ form {
 }
 
 .form-group input[type="text"],
+.form-group input[type="tel"],
 .form-group input[type="email"] {
   width: calc(100% - 20px);
   padding: 10px;
@@ -130,6 +126,7 @@ form {
 }
 
 .form-group input[type="text"]:focus,
+.form-group input[type="tel"],
 .form-group input[type="email"]:focus {
   outline: none;
   border-color: #007bff;
@@ -279,7 +276,7 @@ button[type="submit"]:hover {
   border-radius: 8px;
   text-align: center;
   width: 80%;
-  max-width: 400px;
+  max-width: 600px; /* Aumentado para 600px */
 }
 
 /* Estilo do botão de fechar */
@@ -345,4 +342,19 @@ button[type="submit"]:hover {
   transform: translateY(-50%);
   color: #888;
   cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    width: 95%; /* Ajusta o container para telas menores */
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100%; /* Ajusta o container para telas muito pequenas */
+    padding: 10px;
+  }
 }

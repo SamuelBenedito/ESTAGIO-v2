@@ -299,7 +299,7 @@ body {
     background-color: #007bff; /* Cor de fundo padrão */
     color: #fff; /* Cor do texto padrão */
     border: 1px solid #0056b3; /* Borda padrão */
-    padding: 5px px; /* Espaçamento interno */
+    padding: 5px 46px; /* Espaçamento interno */
     border-radius: 4px; /* Cantos arredondados */
     font-size: 0.9em; /* Tamanho da fonte */
     display: inline-block; /* Alinhamento em linha */
@@ -309,16 +309,16 @@ body {
     transition: background-color 0.3s, color 0.3s; /* Transição suave */
 }
 
-/* Estilo neutro para desativar a aparência padrão */
+
 .fc-event.neutral-style {
-    background-color: #f5f5f5; /* Cor de fundo neutra */
-    color: #333; /* Cor do texto neutra */
-    border: 1px solid #ddd; /* Borda neutra */
-    padding: 5px; /* Espaçamento interno */
-    border-radius: 4px; /* Cantos arredondados */
-    font-size: 0.9em; /* Tamanho da fonte */
-    display: inline-block; /* Alinhamento em linha */
-    margin: 2px; /* Espaçamento entre eventos */
-    text-align: center; /* Alinhamento do texto */
-    cursor: default; /* Cursor padrão */
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    display: inline-block;
+    margin: 2px;
+    text-align: center;
+    cursor: default;
 }

@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    window.editClient = function(index) {
+    window.editClient = function (index) {
         const client = clients[index];
         const editFormHtml = `
             <div id="editClientModal" class="modal">
@@ -77,12 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    window.closeEditClientModal = function() {
+    window.closeEditClientModal = function () {
         const editClientModal = document.getElementById("editClientModal");
         editClientModal.parentNode.removeChild(editClientModal);
     };
 
-    window.confirmDeleteClient = function(index) {
+    window.confirmDeleteClient = function (index) {
         const confirmDialogHtml = `
             <div id="confirmDeleteDialog" class="confirmation-dialog">
                 <div class="confirmation-dialog-content">
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("confirm-no").addEventListener("click", closeConfirmDeleteDialog);
     };
 
-    window.closeConfirmDeleteDialog = function() {
+    window.closeConfirmDeleteDialog = function () {
         const confirmDeleteDialog = document.getElementById("confirmDeleteDialog");
         confirmDeleteDialog.parentNode.removeChild(confirmDeleteDialog);
     };
@@ -157,18 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     renderClients();
-
-    // Funções e variáveis da dropzone
-    const dropzoneBox = document.getElementsByClassName("dropzone-box")[0];
-    const inputFiles = document.querySelectorAll(".dropzone-area input[type='file']");
-    const inputElement = inputFiles[0];
-    const dropZoneElement = inputElement.closest(".dropzone-area");
-
-    inputElement.addEventListener("change", (e) => {
-        if (inputElement.files.length) {
-            updateDropzoneFileList(dropZoneElement, inputElement.files[0]);
-        }
-    });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -199,3 +187,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// Funções de redirecionamento para os botões
+document.getElementById('addCliente').addEventListener('click', function() {
+    window.location.href = 'clientes.html'; // Substitua pela URL desejada
+});
+
+document.getElementById('addTema').addEventListener('click', function() {
+    window.location.href = 'temas.html'; // Substitua pela URL desejada
+});
+
+document.getElementById('addServico').addEventListener('click', function() {
+    window.location.href = 'servicos.html'; // Substitua pela URL desejada
+});
+
+document.getElementById('addBrinquedo').addEventListener('click', function() {
+    window.location.href = 'brinquedos.html'; // Substitua pela URL desejada
+});
+
+document.getElementById('addFormaPag').addEventListener('click', function() {
+    window.location.href = 'formas_pagamento.html'; // Substitua pela URL desejada
+});
