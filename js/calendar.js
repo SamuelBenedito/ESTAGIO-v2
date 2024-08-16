@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         navLinks: true,
         editable: true,
         dayMaxEvents: true,
+        /*ATENÇÃO*/
         events: function(fetchInfo, successCallback, failureCallback) {
             const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
             const events = reservations.map(reservation => ({

@@ -303,7 +303,7 @@ button[type="submit"]:hover {
 }
 
 .input-container button {
-    background-color: #007bff;
+    background-color: #5aa5f5;
     border: none;
     color: white;
     padding: 10px 10px; /* Reduzir o padding para tornar o botão menor */
@@ -319,7 +319,7 @@ button[type="submit"]:hover {
 }
 
 .input-container button img {
-    height: 16px; /* Ajustar a altura da imagem para um tamanho menor */
+    height: 15px; /* Ajustar a altura da imagem para um tamanho menor */
     width: auto; /* Manter a proporção da imagem */
 }
 
