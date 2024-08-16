@@ -62,7 +62,7 @@ body {
   right: 10px;
   left: auto;
   margin-top: 58px;
-  top: 50px; /* Ajuste conforme a altura do navbar */
+  top: 50px;
 }
 
 .dropdown-content a {
@@ -117,7 +117,8 @@ form {
 
 .form-group input[type="text"],
 .form-group input[type="tel"],
-.form-group input[type="email"] {
+.form-group input[type="email"],
+.form-group input[type="number"] {
   width: calc(100% - 20px);
   padding: 10px;
   font-size: 16px;
@@ -126,7 +127,7 @@ form {
 }
 
 .form-group input[type="text"]:focus,
-.form-group input[type="tel"],
+.form-group input[type="tel"]:focus,
 .form-group input[type="email"]:focus {
   outline: none;
   border-color: #007bff;

@@ -2,9 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Funções e variáveis do formulário de clientes
     const clientForm = document.getElementById("clientForm");
     const clientsTableBody = document.getElementById("clientsTableBody");
-    const clientInput = document.getElementById("cliente");
-    const suggestionsContainer = document.getElementById("suggestions");
-    let clients = JSON.parse(localStorage.getItem("clients")) || [];
 
     function saveClientsToLocalStorage() {
         localStorage.setItem("clients", JSON.stringify(clients));
@@ -124,36 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
         saveClientsToLocalStorage();
         renderClients();
         event.target.reset();
-    });
-
-    function filterClients(query) {
-        return clients.filter(client => client.cliente.toLowerCase().includes(query.toLowerCase()));
-    }
-
-    function showSuggestions(suggestions) {
-        suggestionsContainer.innerHTML = "";
-        if (suggestions.length > 0) {
-            suggestions.forEach(client => {
-                const suggestionItem = document.createElement("div");
-                suggestionItem.className = "autocomplete-suggestion";
-                suggestionItem.textContent = client.cliente;
-                suggestionItem.addEventListener("click", () => {
-                    clientInput.value = client.cliente;
-                    suggestionsContainer.innerHTML = "";
-                });
-                suggestionsContainer.appendChild(suggestionItem);
-            });
-        }
-    }
-
-    clientInput.addEventListener("input", () => {
-        const query = clientInput.value;
-        if (query.length > 0) {
-            const suggestions = filterClients(query);
-            showSuggestions(suggestions);
-        } else {
-            suggestionsContainer.innerHTML = "";
-        }
     });
 
     renderClients();

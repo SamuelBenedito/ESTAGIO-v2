@@ -1,0 +1,29 @@
+.autocomplete-suggestions {
+    border: 1px solid #ddd;
+    border-radius: 4px; /* Borda arredondada */
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    width: 45%; /* Ajusta a largura para se alinhar ao input */
+    box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
+}
+
+.autocomplete-suggestion {
+    padding: 8px 12px; /* Ajusta o padding para uma área de clique mais confortável */
+    cursor: pointer;
+    font-size: 14px; /* Define o tamanho da fonte */
+    color: #333; /* Define a cor do texto */
+    transition: background-color 0.2s ease; /* Suaviza a transição de cor de fundo */
+}
+
+.autocomplete-suggestion:hover {
+    background-color: #f0f0f0;
+    color: #000; /* Altera a cor do texto no hover para um contraste melhor */
+}
+
+.autocomplete-suggestion:active {
+    background-color: #e0e0e0; /* Altera a cor de fundo quando a sugestão é clicada */
+}

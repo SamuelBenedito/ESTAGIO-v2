@@ -7,6 +7,7 @@
     <title>Salão System - Cadastro de Reservas</title>
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/reservas.css">
+    <link rel="stylesheet" href="css/sugestoes/sugestoes.css">
 
 </head>
 
@@ -56,28 +57,32 @@
                         <input type="text" id="tema" name="tema" required>
                         <button type="button" id="addTema"><img src="image/adicionar.png" alt="adicionarTema"></button>
                     </div>
+                    <div id="temaSuggestions" class="autocomplete-suggestions"></div>
                 </div>
                 <div class="form-group">
                     <label for="servico">Serviço:</label>
                     <div class="input-container">
-                        <input type="text" id="servico" name="servicos" required>
+                        <input type="text" id="servico" name="servico" required>
                         <button type="button" id="addServico"><img src="image/adicionar.png" alt="adicionarServico"></button>
                     </div>
+                    <div id="servicoSuggestions" class="autocomplete-suggestions"></div>
                 </div>
                 <div class="form-group">
-                    <label for="brinquedos">Brinquedos:</label>
+                    <label for="brinquedo">Brinquedos:</label>
                     <div class="input-container">
-                        <input type="text" id="brinquedos" name="brinquedos" required>
+                        <input type="text" id="brinquedo" name="brinquedo" required>
                         <button type="button" id="addBrinquedo"><img src="image/adicionar.png" alt="adicionarBrinquedo"></button>
                     </div>
+                    <div id="brinquedoSuggestions" class="autocomplete-suggestions"></div>
                 </div>
                 <div class="form-group">
                     <label for="formaPag">Forma de Pagamento:</label>
                     <div class="input-container">
                         <input type="text" id="formaPag" name="formaPag" required>
-                        <button type="button" id="addFormaPag"><img src="image/adicionar.png" alt="adcionarFormaPag"></button>
+                        <button type="button" id="addFormaPag"><img src="image/adicionar.png" alt="adicionarFormaPag"></button>
                     </div>
-                </div>
+                    <div id="formasPagamentoSuggestions" class="autocomplete-suggestions"></div>
+                </div>                               
             </div>
             <div class="selectdata">
                 <div class="form-group">
@@ -105,6 +110,7 @@
     <script src="js/script.js"></script>
     <script src="js/login.js"></script>
     <script src="js/reservas.js"></script>
+    <script src="js/sugestoes/sugestoes.js"></script>
 </body>
 
 </html>

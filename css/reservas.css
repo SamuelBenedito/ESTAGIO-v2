@@ -93,24 +93,6 @@ body {
     cursor: pointer;
 }
 
-.autocomplete-suggestions {
-    border: 1px solid #ddd;
-    max-height: 150px;
-    overflow-y: auto;
-    position: absolute;
-    z-index: 1000;
-    background-color: white;
-}
-
-.autocomplete-suggestion {
-    padding: 8px;
-    cursor: pointer;
-}
-
-.autocomplete-suggestion:hover {
-    background-color: #f0f0f0;
-}
-
 /* Dropdown */
 .dropdown-content {
     display: none;
