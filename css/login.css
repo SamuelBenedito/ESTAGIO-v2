@@ -7,81 +7,90 @@ body {
   background-color: #9FC1EA;
   margin: 0;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .container {
   background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 12px; /* Borda um pouco mais arredondada */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada */
   width: 100%;
-  max-width: 400px;
+  max-width: 500px; /* Maior largura máxima para melhor visualização */
   text-align: center;
   box-sizing: border-box;
 }
 
 .logo {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .logo img {
   width: 100%;
-  max-width: 200px;
+  max-width: 250px; /* Maior tamanho da logo */
   height: auto;
   object-fit: contain;
 }
 
 h2 {
   margin-bottom: 20px;
-  font-size: 1.5rem;
+  font-size: 1.75rem; /* Tamanho de fonte um pouco maior */
+  color: #333; /* Cor do texto mais escura para melhor contraste */
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
-  font-size: 0.9rem;
+  margin-bottom: 8px; /* Margem inferior um pouco maior */
+  font-size: 1rem; /* Tamanho de fonte ajustado */
+  color: #555; /* Cor do texto mais suave */
 }
 
 input[type="text"],
 input[type="password"],
 select {
   width: 100%;
-  padding: 10px;
+  padding: 12px; /* Padding um pouco maior para melhor usabilidade */
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 5px; /* Bordas mais arredondadas */
   box-sizing: border-box;
   font-size: 1rem;
 }
 
 select {
-  height: 40px; /* Ajusta a altura do select para corresponder ao input */
+  height: 44px; /* Ajusta a altura do select para corresponder ao input */
 }
 
 .signup-link {
-  margin-top: 15px;
-  font-size: 0.9rem;
+  margin-top: 20px; /* Margem superior aumentada */
+  font-size: 1rem; /* Tamanho da fonte ajustado */
+  color: #007bff; /* Cor do link */
+}
+
+.signup-link:hover {
+  text-decoration: underline; /* Sublinha o link ao passar o mouse */
 }
 
 .btn-entrar {
   background-color: #007bff;
   color: white;
-  padding: 12px 0;
+  padding: 14px 0; /* Padding um pouco maior para o botão */
   width: 100%;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px; /* Bordas mais arredondadas */
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
-  font-size: 1rem;
+  font-size: 1.1rem; /* Tamanho da fonte aumentado */
+  transition: background-color 0.3s ease; /* Transição suave de cor */
 }
 
 .btn-entrar:hover {
-  background-color: #45a049;
+  background-color: #0056b3; /* Cor mais escura no hover */
 }
 
 /* Estilo para a mensagem de erro */
@@ -91,11 +100,11 @@ select {
   right: 20px;
   background-color: #f44336;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 20px; /* Padding um pouco maior para maior conforto */
   border-radius: 5px;
   display: none; /* Inicialmente escondido */
-  font-size: 0.9rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 1rem; /* Tamanho da fonte ajustado */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
 }
 
 .error-message.show {
@@ -106,18 +115,20 @@ select {
 @media (max-width: 1000px) {
   .container {
     padding: 15px;
+    max-width: 90%; /* Ajusta a largura máxima em dispositivos menores */
   }
 
   h2 {
     margin-bottom: 15px;
-    font-size: 1.25rem;
+    font-size: 1.5rem; /* Ajusta o tamanho da fonte em dispositivos móveis */
   }
 
   .form-group {
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* Margem ajustada */
   }
 
   .btn-entrar {
-    padding: 10px 0;
+    padding: 12px 0; /* Padding ajustado */
+    font-size: 1rem; /* Tamanho da fonte ajustado */
   }
 }

@@ -153,24 +153,3 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = 'calendario.html';
     });
 });
-
-// Funções de redirecionamento para os botões
-document.getElementById('addCliente').addEventListener('click', function() {
-    window.location.href = 'clientes.html'; // Substitua pela URL desejada
-});
-
-document.getElementById('addTema').addEventListener('click', function() {
-    window.location.href = 'temas.html'; // Substitua pela URL desejada
-});
-
-document.getElementById('addServico').addEventListener('click', function() {
-    window.location.href = 'servicos.html'; // Substitua pela URL desejada
-});
-
-document.getElementById('addBrinquedo').addEventListener('click', function() {
-    window.location.href = 'brinquedos.html'; // Substitua pela URL desejada
-});
-
-document.getElementById('addFormaPag').addEventListener('click', function() {
-    window.location.href = 'formas_pagamento.html'; // Substitua pela URL desejada
-});

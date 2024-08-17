@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const entrarButton = document.querySelector('.btn-entrar');
+    const loginForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('error-message');
+    const btnRelatorios = document.getElementById('btnRelatorios');
 
-    entrarButton.addEventListener('click', (event) => {
-        event.preventDefault();
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Evita o comportamento padrão de envio do formulário
 
         const userType = document.getElementById('userType').value.trim();
         const password = document.getElementById('password').value.trim();
@@ -25,4 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000);
         }
     });
+
+    // Mostra ou oculta o botão de relatórios baseado no tipo de usuário
+    const userType = localStorage.getItem('userType');
+    if (userType === 'GERENCIAL') {
+        btnRelatorios.style.display = 'block';
+    } else if (userType === 'FUNCIONARIO') {
+        btnRelatorios.style.display = 'none';
+    }
 });

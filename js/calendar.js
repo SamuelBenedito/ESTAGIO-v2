@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         navLinks: true,
         editable: true,
         dayMaxEvents: true,
+        
         /*ATENÇÃO*/
         events: function(fetchInfo, successCallback, failureCallback) {
             const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
@@ -93,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
-    
 
     calendar.render();
 
@@ -105,42 +105,3 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 });
-
-//function disableEventStyles() {
-    // Selecione todos os elementos com a classe específica
-//    const events = document.querySelectorAll('.fc-event');
-    
-//    // Remover a classe
-//    events.forEach(event => {
-//        event.classList.remove('fc-event-draggable', 'fc-event-resizable', 'fc-event-start', 'fc-event-end', 'fc-event-past', 'fc-daygrid-event', 'fc-daygrid-block-event', 'fc-h-event');
-//    });
-//}
-
-// Chame a função quando necessário
-//disableEventStyles();
-//
-//function toggleEventStyles(enable) {
-//    if (enable) {
-//        document.body.classList.remove('no-styles');
-//    } else {
-//        document.body.classList.add('no-styles');
-//    }
-//}
-
-// Chame a função com base na sua lógica
-toggleEventStyles(false); // Para desativar estilos
-toggleEventStyles(true);  // Para ativar estilos
-
-function applyNeutralStyle() {
-    // Selecione todos os elementos com a classe específica
-    const events = document.querySelectorAll('.fc-event');
-    
-    // Adicionar a classe que aplica o estilo neutro
-    events.forEach(event => {
-        event.classList.add('neutral-style');
-    });
-}
-
-// Exemplo de uso
-applyNeutralStyle();
-

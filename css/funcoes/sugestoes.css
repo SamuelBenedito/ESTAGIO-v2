@@ -3,11 +3,11 @@
     border-radius: 4px; /* Borda arredondada */
     max-height: 150px;
     overflow-y: auto;
-    position: absolute;
+    position: -ms-page;
     z-index: 1000;
     background-color: white;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    width: 45%; /* Ajusta a largura para se alinhar ao input */
+    width: 95%; /* Ajusta a largura para se alinhar ao input */
     box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
 }
 

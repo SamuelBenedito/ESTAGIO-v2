@@ -1,4 +1,3 @@
-// Obtém as referências dos elementos do DOM
 const clientInput = document.getElementById("cliente");
 const suggestionsContainer = document.getElementById("suggestions");
 const temaInput = document.getElementById("tema");

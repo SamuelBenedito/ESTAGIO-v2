@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchCliente = document.getElementById("searchCliente");
     const noResultsMessage = document.getElementById("noResultsMessage");
     let clients = JSON.parse(localStorage.getItem("clients")) || [];
-    const itemsPerPage = 10; // Ajustado para 10
+    const itemsPerPage = 10;
     let currentPage = 1;
 
     function saveClientsToLocalStorage() {

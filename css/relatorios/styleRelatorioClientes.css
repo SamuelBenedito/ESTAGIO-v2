@@ -106,3 +106,36 @@ tbody td button {
 tbody td button:hover {
     background-color: #0056b3;
 }
+
+/* Estilo para os botões de exportação */
+.export-buttons {
+    margin-top: 20px; /* Espaçamento acima dos botões */
+    text-align: center; /* Centraliza os botões */
+  }
+  
+  .export-buttons button {
+    background-color: #007bff; /* Cor de fundo padrão */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    padding: 10px 20px; /* Espaçamento interno */
+    font-size: 1rem; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor de ponteiro */
+    margin: 0 10px; /* Espaçamento horizontal entre os botões */
+    transition: background-color 0.3s, transform 0.3s; /* Transição suave */
+  }
+  
+  .export-buttons button:hover {
+    background-color: #0056b3; /* Cor de fundo no hover */
+  }
+  
+  .export-buttons button:active {
+    background-color: #004494; /* Cor de fundo quando pressionado */
+    transform: scale(0.98); /* Leve redução de tamanho ao clicar */
+  }
+  
+  .export-buttons button:focus {
+    outline: none; /* Remove o contorno padrão */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Sombra ao focar no botão */
+  }
+  
