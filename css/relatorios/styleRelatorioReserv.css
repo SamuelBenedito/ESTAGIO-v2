@@ -1,0 +1,197 @@
+/* Contêiner para o valor total de serviços */
+.opcoes {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.total-servicos {
+    margin-bottom: 20px;
+}
+
+.total-servicos h1 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.export-buttons {
+    margin-top: 20px;
+    text-align: center; /* Opcional: centraliza os botões */
+}
+
+.export-buttons button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.export-buttons button:hover {
+    background-color: #45a049;
+}
+
+/* Tabela de visualização dos dados */
+.dados-grid {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px; /* Adiciona um pouco de espaço acima da tabela */
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0; /* Remove espaçamento entre bordas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: #f4f4f4;
+}
+
+thead th {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+    font-weight: bold;
+    color: #555;
+    border-right: 1px solid #ddd; /* Adiciona borda direita no cabeçalho */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd; /* Adiciona borda direita nas células */
+    font-size: 14px;
+    color: #333;
+}
+
+tbody td:last-child {
+    border-right: none; /* Remove borda direita na última coluna */
+}
+
+tfoot td {
+    padding: 12px 15px;
+    border-top: 2px solid #ddd; /* Borda superior no rodapé */
+    font-weight: bold;
+}
+
+tbody td button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+tbody td button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para a seção de filtros */
+.filters {
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 600px; /* Limita a largura para um layout mais focado */
+    background-color: #ffffff; /* Fundo branco para um visual clean */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaçamento entre os elementos */
+}
+
+.filters label {
+    font-size: 14px;
+    color: #333333; /* Cor escura para contraste */
+    margin-bottom: 5px;
+    display: block; /* Força o label a ocupar a largura disponível */
+}
+
+.filters select,
+.filters input[type="date"] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #cccccc; /* Borda cinza clara */
+    border-radius: 4px;
+    background-color: #f9f9f9; /* Fundo ligeiramente mais escuro */
+    transition: border-color 0.3s, background-color 0.3s; /* Transições suaves */
+}
+
+.filters select:focus,
+.filters input[type="date"]:focus {
+    border-color: #007bff; /* Cor azul para foco */
+    background-color: #ffffff; /* Fundo branco ao focar */
+    outline: none;
+}
+
+/* Oculta o campo de data quando não necessário */
+.filters input[type="date"] {
+    display: none;
+}
+
+/* Exibe o campo de data quando o filtro por dia é selecionado */
+.filters.show-date input[type="date"] {
+    display: block;
+}
+
+/* Estilo para a paginação */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.pagination button,
+.pagination input[type="number"] {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #333333;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: background-color 0.3s;
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    background-color: #f5f5f5;
+    border-color: #dddddd;
+}
+
+.pagination button:hover:not(:disabled),
+.pagination input[type="number"]:focus {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.pagination input[type="number"] {
+    width: 80px;
+    text-align: center;
+    border: 1px solid #cccccc;
+}

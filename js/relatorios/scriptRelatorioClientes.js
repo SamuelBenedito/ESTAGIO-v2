@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderClients();
 });
 
+
 function exportToExcel() {
     const clients = JSON.parse(localStorage.getItem("clients")) || [];
     const ws = XLSX.utils.json_to_sheet(clients);

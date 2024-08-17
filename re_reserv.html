@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório de Reservas</title>
-    <link rel="stylesheet" href="css/relatorios/styleRelatorioServicos.css">
+    <link rel="stylesheet" href="css/consultar/styleClientes.css">
+    <link rel="stylesheet" href="css/relatorios/styleRelatorioReserv.css">
     <link rel="stylesheet" href="css/calendar.css">
 </head>
 
@@ -16,6 +17,9 @@
         </a>
         <a onclick="toggleDropdown()">Consultar</a>
         <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
+        <div class="button-bar">
+            <a onclick="window.location.href='reservas.html';">Cadastrar Reserva</a>
+        </div>
         <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
     </div>
 
@@ -28,47 +32,77 @@
     </div>
 
     <div id="dropdownRelatorios" class="dropdown-content">
-        <a href="re_reservas.html">📗- Relatórios de Reservas Cadastras</a>
+        <a href="re_reserv.html">📗- Relatórios de Reservas e Serviços Cadastradas</a>
         <a href="re_cliente.html">📕- Relatórios de Clientes Cadastros</a>
-        <a href="re_servicos.html">📘- Relatórios de Serviços Realizados</a>
+        <a href="re_master-detail.html">📘- Relatórios de Geral</a>
     </div>
 
     <div id="userDropdown" class="dropdown-content">
         <a href="login.html">Sair</a>
     </div>
 
+    <div class="export-buttons">
+        <button onclick="exportToExcel()">Exportar para Excel</button>
+        <button onclick="exportToPDF()">Exportar para PDF</button>
+    </div>
+    
     <!-- Container para o valor total de reservas -->
-    <di class="opcoes">
-        <div class="total-servicos">
-            <h1>Valor Total de Serviços: R$ <span id="valorTotalServ">0,00</span></h1>
+    <div class="opcoes">
+        <div class="total-reservas">
+            <h2>Valor total das reservas cadastradas <span id="valorTotal">0,00</span></h2>
         </div>
-    </di>
+        <div class="filters">
+            <label for="filterType">Filtrar por:</label>
+            <select id="filterType">
+                <option value="all">Todos</option>
+                <option value="day">Dia</option>
+                <option value="week">Semana</option>
+                <option value="month">Mês</option>
+            </select>
+            <input type="date" id="filterDate" style="display: none;">
+        </div>
+    </div>
 
 
     <!-- Tabela de visualização dos dados -->
     <div class="dados-grid">
-        <table id="servicosTable">
+        <table id="reservasTable">
             <thead>
                 <tr>
+                    <th>CLIENTE</th>
+                    <th>TEMA</th>
                     <th>SERVIÇO</th>
-                    <th>VALOR DO SERVIÇO</th>
-                    <th>BRINQUEDO LIBERADO</th>
+                    <th>BRINQUEDO</th>
+                    <th>FORMA DE PAGAMENTO</th>
+                    <th>DATA E HORÁRIO</th>
+                    <th>VALOR RESERVA</th>
+                    <th>OBSERVAÇÕES</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Dados serão inseridos dinamicamente aqui -->
             </tbody>
         </table>
+
+        <!-- Controles de paginação -->
+        <div class="pagination">
+            <button id="prevPage" disabled>&laquo; Anterior</button>
+            <span id="pageNumbers"></span>
+            <input type="number" id="pageInput" min="1" placeholder="Página" />
+            <button id="goToPage">Ir</button>
+            <button id="nextPage">Próximo &raquo;</button>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
-    <script src="js/consultar/scriptServicos.js"></script>
+    <script src="js/reservas.js"></script>
     <script src="js/calendar.js"></script>
     <script src="js/script.js"></script>
     <script src="js/login.js"></script>
-    <script src="js/relatorios/scriptRelatorioServicos.js"></script>
+    <script src="js/funcoes/paginação.js"></script>
+    <script src="js/relatorios/scriptRelatorioReserv.js"></script>
 </body>
 
 </html>

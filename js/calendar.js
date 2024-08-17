@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         editable: true,
         dayMaxEvents: true,
         
-        /*ATENÇÃO*/
+        /*-------------------------------------------------------------------------------*/
         events: function(fetchInfo, successCallback, failureCallback) {
             const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
             const events = reservations.map(reservation => ({
@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }));
             successCallback(events);
         },
+        /*--------------------------------------------------------------------------------*/
+        
         eventClick: function (info) {
             const modal = document.getElementById('eventModal');
             const modalCliente = document.getElementById('modalCliente');

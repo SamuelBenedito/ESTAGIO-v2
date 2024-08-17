@@ -17,6 +17,9 @@
         </a>
         <a onclick="toggleDropdown()">Consultar</a>
         <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
+        <div class="button-bar">
+            <a onclick="window.location.href='reservas.html';">Cadastrar Reserva</a>
+        </div>
         <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
     </div>
 
@@ -29,9 +32,9 @@
     </div>
 
     <div id="dropdownRelatorios" class="dropdown-content">
-        <a href="re_reservas.html">📗- Relatórios de Reservas Cadastras</a>
+        <a href="re_reserv.html">📗- Relatórios de Reservas e Serviços Cadastradas</a>
         <a href="re_cliente.html">📕- Relatórios de Clientes Cadastros</a>
-        <a href="re_servicos.html">📘- Relatórios de Serviços Realizados</a>
+        <a href="re_master-detail.html">📘- Relatórios de Geral</a>
     </div>
 
     <div id="userDropdown" class="dropdown-content">
@@ -48,14 +51,6 @@
         <div class="total-clientes">
             <h2>Clientes Cadastrados: <span id="quantidadeClientes">0</span></h2>
         </div>
-        <!-- Botões de Exportação -->
-         <!--B
-         <div class="export-buttons">
-            <button onclick="exportToExcel()">Exportar para Excel</button>
-            <button onclick="exportToPDF()">Exportar para PDF</button>
-        </div>
-         -->
-        
     </div>
 
     <!-- Tabela de visualização dos dados -->
