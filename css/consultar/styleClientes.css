@@ -359,3 +359,25 @@ button[type="submit"]:hover {
     padding: 10px;
   }
 }
+
+/* Estilo para a notificação */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f44336; /* Cor de fundo vermelha para erro */
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: none; /* Ocultar por padrão */
+  z-index: 1000; /* Garantir que fique acima de outros elementos */
+}
+
+.notification.show {
+  display: block;
+}
+
+.notification p {
+  margin: 0;
+}

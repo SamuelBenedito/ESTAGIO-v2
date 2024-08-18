@@ -11,6 +11,58 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("clients", JSON.stringify(clients));
     }
 
+    function formatPhoneNumber(phone) {
+        return phone.replace(/\D/g, '') 
+            .replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3') 
+            .replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3'); 
+    }
+
+    function formatCPF(cpf) {
+        return cpf.replace(/\D/g, '') 
+            .replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4'); 
+    }
+
+    function isValidCPF(cpf) {
+        cpf = cpf.replace(/\D/g, ''); 
+
+        if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
+            return false; 
+        }
+
+        let sum;
+        let remainder;
+        for (let i = 1; i <= 9; i++) {
+            sum = (sum || 0) + parseInt(cpf.substring(i - 1, i)) * (11 - i);
+        }
+
+        remainder = (sum * 10) % 11;
+        if (remainder === 10 || remainder === 11) remainder = 0;
+        if (remainder !== parseInt(cpf.substring(9, 10))) {
+            return false;
+        }
+
+        sum = 0;
+        for (let i = 1; i <= 10; i++) {
+            sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+        }
+
+        remainder = (sum * 10) % 11;
+        if (remainder === 10 || remainder === 11) remainder = 0;
+        return remainder === parseInt(cpf.substring(10, 11));
+    }
+
+    function checkDuplicate(client, excludeIndex = -1) {
+        const errors = [];
+        clients.forEach((c, index) => {
+            if (index !== excludeIndex) {
+                if (c.email === client.email) errors.push("Email");
+                if (c.telefone === client.telefone) errors.push("Telefone");
+                if (c.cpf === client.cpf) errors.push("CPF");
+            }
+        });
+        return errors;
+    }
+
     function renderClients() {
         clientsTableBody.innerHTML = "";
         const filteredClients = filterClients(searchCliente.value);
@@ -29,9 +81,9 @@ document.addEventListener("DOMContentLoaded", () => {
             row.innerHTML = `
                 <td>${start + index + 1}</td>
                 <td>${client.cliente}</td>
-                <td>${client.telefone}</td>
+                <td>${formatPhoneNumber(client.telefone)}</td>
                 <td>${client.email}</td>
-                <td>${client.cpf}</td>
+                <td>${formatCPF(client.cpf)}</td>
                 <td>
                     <button class="btn btn-edit" onclick="editClient(${clients.indexOf(client)})">Alterar</button>
                     <button class="btn btn-delete" onclick="confirmDeleteClient(${clients.indexOf(client)})">Excluir</button>
@@ -57,6 +109,22 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("pageNumber").textContent = `Página ${currentPage} de ${totalPages}`;
         document.getElementById("prevPage").disabled = currentPage === 1;
         document.getElementById("nextPage").disabled = currentPage === totalPages;
+    }
+
+    function showError(errors) {
+        const notification = document.getElementById("notification");
+        const notificationMessage = document.getElementById("notificationMessage");
+
+        const message = errors.length
+            ? `Os seguintes dados já estão cadastrados: ${errors.join(', ')}.`
+            : "Erro desconhecido.";
+        
+        notificationMessage.textContent = message;
+        notification.classList.add("show");
+        
+        setTimeout(() => {
+            notification.classList.remove("show");
+        }, 5000);
     }
 
     window.editClient = function(index) {
@@ -95,12 +163,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("editClientForm").addEventListener("submit", (event) => {
             event.preventDefault();
-            clients[index] = {
+            const updatedClient = {
                 cliente: event.target.cliente.value,
                 telefone: event.target.telefone.value,
                 email: event.target.email.value,
                 cpf: event.target.cpf.value
             };
+            if (!isValidCPF(updatedClient.cpf)) {
+                showError(["CPF inválido"]);
+                return;
+            }
+            const duplicateErrors = checkDuplicate(updatedClient, index);
+            if (duplicateErrors.length > 0) {
+                showError(duplicateErrors);
+                return;
+            }
+            clients[index] = updatedClient;
             saveClientsToLocalStorage();
             renderClients();
             closeEditClientModal();
@@ -150,6 +228,15 @@ document.addEventListener("DOMContentLoaded", () => {
             email: event.target.email.value,
             cpf: event.target.cpf.value
         };
+        if (!isValidCPF(newClient.cpf)) {
+            showError(["CPF inválido"]);
+            return;
+        }
+        const duplicateErrors = checkDuplicate(newClient);
+        if (duplicateErrors.length > 0) {
+            showError(duplicateErrors);
+            return;
+        }
         clients.push(newClient);
         saveClientsToLocalStorage();
         renderClients();
@@ -157,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     searchCliente.addEventListener("input", () => {
-        currentPage = 1; // Reset to the first page when searching
+        currentPage = 1;
         renderClients();
     });
 
@@ -176,9 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Remove this function if you do not want to initialize with any clients
     function loadInitialClients() {
-        // Removed example client data
         renderClients();
     }
 
