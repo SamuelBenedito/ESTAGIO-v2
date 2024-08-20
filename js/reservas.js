@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const addServicoBtn = document.getElementById('addServico');
     const addBrinquedoBtn = document.getElementById('addBrinquedo');
     const addFormaPagBtn = document.getElementById('addFormaPag');
+    const valorInput = document.getElementById('valor');
 
     // Adiciona funcionalidades aos botões de adicionar
     addClienteBtn.addEventListener('click', function() {
@@ -27,6 +28,14 @@ document.addEventListener('DOMContentLoaded', function () {
         // Aqui você pode adicionar a lógica para sugestões de formas de pagamento
     });
 
+    // Formatação do campo "Valor" para moeda pt-BR
+    valorInput.addEventListener('input', function () {
+        let value = valorInput.value.replace(/\D/g, ''); // Remove tudo que não for número
+        value = (value / 100).toFixed(2); // Divide por 100 para ajustar casas decimais
+        value = value.replace('.', ','); // Substitui ponto por vírgula
+        valorInput.value = `R$ ${value}`;
+    });
+
     // Manipula o envio do formulário
     form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -38,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const brinquedo = document.getElementById('brinquedo').value;
         const formaPag = document.getElementById('formaPag').value;
         const day = document.getElementById('day').value;
-        const valor = document.getElementById('valor').value;
+        const valor = valorInput.value;
         const obs = document.getElementById('obs').value;
 
         // Cria um objeto de reserva
