@@ -17,17 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let rowToEdit;
     let currentPage = 1;
     const rowsPerPage = 10;
-    let temas = [];
-
-    async function fetchTemas() {
-        try {
-            const response = await fetch('/temas');
-            temas = await response.json();
-            renderTable();
-        } catch (error) {
-            console.error('Erro ao buscar temas:', error);
-        }
-    }
+    let temas = []
 
     function renderTable() {
         tableBody.innerHTML = '';
@@ -64,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             deleteButton.addEventListener('click', function() {
                 rowToDelete = newRow;
                 confirmationModal.style.display = 'flex';
-            });
+            }); 
 
             actionsCell.appendChild(editButton);
             actionsCell.appendChild(deleteButton);
