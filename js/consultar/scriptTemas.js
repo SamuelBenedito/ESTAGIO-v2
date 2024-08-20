@@ -19,6 +19,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const rowsPerPage = 10;
     let temas = [];
 
+    async function fetchTemas() {
+        try {
+            const response = await fetch('/temas');
+            temas = await response.json();
+            renderTable();
+        } catch (error) {
+            console.error('Erro ao buscar temas:', error);
+        }
+    }
+
     function renderTable() {
         tableBody.innerHTML = '';
         const start = (currentPage - 1) * rowsPerPage;
@@ -111,6 +121,12 @@ document.addEventListener('DOMContentLoaded', function() {
         editInput.value = row.children[1].textContent;
         editModal.style.display = 'flex';
     }
+
+    editInput.addEventListener('input', function() {
+        if (editInput.value.length > 50) {
+            editInput.value = editInput.value.slice(0, 50); // Trunca o valor para 50 caracteres
+        }
+    });
 
     editForm.addEventListener('submit', function(event) {
         event.preventDefault();

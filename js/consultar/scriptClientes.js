@@ -6,31 +6,30 @@ document.addEventListener("DOMContentLoaded", () => {
     let clients = JSON.parse(localStorage.getItem("clients")) || [];
     const itemsPerPage = 10;
     let currentPage = 1;
+    
 
     function saveClientsToLocalStorage() {
         localStorage.setItem("clients", JSON.stringify(clients));
     }
 
     function formatPhoneNumber(phone) {
-        return phone.replace(/\D/g, '') 
-            .replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3') 
-            .replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3'); 
+        return phone.replace(/\D/g, '')
+            .replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3')
+            .replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
     }
 
     function formatCPF(cpf) {
-        return cpf.replace(/\D/g, '') 
-            .replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4'); 
+        return cpf.replace(/\D/g, '')
+            .replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
     }
 
     function isValidCPF(cpf) {
-        cpf = cpf.replace(/\D/g, ''); 
-
+        cpf = cpf.replace(/\D/g, '');
         if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
-            return false; 
+            return false;
         }
 
-        let sum;
-        let remainder;
+        let sum, remainder;
         for (let i = 1; i <= 9; i++) {
             sum = (sum || 0) + parseInt(cpf.substring(i - 1, i)) * (11 - i);
         }
@@ -118,13 +117,35 @@ document.addEventListener("DOMContentLoaded", () => {
         const message = errors.length
             ? `Os seguintes dados já estão cadastrados: ${errors.join(', ')}.`
             : "Erro desconhecido.";
-        
+
         notificationMessage.textContent = message;
         notification.classList.add("show");
-        
+
         setTimeout(() => {
             notification.classList.remove("show");
         }, 5000);
+    }
+
+    function limitInputFields() {
+        document.getElementById("editCliente").addEventListener("input", (event) => {
+            if (event.target.value.length > 50) {
+                event.target.value = event.target.value.slice(0, 50);
+            }
+        });
+
+        document.getElementById("editTelefone").addEventListener("input", (event) => {
+            event.target.value = event.target.value.replace(/\D/g, '').slice(0, 11);
+        });
+
+        document.getElementById("editEmail").addEventListener("input", (event) => {
+            if (event.target.value.length > 50) {
+                event.target.value = event.target.value.slice(0, 50);
+            }
+        });
+
+        document.getElementById("editCpf").addEventListener("input", (event) => {
+            event.target.value = event.target.value.replace(/\D/g, '').slice(0, 11);
+        });
     }
 
     window.editClient = function(index) {
@@ -160,6 +181,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const editClientModal = document.getElementById("editClientModal");
         editClientModal.style.display = "flex";
+
+        limitInputFields();
 
         document.getElementById("editClientForm").addEventListener("submit", (event) => {
             event.preventDefault();
@@ -215,38 +238,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("confirm-no").addEventListener("click", closeConfirmDeleteDialog);
     };
 
-    window.closeConfirmDeleteDialog = function() {
+    function closeConfirmDeleteDialog() {
         const confirmDeleteDialog = document.getElementById("confirmDeleteDialog");
         confirmDeleteDialog.parentNode.removeChild(confirmDeleteDialog);
-    };
-
-    clientForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const newClient = {
-            cliente: event.target.cliente.value,
-            telefone: event.target.telefone.value,
-            email: event.target.email.value,
-            cpf: event.target.cpf.value
-        };
-        if (!isValidCPF(newClient.cpf)) {
-            showError(["CPF inválido"]);
-            return;
-        }
-        const duplicateErrors = checkDuplicate(newClient);
-        if (duplicateErrors.length > 0) {
-            showError(duplicateErrors);
-            return;
-        }
-        clients.push(newClient);
-        saveClientsToLocalStorage();
-        renderClients();
-        event.target.reset();
-    });
-
-    searchCliente.addEventListener("input", () => {
-        currentPage = 1;
-        renderClients();
-    });
+    }
 
     document.getElementById("prevPage").addEventListener("click", () => {
         if (currentPage > 1) {
@@ -256,16 +251,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("nextPage").addEventListener("click", () => {
-        const totalPages = Math.ceil(filterClients(searchCliente.value).length / itemsPerPage);
-        if (currentPage < totalPages) {
+        if (currentPage < Math.ceil(clients.length / itemsPerPage)) {
             currentPage++;
             renderClients();
         }
     });
 
-    function loadInitialClients() {
-        renderClients();
-    }
+    searchCliente.addEventListener("input", renderClients);
 
-    loadInitialClients();
+    renderClients();
+});
+
+document.getElementById('telefone').addEventListener('input', function (e) {
+    this.value = this.value.replace(/\D/g, '');
+});
+
+document.getElementById('cpf').addEventListener('input', function (e) {
+    this.value = this.value.replace(/\D/g, '');
 });

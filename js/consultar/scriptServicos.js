@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function openEditModal(row) {
         rowToEdit = row;
         editInputNome.value = row.children[1].textContent;
-        editInputValor.value = row.children[2].textContent;
+        editInputValor.value = row.children[2].textContent.replace('R$ ', ''); // Remove o prefixo "R$"
         editInputDescricao.value = row.children[3].textContent;
         const brinquedosValue = row.children[4].textContent.trim();
         if (brinquedosValue === 'SIM') {
@@ -197,10 +197,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const updatedBrinquedos = editInputBrinquedosSim.checked ? 'SIM' : (editInputBrinquedosNao.checked ? 'NÃO' : '');
 
         if (updatedNome && updatedValor && updatedDescricao && updatedBrinquedos) {
+            // Valida que o valor é numérico
+            if (!/^\d+(\,\d{1,2})?$/.test(updatedValor)) {
+                alert('O valor deve conter apenas números.');
+                return;
+            }
+
             const index = Array.from(tableBody.children).indexOf(rowToEdit);
 
             filteredData[index].name = updatedNome;
-            filteredData[index].valor = updatedValor;
+            filteredData[index].valor = `R$ ${updatedValor}`;
             filteredData[index].descricao = updatedDescricao;
             filteredData[index].brinquedos = updatedBrinquedos;
 
@@ -230,12 +236,31 @@ document.addEventListener('DOMContentLoaded', function() {
     confirmNo.addEventListener('click', function() {
         confirmationModal.style.display = 'none';
     });
-});
 
-document.getElementById('valor').addEventListener('input', function(e) {
-    let input = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
-    input = (input / 100).toFixed(2); // Formata como decimal com 2 casas
-    input = input.replace('.', ','); // Substitui o ponto por vírgula
-    input = input.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'); // Adiciona pontos como separador de milhares
-    e.target.value = 'R$ ' + input; // Adiciona o prefixo "R$"
+    // Limita o comprimento dos campos de entrada
+    function limitInputFields() {
+        editInputNome.addEventListener('input', function() {
+            if (editInputNome.value.length > 50) {
+                editInputNome.value = editInputNome.value.slice(0, 50);
+            }
+        });
+
+        editInputDescricao.addEventListener('input', function() {
+            if (editInputDescricao.value.length > 50) {
+                editInputDescricao.value = editInputDescricao.value.slice(0, 50);
+            }
+        });
+    }
+
+    // Chama a função para limitar o comprimento dos campos na inicialização
+    limitInputFields();
+
+    // Formatação do valor
+    document.getElementById('valor').addEventListener('input', function(e) {
+        let input = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+        input = (input / 100).toFixed(2); // Formata como decimal com 2 casas
+        input = input.replace('.', ','); // Substitui o ponto por vírgula
+        input = input.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'); // Adiciona pontos como separador de milhares
+        e.target.value = 'R$ ' + input; // Adiciona o prefixo "R$"
+    });
 });

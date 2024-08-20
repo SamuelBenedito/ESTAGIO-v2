@@ -134,6 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    editInput.addEventListener('input', function() {
+        if (editInput.value.length > 50) {
+            editInput.value = editInput.value.slice(0, 50); // Trunca o valor para 50 caracteres
+        }
+    });
+
     editForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const updatedValue = editInput.value.trim();
