@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let clients = JSON.parse(localStorage.getItem("clients")) || [];
     const itemsPerPage = 10;
     let currentPage = 1;
-    
 
     function saveClientsToLocalStorage() {
         localStorage.setItem("clients", JSON.stringify(clients));
@@ -258,6 +257,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     searchCliente.addEventListener("input", renderClients);
+
+    // Handler for the client registration form
+    clientForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const newClient = {
+            cliente: event.target.cliente.value,
+            telefone: event.target.telefone.value,
+            email: event.target.email.value,
+            cpf: event.target.cpf.value
+        };
+
+        if (!isValidCPF(newClient.cpf)) {
+            showError(["CPF inválido"]);
+            return;
+        }
+
+        const duplicateErrors = checkDuplicate(newClient);
+        if (duplicateErrors.length > 0) {
+            showError(duplicateErrors);
+            return;
+        }
+
+        clients.push(newClient);
+        saveClientsToLocalStorage();
+        renderClients();
+
+        // Clear the form fields
+        clientForm.reset();
+    });
 
     renderClients();
 });
