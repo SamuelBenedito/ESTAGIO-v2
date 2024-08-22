@@ -70,9 +70,17 @@ document.addEventListener('DOMContentLoaded', function () {
         // Limpa o formulário
         form.reset();
 
-        // Atualiza o calendário
+        // Atualiza o calendário apenas se o elemento estiver presente
         const calendarEl = document.getElementById('calendar');
-        const calendar = FullCalendar.getCalendar(calendarEl);
-        calendar.refetchEvents();
+        if (calendarEl) {
+            const calendar = FullCalendar.getCalendar(calendarEl);
+            if (calendar) {
+                calendar.refetchEvents(); // Atualiza os eventos do calendário
+            } else {
+                console.error('Instância do calendário não encontrada.');
+            }
+        } else {
+            console.warn('Elemento de calendário não encontrado. O calendário não será atualizado.');
+        }
     });
 });

@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const rowsPerPage = 10;
     let allData = [];
     let filteredData = [];
+    let rowToEdit = null;
+    let rowToDelete = null;
 
     // Função para salvar a tabela no localStorage
     function saveTableToLocalStorage() {
@@ -29,8 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const storedData = localStorage.getItem('formasPagamento');
         if (storedData) {
             allData = JSON.parse(storedData);
-            filteredData = [...allData];
-            renderTable();
+            filteredData = [...allData]; // Inicializa filteredData com os dados carregados
+            renderTable(); // Renderiza a tabela após o carregamento
         }
     }
 
@@ -41,11 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const endIndex = startIndex + rowsPerPage;
         const paginatedData = filteredData.slice(startIndex, endIndex);
 
-        if (filteredData.length === 0) {
-            noResultsMessage.style.display = 'block'; // Mostrar mensagem de nenhum resultado
-        } else {
-            noResultsMessage.style.display = 'none'; // Ocultar mensagem de nenhum resultado
-        }
+        noResultsMessage.style.display = filteredData.length === 0 ? 'block' : 'none';
 
         paginatedData.forEach(data => {
             const newRow = document.createElement('tr');
@@ -116,16 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 name: formaPagamentoValue
             };
             allData.push(newData);
-            filteredData = [...allData];
+            filteredData = [...allData]; // Atualiza filteredData com os novos dados
 
-            // Atualiza a página se o novo registro for na página atual
-            if (allData.length > (currentPage * rowsPerPage)) {
-                // Se o total de registros exceder o número máximo de registros por página, atualize a página atual
-                renderTable();
-            } else {
-                // Se não houver necessidade de paginação, atualize a tabela diretamente
-                renderTable();
-            }
+            renderTable(); // Atualiza a tabela com o novo registro
 
             saveTableToLocalStorage(); // Salva no localStorage
             formaPagamentoInput.value = '';

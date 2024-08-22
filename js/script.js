@@ -1,4 +1,3 @@
-// Função para abrir o modal de informações do usuário
 function openUserInfoModal() {
   var modal = document.getElementById("userInfoModal");
   modal.style.display = "block";
@@ -42,15 +41,4 @@ function toggleRelatorioDropdown() {
 function toggleUserDropdown() {
   var dropdown = document.getElementById("userDropdown");
   dropdown.style.display = (dropdown.style.display === "none" || dropdown.style.display === "") ? "block" : "none";
-}
-
-// Funções para os botões da barra
-function cadastrar() {
-  // Lógica para cadastrar
-  alert('Cadastrar');
-}
-
-function excluir() {
-  // Lógica para excluir
-  alert('Excluir');
 }

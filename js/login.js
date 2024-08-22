@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('error-message');
-    const btnRelatorios = document.getElementById('btnRelatorios');
 
     loginForm.addEventListener('submit', (event) => {
         event.preventDefault(); // Evita o comportamento padrão de envio do formulário
@@ -26,12 +25,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000);
         }
     });
-
-    // Mostra ou oculta o botão de relatórios baseado no tipo de usuário
-    const userType = localStorage.getItem('userType');
-    if (userType === 'GERENCIAL') {
-        btnRelatorios.style.display = 'block';
-    } else if (userType === 'FUNCIONARIO') {
-        btnRelatorios.style.display = 'none';
-    }
 });
+

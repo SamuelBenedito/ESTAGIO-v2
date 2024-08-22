@@ -278,15 +278,11 @@ body {
     cursor: pointer;
 }
 
-/* Estilo padrão */
 /*
-.fc-event {
-    /* Adicione os estilos padrão aqui *
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #ccc;
+cuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
 }
 */
+
 /* Estilo para desativar ou modificar os estilos */
 .no-styles .fc-event {
     background: none !important;

@@ -2,67 +2,85 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salão System</title>
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/calendar.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salão System</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/calendar.css">
 </head>
 
 <body>
-    <div class="navbar">
-        <div class="navbar-item">
-            <a class="logo" href="calendario.html">
-                <img src="image/Logo.png" alt="Logo" class="logo-image">
-            </a>
-            <a onclick="toggleDropdown()">Consultar</a>
-        </div>
-        <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
-        <div class="button-bar">
-            <a onclick="window.location.href='reservas.html';">Cadastrar Reserva</a>
-        </div>
-        <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
+  <div class="navbar">
+    <div class="navbar-item">
+      <a class="logo" href="calendario.html">
+        <img src="image/Logo.png" alt="Logo" class="logo-image">
+      </a>
+      <a onclick="toggleDropdown()">Consultar</a>
     </div>
-
-    <div id="dropdown" class="dropdown-content">
-        <a href="clientes.html">👨‍💼- Consulta de Clientes</a>
-        <a href="temas.html">🎉- Consulta de Temas</a>
-        <a href="servicos.html">🧩- Consulta de Serviços</a>
-        <a href="brinquedos.html">🛝- Consulta de Brinquedos</a>
-        <a href="formas_pagamento.html">💳- Consulta de Formas de pagamento</a>
+    <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
+    <div class="button-bar">
+      <a onclick="window.location.href='reservas.html';">Cadastrar Reserva</a>
     </div>
+    <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
+  </div>
 
-    <div id="dropdownRelatorios" class="dropdown-content">
-        <a href="re_reserv.html">📗- Relatórios de Reservas e Serviços Cadastradas</a>
-        <a href="re_cliente.html">📕- Relatórios de Clientes Cadastros</a>
-        <a href="re_master-detail.html">📘- Relatórios de Geral</a>
+  <div id="dropdown" class="dropdown-content">
+    <a href="clientes.html">‍👨‍💼- Consulta de Clientes</a>
+    <a href="temas.html">🎉- Consulta de Temas</a>
+    <a href="servicos.html">🧩- Consulta de Serviços</a>
+    <a href="brinquedos.html">🛝- Consulta de Brinquedos</a>
+    <a href="formas_pagamento.html">💳- Consulta de Formas de pagamento</a>
+  </div>
+
+  <div id="dropdownRelatorios" class="dropdown-content">
+    <a href="re_reserv.html">📗- Relatórios de Reservas e Serviços Cadastradas</a>
+    <a href="re_cliente.html">📕- Relatórios de Clientes Cadastros</a>
+    <a href="re_master-detail.html">📘- Relatórios de Geral</a>
+  </div>
+
+  <div id="userDropdown" class="dropdown-content">
+    <a href="login.html">Sair</a>
+  </div>
+
+  <div id="calendar"></div>
+
+  <div id="eventModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Editar Reserva</h2>
+      <form id="editForm">
+        <p>
+          <strong>Cliente:</strong>
+          <input type="text" id="modalCliente" name="cliente">
+        </p>
+        <p>
+          <strong>Tema:</strong>
+          <input type="text" id="modalTema" name="tema">
+        </p>
+        <p>
+          <strong>Brinquedos:</strong>
+          <input type="text" id="modalBrinquedos" name="brinquedos">
+        </p>
+        <p>
+          <strong>Forma de Pagamento:</strong>
+          <input type="text" id="modalFormaPag" name="formaPag">
+        </p>
+        <p>
+          <strong>Valor:</strong>
+          <input type="number" id="modalValor" name="valor">
+        </p>
+        <p>
+          <strong>Observações:</strong>
+          <textarea id="modalObs" name="obs"></textarea>
+        </p>
+        <button type="submit">Salvar Alterações</button>
+      </form>
     </div>
+  </div>
 
-    <div id="userDropdown" class="dropdown-content">
-        <a href="login.html">Sair</a>
-    </div>
-
-
-    <div id="calendar"></div>
-
-    <!-- Modal de edição de reservas-->
-    <div id="eventModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Detalhes da Reserva</h2>
-            <p><strong>Cliente:</strong> <span id="modalCliente"></span></p>
-            <p><strong>Tema:</strong> <span id="modalTema"></span></p>
-            <p><strong>Brinquedos:</strong> <span id="modalBrinquedos"></span></p>
-            <p><strong>Forma de Pagamento:</strong> <span id="modalFormaPag"></span></p>
-            <p><strong>Valor:</strong> <span id="modalValor"></span></p>
-            <p><strong>Observações:</strong> <span id="modalObs"></span></p>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.js"></script>
-    <script src="js/calendar.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/login.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>

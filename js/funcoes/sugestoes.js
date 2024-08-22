@@ -18,24 +18,38 @@ let formasPagamento = JSON.parse(localStorage.getItem("formasPagamento")) || [];
 
 // Funções para filtrar os dados
 function filterClients(query) {
-    return clients.filter(client => client.cliente.toLowerCase().includes(query.toLowerCase()));
+    return clients.filter(client => {
+        const cliente = client.cliente || ""; // Garante que cliente é uma string
+        return cliente.toLowerCase().includes(query.toLowerCase());
+    });
 }
 
 function filterTemas(query) {
-    return temas.filter(tema => tema.name.toLowerCase().includes(query.toLowerCase()));
+    return temas.filter(tema => {
+        const name = tema.name || ""; // Garante que name é uma string
+        return name.toLowerCase().includes(query.toLowerCase());
+    });
 }
 
 function filterServices(query) {
-    return servicos.filter(service => service.name.toLowerCase().includes(query.toLowerCase()));
+    return servicos.filter(service => {
+        const name = service.name || ""; // Garante que name é uma string
+        return name.toLowerCase().includes(query.toLowerCase());
+    });
 }
 
 function filterBrinquedos(query) {
-    return brinquedos.filter(brinquedo => brinquedo.name.toLowerCase().includes(query.toLowerCase()));
+    return brinquedos.filter(brinquedo => {
+        const name = brinquedo.name || ""; // Garante que name é uma string
+        return name.toLowerCase().includes(query.toLowerCase());
+    });
 }
 
+
 function filterFormasPagamento(query) {
-    return formasPagamento.filter(forma => forma.nome.toLowerCase().includes(query.toLowerCase()));
+    return formasPagamento.filter(forma => forma.name.toLowerCase().includes(query.toLowerCase()));
 }
+
 
 // Função para mostrar as sugestões
 function showSuggestions(suggestions, container, input) {
@@ -98,9 +112,9 @@ brinquedoInput.addEventListener("input", () => {
 formasPagamentoInput.addEventListener("input", () => {
     const query = formasPagamentoInput.value;
     if (query.length > 0) {
-      const suggestions = filterFormasPagamento(query);
-      showSuggestions(suggestions, formasPagamentoSuggestionsContainer, formasPagamentoInput);
+        const suggestions = filterFormasPagamento(query);
+        showSuggestions(suggestions, formasPagamentoSuggestionsContainer, formasPagamentoInput);
     } else {
-      formasPagamentoSuggestionsContainer.innerHTML = "";
+        formasPagamentoSuggestionsContainer.innerHTML = "";
     }
 });
