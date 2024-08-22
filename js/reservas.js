@@ -82,5 +82,8 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             console.warn('Elemento de calendário não encontrado. O calendário não será atualizado.');
         }
+
+        // Redireciona para a página cardapio.html
+        window.location.href = 'calendario.html';
     });
 });
