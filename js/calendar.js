@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 modalCliente.value = info.event.title;
                 modalTema.value = info.event.extendedProps.tema;
                 modalServico.value = info.event.extendedProps.servico;
-                modalBrinquedos.value = info.event.extendedProps.brinquedos || 'teste'; // Define um valor padrão se estiver faltando
+                modalBrinquedos.value = info.event.extendedProps.brinquedos || ''; // Define um valor padrão se estiver faltando
                 modalFormaPag.value = info.event.extendedProps.formaPag;
                 modalDay.value = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
                 modalValor.value = info.event.extendedProps.valor;

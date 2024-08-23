@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const cliente = document.getElementById('cliente').value;
         const tema = document.getElementById('tema').value;
         const servico = document.getElementById('servico').value;
-        const brinquedo = document.getElementById('brinquedo').value;
+        const brinquedos = document.getElementById('brinquedo').value; // Ajustado para plural
         const formaPag = document.getElementById('formaPag').value;
         const day = document.getElementById('day').value;
         const valor = valorInput.value;
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cliente,
             tema,
             servico,
-            brinquedo,
+            brinquedos, // Ajustado para plural
             formaPag,
             day,
             valor,

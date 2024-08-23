@@ -53,6 +53,10 @@
         </div>
     </div>
 
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Pesquisar por dados do cliente...">
+    </div>
+
     <!-- Tabela de visualização dos dados -->
     <div class="dados-grid">
         <table id="clientesTable">
@@ -68,6 +72,14 @@
                 <!-- Dados serão inseridos dinamicamente aqui -->
             </tbody>
         </table>
+
+        <div class="pagination">
+            <button id="prevPage">Anterior</button>
+            <span id="pageNumbers"></span>
+            <button id="nextPage">Próxima</button>
+            <input type="number" id="pageInput" min="1">
+            <button id="goToPage">Ir para página</button>
+        </div>              
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -75,6 +87,7 @@
     <script src="js/consultar/scriptClientes.js"></script>
     <script src="js/script.js"></script>
     <script src="js/calendar.js"></script>
+    <script src="js/funcoes/paginaçãoClientes.js"></script>
     <script src="js/relatorios/scriptRelatorioClientes.js"></script>
 </body>
 </html>

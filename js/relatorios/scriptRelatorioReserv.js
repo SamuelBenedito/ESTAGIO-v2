@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     const filterType = document.getElementById('filterType');
     const filterDate = document.getElementById('filterDate');
+    const searchInput = document.getElementById('searchInput');
     const tableBody = document.querySelector('#reservasTable tbody');
     const valorTotalElement = document.getElementById('valorTotal');
 
-    if (!filterType || !filterDate || !tableBody || !valorTotalElement) {
+    if (!filterType || !filterDate || !searchInput || !tableBody || !valorTotalElement) {
         console.error("Um ou mais elementos não foram encontrados.");
         return;
     }
@@ -28,28 +29,41 @@ document.addEventListener('DOMContentLoaded', function () {
         return new Date(date.getTime() + userTimezoneOffset);
     }
 
-    function updateReservationsTable(filter = 'all', date = null) {
+    function updateReservationsTable(filter = 'all', date = null, searchText = '') {
         let totalValue = 0;
 
         const filteredReservations = reservations.filter(reservation => {
             const reservationDate = adjustForTimezone(reservation.day);
 
+            let matchesFilter = true;
             switch (filter) {
                 case 'day':
-                    return reservationDate.toDateString() === adjustForTimezone(date).toDateString();
+                    matchesFilter = reservationDate.toDateString() === adjustForTimezone(date).toDateString();
+                    break;
                 case 'week':
                     const selectedDate = adjustForTimezone(date);
                     const startOfWeek = new Date(selectedDate.setDate(selectedDate.getDate() - selectedDate.getDay()));
                     const endOfWeek = new Date(startOfWeek);
                     endOfWeek.setDate(endOfWeek.getDate() + 6);
-                    return reservationDate >= startOfWeek && reservationDate <= endOfWeek;
+                    matchesFilter = reservationDate >= startOfWeek && reservationDate <= endOfWeek;
+                    break;
                 case 'month':
                     const selectedMonth = adjustForTimezone(date);
-                    return reservationDate.getFullYear() === selectedMonth.getFullYear() &&
-                           reservationDate.getMonth() === selectedMonth.getMonth();
-                default:
-                    return true;
+                    matchesFilter = reservationDate.getFullYear() === selectedMonth.getFullYear() &&
+                                   reservationDate.getMonth() === selectedMonth.getMonth();
+                    break;
             }
+
+            // Filtro de pesquisa
+            const searchLower = searchText.toLowerCase();
+            const matchesSearch = reservation.cliente.toLowerCase().includes(searchLower) ||
+                                  reservation.tema.toLowerCase().includes(searchLower) ||
+                                  reservation.servico.toLowerCase().includes(searchLower) ||
+                                  reservation.brinquedos.toLowerCase().includes(searchLower) ||
+                                  reservation.formaPag.toLowerCase().includes(searchLower) ||
+                                  reservation.obs.toLowerCase().includes(searchLower);
+
+            return matchesFilter && matchesSearch;
         });
 
         tableBody.innerHTML = '';
@@ -60,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${reservation.cliente}</td>
                 <td>${reservation.tema}</td>
                 <td>${reservation.servico}</td>
-                <td>${reservation.brinquedo}</td>
+                <td>${reservation.brinquedos}</td>
                 <td>${reservation.formaPag}</td>
                 <td>${formatDateTime(reservation.day)}</td>
                 <td>${reservation.valor}</td>
@@ -74,7 +88,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function applyFilter() {
-        updateReservationsTable(filterType.value, filterDate.value);
+        updateReservationsTable(filterType.value, filterDate.value, searchInput.value);
+    }
+
+    function applySearch() {
+        updateReservationsTable(filterType.value, filterDate.value, searchInput.value);
     }
 
     filterType.addEventListener('change', function () {
@@ -85,6 +103,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     filterDate.addEventListener('change', function () {
         applyFilter();
+    });
+
+    searchInput.addEventListener('input', function () {
+        applySearch();
     });
 
     applyFilter(); // Inicializa a tabela sem filtros aplicados
@@ -176,5 +198,5 @@ async function exportToPDF() {
     doc.setFontSize(8);
     doc.text("Gerado por Salão System", margin, pageHeight - 10);
 
-    doc.save("reservas.pdf");
+    doc.save("reserv.pdf");
 }

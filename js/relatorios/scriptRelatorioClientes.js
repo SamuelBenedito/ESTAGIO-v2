@@ -22,6 +22,31 @@ document.addEventListener("DOMContentLoaded", () => {
     renderClients();
 });
 
+function filterClients() {
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const clientsTableBody = document.getElementById("clientesTableBody");
+    const clients = JSON.parse(localStorage.getItem("clients")) || [];
+
+    clientsTableBody.innerHTML = "";
+
+    const filteredClients = clients.filter(client => client.cliente.toLowerCase().includes(searchInput));
+
+    filteredClients.forEach(client => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${client.cliente}</td>
+            <td>${client.telefone}</td>
+            <td>${client.email}</td>
+            <td>${client.cpf}</td>
+        `;
+        clientsTableBody.appendChild(row);
+    });
+
+    // Atualiza a quantidade de clientes filtrados
+    document.getElementById("quantidadeClientes").textContent = filteredClients.length;
+}
+
+
 
 function exportToExcel() {
     const clients = JSON.parse(localStorage.getItem("clients")) || [];
@@ -99,5 +124,6 @@ async function exportToPDF() {
     doc.setFontSize(8);
     doc.text("Gerado por Salão System", margin, 290);
 
-    doc.save("RelatorioClientes.pdf");
+    doc.save("clientes.pdf");
 }
+
