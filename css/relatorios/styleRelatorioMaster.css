@@ -1,16 +1,70 @@
-/* Contêiner para o valor total de serviços */
+/* Contêiner para o valor total de clientes */
 .opcoes {
     text-align: center;
     margin: 20px 0;
 }
 
-.total-servicos {
+.total-clientes {
     margin-bottom: 20px;
 }
 
-.total-servicos h1 {
+.total-clientes h2 {
     font-size: 1.5rem;
     color: #333;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    /* Centraliza o campo de pesquisa horizontalmente */
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+
+}
+
+#searchInput {
+    padding: 10px 15px;
+    width: 350px;
+    border-radius: 50px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+    border-color: #007bff;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+#searchInput::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+.export-buttons {
+    margin-top: 20px;
+}
+
+.export-buttons button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.export-buttons button:hover {
+    background-color: #45a049;
 }
 
 /* Tabela de visualização dos dados */
@@ -20,13 +74,13 @@
     max-width: 1200px;
     border-radius: 8px;
     overflow: hidden;
-    margin-top: 20px; /* Adiciona um pouco de espaço acima da tabela */
 }
 
 table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0; /* Remove espaçamento entre bordas */
+    border-spacing: 0;
+    /* Remove espaçamento entre bordas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -40,7 +94,8 @@ thead th {
     border-bottom: 2px solid #ddd;
     font-weight: bold;
     color: #555;
-    border-right: 1px solid #ddd; /* Adiciona borda direita no cabeçalho */
+    border-right: 1px solid #ddd;
+    /* Adiciona borda direita no cabeçalho */
 }
 
 tbody tr:nth-child(even) {
@@ -54,18 +109,21 @@ tbody tr:nth-child(odd) {
 tbody td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
-    border-right: 1px solid #ddd; /* Adiciona borda direita nas células */
+    border-right: 1px solid #ddd;
+    /* Adiciona borda direita nas células */
     font-size: 14px;
     color: #333;
 }
 
 tbody td:last-child {
-    border-right: none; /* Remove borda direita na última coluna */
+    border-right: none;
+    /* Remove borda direita na última coluna */
 }
 
 tfoot td {
     padding: 12px 15px;
-    border-top: 2px solid #ddd; /* Borda superior no rodapé */
+    border-top: 2px solid #ddd;
+    /* Borda superior no rodapé */
     font-weight: bold;
 }
 
@@ -84,4 +142,91 @@ tbody td button {
 
 tbody td button:hover {
     background-color: #0056b3;
+}
+
+/* Estilo para os botões de exportação */
+.export-buttons {
+    margin-top: 20px;
+    /* Espaçamento acima dos botões */
+    text-align: center;
+    /* Centraliza os botões */
+}
+
+.export-buttons button {
+    background-color: #007bff;
+    /* Cor de fundo padrão */
+    color: white;
+    /* Cor do texto */
+    border: none;
+    /* Remove a borda padrão */
+    border-radius: 5px;
+    /* Bordas arredondadas */
+    padding: 10px 20px;
+    /* Espaçamento interno */
+    font-size: 1rem;
+    /* Tamanho da fonte */
+    cursor: pointer;
+    /* Cursor de ponteiro */
+    margin: 0 10px;
+    /* Espaçamento horizontal entre os botões */
+    transition: background-color 0.3s, transform 0.3s;
+    /* Transição suave */
+}
+
+.export-buttons button:hover {
+    background-color: #0056b3;
+    /* Cor de fundo no hover */
+}
+
+.export-buttons button:active {
+    background-color: #004494;
+    /* Cor de fundo quando pressionado */
+    transform: scale(0.98);
+    /* Leve redução de tamanho ao clicar */
+}
+
+.export-buttons button:focus {
+    outline: none;
+    /* Remove o contorno padrão */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+    /* Sombra ao focar no botão */
+}
+
+/* Estilo para a paginação */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.pagination button,
+.pagination input[type="number"] {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #333333;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: background-color 0.3s;
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    background-color: #f5f5f5;
+    border-color: #dddddd;
+}
+
+.pagination button:hover:not(:disabled),
+.pagination input[type="number"]:focus {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.pagination input[type="number"] {
+    width: 80px;
+    text-align: center;
+    border: 1px solid #cccccc;
 }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Geral</title>
+    <link rel="stylesheet" href="css/consultar/styleClientes.css">
+    <link rel="stylesheet" href="css/relatorios/styleRelatorioMaster.css">
+    <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="css/relatorios/logs.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <a class="logo" href="calendario.html">
+            <img src="image/Logo.png" alt="Logo" class="logo-image">
+        </a>
+        <a onclick="toggleDropdown()">Consultar</a>
+        <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
+        <div class="button-bar">
+            <a onclick="window.location.href='reservas.html';">Cadastrar Reserva</a>
+        </div>
+        <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
+    </div>
+
+    <div id="dropdown" class="dropdown-content">
+        <a href="clientes.html">👨‍💼- Consulta de Clientes</a>
+        <a href="temas.html">🎉- Consulta de Temas</a>
+        <a href="servicos.html">🧩- Consulta de Serviços</a>
+        <a href="brinquedos.html">🛝- Consulta de Brinquedos</a>
+        <a href="formas_pagamento.html">💳- Consulta de Formas de pagamento</a>
+    </div>
+
+    <div id="dropdownRelatorios" class="dropdown-content">
+        <a href="re_reserv.html">📗- Relatórios de Reservas e Serviços Cadastradas</a>
+        <a href="re_cliente.html">📕- Relatórios de Clientes Cadastrados</a>
+        <a href="re_master-detail.html">📘- Relatórios de Geral</a>
+    </div>
+
+    <div id="userDropdown" class="dropdown-content">
+        <a href="login.html">Sair</a>
+    </div>
+
+    <div class="export-buttons">
+        <button onclick="exportToExcel()">Exportar para Excel</button>
+        <button onclick="exportToPDF()">Exportar para PDF</button>
+    </div>    
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Pesquisar por dados aqui...">
+    </div>
+
+    <!-- Tabela de visualização dos dados -->
+    <div class="dados-grid">
+        <table id="clientesTable">
+            <thead>
+                <tr>
+                    <th>RESERVAS</th>
+                    <th>SEVIÇOS</th>
+                    <th>DATE E HORA</th>
+                    <th>CLIENTES</th>
+                    <th>TEMAS</th>
+                    <th>BRINQUEDOS</th>
+                    <th>FORMA DE PAGAMENTO</th>
+                    
+                    <th><a href="javascript:void(0);" onclick="openModal()">AÇÕES</a></th>
+                </tr>
+            </thead>
+            <tbody id="clientesTableBody">
+                <!-- Dados serão inseridos dinamicamente aqui -->
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <button id="prevPage">Anterior</button>
+            <span id="pageNumbers"></span>
+            <button id="nextPage">Próxima</button>
+            <input type="number" id="pageInput" min="1">
+            <button id="goToPage">Ir para página</button>
+        </div>
+
+        <div id="acoesModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Ações - Logs do sistema</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Escolha uma ação para esta linha:</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="cancel-btn" onclick="closeModal()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="js/consultar/scriptClientes.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/funcoes/paginacaoMaster.js"></script>
+    <script src="js/relatorios/scriptRelatorioMaster.js"></script>
+    <script src="js/relatorios/logs.js"></script> <!-- Script do Modal -->
+
+</body>
+</html>
