@@ -16,11 +16,9 @@
 .search-container {
     display: flex;
     justify-content: center;
-    /* Centraliza o campo de pesquisa horizontalmente */
     margin-bottom: 20px;
     padding: 10px;
     border-radius: 8px;
-
 }
 
 #searchInput {
@@ -70,8 +68,7 @@
 /* Tabela de visualização dos dados */
 .dados-grid {
     margin: 0 auto;
-    width: 90%;
-    max-width: 1200px;
+    width: 100%;
     border-radius: 8px;
     overflow: hidden;
 }
@@ -80,7 +77,6 @@ table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    /* Remove espaçamento entre bordas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -95,7 +91,6 @@ thead th {
     font-weight: bold;
     color: #555;
     border-right: 1px solid #ddd;
-    /* Adiciona borda direita no cabeçalho */
 }
 
 tbody tr:nth-child(even) {
@@ -110,20 +105,17 @@ tbody td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
-    /* Adiciona borda direita nas células */
     font-size: 14px;
     color: #333;
 }
 
 tbody td:last-child {
     border-right: none;
-    /* Remove borda direita na última coluna */
 }
 
 tfoot td {
     padding: 12px 15px;
     border-top: 2px solid #ddd;
-    /* Borda superior no rodapé */
     font-weight: bold;
 }
 
@@ -147,49 +139,33 @@ tbody td button:hover {
 /* Estilo para os botões de exportação */
 .export-buttons {
     margin-top: 20px;
-    /* Espaçamento acima dos botões */
     text-align: center;
-    /* Centraliza os botões */
 }
 
 .export-buttons button {
     background-color: #007bff;
-    /* Cor de fundo padrão */
     color: white;
-    /* Cor do texto */
     border: none;
-    /* Remove a borda padrão */
     border-radius: 5px;
-    /* Bordas arredondadas */
     padding: 10px 20px;
-    /* Espaçamento interno */
     font-size: 1rem;
-    /* Tamanho da fonte */
     cursor: pointer;
-    /* Cursor de ponteiro */
     margin: 0 10px;
-    /* Espaçamento horizontal entre os botões */
     transition: background-color 0.3s, transform 0.3s;
-    /* Transição suave */
 }
 
 .export-buttons button:hover {
     background-color: #0056b3;
-    /* Cor de fundo no hover */
 }
 
 .export-buttons button:active {
     background-color: #004494;
-    /* Cor de fundo quando pressionado */
     transform: scale(0.98);
-    /* Leve redução de tamanho ao clicar */
 }
 
 .export-buttons button:focus {
     outline: none;
-    /* Remove o contorno padrão */
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
-    /* Sombra ao focar no botão */
 }
 
 /* Estilo para a paginação */
