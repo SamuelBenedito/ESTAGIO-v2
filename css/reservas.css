@@ -209,33 +209,6 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* Tabela */
-.clients-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.clients-table th,
-.clients-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-.clients-table th {
-    background-color: #343a40;
-    color: white;
-}
-
-.clients-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.clients-table tr:hover {
-    background-color: #ddd;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
     .navbar {

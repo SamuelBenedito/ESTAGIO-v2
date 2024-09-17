@@ -106,12 +106,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         calendar.render();
-
-        window.onclick = function (event) {
-            const modal = document.getElementById('eventModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        };
     }
 });

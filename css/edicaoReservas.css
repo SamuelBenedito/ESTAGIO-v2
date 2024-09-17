@@ -8,19 +8,18 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semi-transparente */
-    backdrop-filter: blur(5px); /* Efeito de desfoque */
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 5% auto; /* Ajustado para ficar mais centralizado */
+    margin: 129px auto;
     padding: 20px;
-    border: 1px solid #ddd; /* Alterado para #ddd para combinar com o formulário */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajustado para manter a consistência com o estilo geral */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 80%;
-    max-width: 900px; /* Tamanho máximo consistente com o container */
+    max-width: 900px;
     animation: modalopen 0.5s;
 }
 
@@ -29,11 +28,10 @@
     to {opacity: 1; transform: scale(1);}
 }
 
-/* Estilos do botão de fechar */
 .close {
     color: #aaa;
     float: right;
-    font-size: 24px; /* Ajustado para ser menor */
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
 }
@@ -44,7 +42,12 @@
     text-decoration: none;
 }
 
-/* Estilos dos campos do formulário */
+.modal h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #343a40;
+}
+
 .form-group {
     margin-bottom: 15px;
 }
@@ -53,6 +56,7 @@
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
+    color: #343a40;
 }
 
 .input-container {
@@ -63,11 +67,12 @@
 .input-container input[type="text"],
 .input-container input[type="datetime-local"] {
     flex: 1;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
     box-sizing: border-box;
-    font-size: 1em; /* Ajustado para o padrão */
+    font-size: 1em;
 }
 
 .input-container button {
@@ -82,15 +87,6 @@
     height: 30px;
 }
 
-.autocomplete-suggestions {
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    max-height: 150px;
-    overflow-y: auto;
-    background-color: #fff;
-}
-
-/* Estilo dos botões */
 button[type="submit"],
 .modal-actions .delete-button {
     background-color: #007bff;
@@ -98,7 +94,6 @@ button[type="submit"],
     color: white;
     padding: 10px 20px;
     text-align: center;
-    text-decoration: none;
     display: inline-block;
     font-size: 1em;
     margin: 5px;
@@ -137,4 +132,33 @@ button[type="submit"]:hover,
         width: 25px;
         height: 25px;
     }
+}
+
+/* Estilo para o formulário e botões */
+.container {
+    max-width: 900px;
+    margin: 129px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1em;
+    margin: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
 }
