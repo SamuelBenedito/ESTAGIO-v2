@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     extendedProps: {
                         tema: reservation.tema,
                         servico: reservation.servico,
-                        brinquedos: reservation.brinquedos || '', // Define um valor padrão se estiver faltando
+                        brinquedos: reservation.brinquedos || 'NÃO',
                         formaPag: reservation.formaPag,
                         valor: reservation.valor,
                         obs: reservation.obs || ''
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 modalCliente.value = info.event.title;
                 modalTema.value = info.event.extendedProps.tema;
                 modalServico.value = info.event.extendedProps.servico;
-                modalBrinquedos.value = info.event.extendedProps.brinquedos || ''; // Define um valor padrão se estiver faltando
+                modalBrinquedos.value = info.event.extendedProps.brinquedos || ''; 
                 modalFormaPag.value = info.event.extendedProps.formaPag;
                 modalDay.value = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
                 modalValor.value = info.event.extendedProps.valor;
@@ -107,4 +107,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         calendar.render();
     }
+
+    function formatCurrency(value) {
+        value = value.replace(/\D/g, "");
+        value = (value / 100).toFixed(2) + "";
+        value = value.replace(".", ",");
+        value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+        return "R$ " + value;
+    }
+
+    const modalValor = document.getElementById('modalValor');
+    modalValor.addEventListener('input', function () {
+        modalValor.value = formatCurrency(modalValor.value);
+    });
 });
