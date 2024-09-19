@@ -28,13 +28,24 @@ document.addEventListener('DOMContentLoaded', function () {
         // Aqui você pode adicionar a lógica para sugestões de formas de pagamento
     });
 
-    // Formatação do campo "Valor" para moeda pt-BR
+    // Função para aplicar máscara de moeda (R$)
+    function formatCurrency(value) {
+        value = value.replace(/\D/g, ""); // Remove tudo que não é dígito
+        value = (value / 100).toFixed(2) + ""; // Converte para formato decimal
+        value = value.replace(".", ","); // Substitui o ponto por vírgula
+        value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); // Coloca ponto como separador de milhar
+        return "R$ " + value;
+    }
+
+    // Aplica a máscara no campo de valor
     valorInput.addEventListener('input', function () {
-        let value = valorInput.value.replace(/\D/g, ''); // Remove tudo que não for número
-        value = (value / 100).toFixed(2); // Divide por 100 para ajustar casas decimais
-        value = value.replace('.', ','); // Substitui ponto por vírgula
-        valorInput.value = `R$ ${value}`;
+        valorInput.value = formatCurrency(valorInput.value);
     });
+
+    // Função para desformatar o valor da moeda
+    function parseCurrency(value) {
+        return parseFloat(value.replace('R$ ', '').replace('.', '').replace(',', '.'));
+    }
 
     // Manipula o envio do formulário
     form.addEventListener('submit', function(event) {
@@ -47,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const brinquedos = document.getElementById('brinquedo').value; // Ajustado para plural
         const formaPag = document.getElementById('formaPag').value;
         const day = document.getElementById('day').value;
-        const valor = valorInput.value;
+        const valor = parseCurrency(valorInput.value); // Converte para valor numérico
         const obs = document.getElementById('obs').value;
 
         // Cria um objeto de reserva
@@ -83,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.warn('Elemento de calendário não encontrado. O calendário não será atualizado.');
         }
 
-        // Redireciona para a página cardapio.html
+        // Redireciona para a página calendario.html
         window.location.href = 'calendario.html';
     });
 });
