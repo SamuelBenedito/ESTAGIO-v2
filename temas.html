@@ -53,7 +53,7 @@
         <h2>Lista de Temas</h2>
         <div class="form-group">
             <label for="searchTema">Pesquisar Tema:</label>
-            <input type="text" id="searchTema" placeholder="Digite o nome do tema para pesquisar" autocomplete="off">
+            <input type="text" id="searchInput" placeholder="Digite o nome do tema para pesquisar" autocomplete="off">
         </div>
         <table class="temas-table">
             <thead>
@@ -64,7 +64,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Aqui serão listados dinamicamente os temas cadastrados -->
+                <tbody id="temasTableBody">
             </tbody>
         </table>
 
@@ -74,26 +74,27 @@
 
         <!-- Navegação da paginação -->
         <div class="pagination">
-            <button id="prevPage" disabled>« Anterior</button>
-            <span id="pageNumber">Página 1</span>
+            <button id="prevPage" >« Anterior</button>
+            <span id="pageNumber"></span>
             <button id="nextPage">Próxima »</button>
         </div>
     </div>
 
     <!-- Modal para Alterar Tema -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <h2>Alterar Tema</h2>
-            <form id="editForm">
-                <div class="form-group">
-                    <label for="editTema">Tema:</label>
-                    <input type="text" id="editTema" name="editTema" required>
-                </div>
-                <button type="submit">Salvar</button>
-                <button type="button" id="closeEditModal" class="close-modal">Fechar</button>
-            </form>
-        </div>
+<div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <h2>Alterar Tema</h2>
+        <form id="editForm">
+            <div class="form-group">
+                <label for="editTema">Tema:</label>
+                <input type="text" id="editTema" name="editTema" required>
+            </div>
+            <button type="submit">Salvar</button>
+            <button type="button" id="closeEditModal" class="close-modal">Fechar</button>
+        </form>
     </div>
+</div>
+
 
     <!-- Modal de Confirmação de Exclusão -->
     <div id="confirmationModal" class="confirmation-dialog">

@@ -1,173 +1,190 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('temasForm');
-    const tableBody = document.querySelector('.temas-table tbody');
-    const searchInput = document.getElementById('searchTema');
-    const noResultsMessage = document.getElementById('noResultsMessage');
-    const editModal = document.getElementById('editModal');
-    const editForm = document.getElementById('editForm');
-    const editInput = document.getElementById('editTema');
-    const closeEditModal = document.getElementById('closeEditModal');
-    const confirmationModal = document.getElementById('confirmationModal');
-    const confirmYes = document.getElementById('confirm-yes');
-    const confirmNo = document.getElementById('confirm-no');
-    const prevPageButton = document.getElementById('prevPage');
-    const nextPageButton = document.getElementById('nextPage');
-    const pageNumberSpan = document.getElementById('pageNumber');
-    let rowToDelete;
-    let rowToEdit;
+document.addEventListener("DOMContentLoaded", () => {
+    const temasForm = document.getElementById("temasForm");
+    const temasTableBody = document.getElementById("temasTableBody");
+    const noResultsMessage = document.getElementById("noResultsMessage");
+    const editModal = document.getElementById("editModal");
+    const editForm = document.getElementById("editForm");
+    const closeEditModal = document.getElementById("closeEditModal");
+    const paginationInfo = document.getElementById("pageInfo");
+    const prevPageButton = document.getElementById("prevPage");
+    const nextPageButton = document.getElementById("nextPage");
+    const searchInput = document.getElementById("searchInput"); // Campo de pesquisa
+
+    let temas = [];
+    let editingTemaId = null;
     let currentPage = 1;
-    const rowsPerPage = 10;
-    let temas = []
+    const itemsPerPage = 10;
 
-    function renderTable() {
-        tableBody.innerHTML = '';
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const filteredTemas = temas.filter(t => t.name.toLowerCase().includes(searchInput.value.toLowerCase()));
-        const paginatedTemas = filteredTemas.slice(start, end);
+    // Função para buscar temas
+    function fetchTemas() {
+        fetch('temas.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição');
+                }
+                return response.json();
+            })
+            .then(data => {
+                temas = data;
+                renderTemas();
+            })
+            .catch(error => console.error('Erro:', error));
+    }
 
-        if (filteredTemas.length === 0) {
-            noResultsMessage.style.display = 'block';
-        } else {
-            noResultsMessage.style.display = 'none';
-        }
+    // Função para renderizar os temas com paginação
+    function renderTemas() {
+        temasTableBody.innerHTML = "";
+        noResultsMessage.style.display = temas.length === 0 ? "block" : "none";
 
-        paginatedTemas.forEach((data, index) => {
-            const newRow = document.createElement('tr');
-            const idCell = document.createElement('td');
-            const nomeCell = document.createElement('td');
-            const actionsCell = document.createElement('td');
+        // Filtrando temas com base na pesquisa
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredTemas = temas.filter(tema => tema.nome.toLowerCase().includes(searchTerm));
 
-            idCell.textContent = start + index + 1;
-            nomeCell.textContent = data.name;
+        // Cálculo de início e fim para a paginação
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedTemas = filteredTemas.slice(startIndex, endIndex);
 
-            const editButton = document.createElement('button');
-            editButton.textContent = 'Alterar';
-            editButton.classList.add('btn', 'btn-edit');
-            editButton.addEventListener('click', function() {
-                openEditModal(newRow);
-            });
-
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Excluir';
-            deleteButton.classList.add('btn', 'btn-delete');
-            deleteButton.addEventListener('click', function() {
-                rowToDelete = newRow;
-                confirmationModal.style.display = 'flex';
-            }); 
-
-            actionsCell.appendChild(editButton);
-            actionsCell.appendChild(deleteButton);
-
-            newRow.appendChild(idCell);
-            newRow.appendChild(nomeCell);
-            newRow.appendChild(actionsCell);
-
-            tableBody.appendChild(newRow);
+        paginatedTemas.forEach((tema, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${startIndex + index + 1}</td>
+                <td>${tema.nome}</td>
+                <td>
+                    <button class="btn btn-edit" onclick="editTema(${startIndex + index})">Alterar</button>
+                    <button class="btn btn-delete" onclick="confirmDeleteTema('${tema.idTema}')">Excluir</button>
+                </td>
+            `;
+            temasTableBody.appendChild(row);
         });
 
-        updatePaginationControls();
+        // Atualiza as informações de paginação
+        updatePaginationInfo(filteredTemas.length); // Passando o número de temas filtrados
     }
 
-    function updatePaginationControls() {
-        const filteredTemas = temas.filter(t => t.name.toLowerCase().includes(searchInput.value.toLowerCase()));
-        prevPageButton.disabled = currentPage === 1;
-        nextPageButton.disabled = currentPage * rowsPerPage >= filteredTemas.length;
-        pageNumberSpan.textContent = `Página ${currentPage}`;
+    // Função para atualizar as informações de paginação
+    function updatePaginationInfo(filteredCount) {
+        const totalPages = Math.ceil(filteredCount / itemsPerPage);
+        document.getElementById('pageNumber').textContent = `Página ${currentPage} de ${totalPages}`;
+
+        prevPageButton.disabled = currentPage === 1; // Desabilita botão "Anterior" na primeira página
+        nextPageButton.disabled = currentPage === totalPages; // Desabilita botão "Próximo" na última página
     }
 
-    function saveTableToLocalStorage() {
-        localStorage.setItem('temas', JSON.stringify(temas));
-    }
+    // Evento de pesquisa
+    searchInput.addEventListener("input", () => {
+        currentPage = 1; // Reseta a página ao pesquisar
+        renderTemas(); // Re-renderiza os temas com a pesquisa aplicada
+    });
 
-    function loadTableFromLocalStorage() {
-        const storedData = localStorage.getItem('temas');
-        if (storedData) {
-            temas = JSON.parse(storedData);
-            renderTable();
-        }
-    }
-
-    loadTableFromLocalStorage();
-
-    form.addEventListener('submit', function(event) {
+    temasForm.addEventListener("submit", (event) => {
         event.preventDefault();
+        const temaData = { temas: event.target.temas.value };
 
-        const temaInput = document.getElementById('temas');
-        const temaValue = temaInput.value.trim();
-
-        if (temaValue) {
-            temas.push({ id: temas.length + 1, name: temaValue });
-            saveTableToLocalStorage();
-            renderTable();
-            temaInput.value = '';
-        } else {
-            alert('Por favor, insira o nome do tema.');
-        }
+        fetch('temas.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(temaData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição');
+            }
+            return response.json();
+        })
+        .then(data => {
+            fetchTemas();
+            temasForm.reset();
+            editingTemaId = null;
+        })
+        .catch(error => console.error('Erro:', error));
     });
 
-    function openEditModal(row) {
-        rowToEdit = row;
-        editInput.value = row.children[1].textContent;
-        editModal.style.display = 'flex';
+    // Função para abrir o modal de edição
+    function openEditModal(tema) {
+        editModal.style.display = "block"; // Mostrar o modal
+        document.getElementById("editTema").value = tema.nome; // Preencher o campo com o tema atual
     }
 
-    editInput.addEventListener('input', function() {
-        if (editInput.value.length > 50) {
-            editInput.value = editInput.value.slice(0, 50); // Trunca o valor para 50 caracteres
-        }
+    // Função para fechar o modal
+    closeEditModal.addEventListener("click", () => {
+        editModal.style.display = "none"; // Esconder o modal
     });
 
-    editForm.addEventListener('submit', function(event) {
+    // Evento para enviar o formulário de edição
+    editForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        const updatedValue = editInput.value.trim();
+        const temaData = { temas: event.target.editTema.value };
 
-        if (updatedValue) {
-            const index = Array.from(tableBody.children).indexOf(rowToEdit);
-            temas[(currentPage - 1) * rowsPerPage + index].name = updatedValue;
-            renderTable();
-            editModal.style.display = 'none';
-            saveTableToLocalStorage();
-        } else {
-            alert('Por favor, insira o nome do tema.');
+        fetch(`temas.php?id=${editingTemaId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(temaData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição');
+            }
+            return response.json();
+        })
+        .then(data => {
+            fetchTemas(); // Atualiza a lista de temas
+            editModal.style.display = "none"; // Esconde o modal
+            temasForm.reset(); // Limpa o formulário de cadastro
+            editingTemaId = null; // Reseta o ID de edição
+        })
+        .catch(error => console.error('Erro:', error));
+    });
+
+    // Função de edição
+    window.editTema = function(index) {
+        const tema = temas[index];
+        if (!tema) {
+            console.error('Tema não encontrado');
+            return;
         }
-    });
 
-    closeEditModal.addEventListener('click', function() {
-        editModal.style.display = 'none';
-    });
+        editingTemaId = tema.idTema; // Guarda o ID do tema a ser editado
+        openEditModal(tema); // Abre o modal de edição
+    };
 
-    confirmYes.addEventListener('click', function() {
-        if (rowToDelete) {
-            const index = Array.from(tableBody.children).indexOf(rowToDelete);
-            temas.splice((currentPage - 1) * rowsPerPage + index, 1);
-            renderTable();
-            saveTableToLocalStorage();
-            confirmationModal.style.display = 'none';
+    // Função de confirmação de exclusão
+    window.confirmDeleteTema = function(id) {
+        const confirmDelete = confirm("Tem certeza que deseja excluir este tema?");
+        if (confirmDelete) {
+            fetch('temas.php', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição');
+                }
+                return response.json();
+            })
+            .then(data => {
+                fetchTemas(); // Atualiza a lista de temas
+            })
+            .catch(error => console.error('Erro:', error));
         }
-    });
+    };
 
-    confirmNo.addEventListener('click', function() {
-        confirmationModal.style.display = 'none';
-    });
-
-    searchInput.addEventListener('input', function() {
-        currentPage = 1; // Reset to the first page on search
-        renderTable();
-    });
-
-    prevPageButton.addEventListener('click', function() {
+    // Eventos de navegação de página
+    prevPageButton.addEventListener("click", () => {
         if (currentPage > 1) {
             currentPage--;
-            renderTable();
+            renderTemas(); // Re-renderiza os temas na nova página
         }
     });
 
-    nextPageButton.addEventListener('click', function() {
-        const filteredTemas = temas.filter(t => t.name.toLowerCase().includes(searchInput.value.toLowerCase()));
-        if (currentPage * rowsPerPage < filteredTemas.length) {
+    nextPageButton.addEventListener("click", () => {
+        const totalPages = Math.ceil(temas.length / itemsPerPage);
+        if (currentPage < totalPages) {
             currentPage++;
-            renderTable();
+            renderTemas(); // Re-renderiza os temas na nova página
         }
     });
+
+    fetchTemas(); // Carrega os temas ao iniciar
 });
