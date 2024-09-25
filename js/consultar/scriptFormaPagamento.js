@@ -21,19 +21,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let rowToEdit = null;
     let rowToDelete = null;
 
-    // Função para salvar a tabela no localStorage
-    function saveTableToLocalStorage() {
-        localStorage.setItem('formasPagamento', JSON.stringify(allData));
-    }
-
-    // Função para carregar a tabela do localStorage
-    function loadTableFromLocalStorage() {
-        const storedData = localStorage.getItem('formasPagamento');
-        if (storedData) {
-            allData = JSON.parse(storedData);
-            filteredData = [...allData]; // Inicializa filteredData com os dados carregados
-            renderTable(); // Renderiza a tabela após o carregamento
-        }
+    // Função para carregar dados do servidor
+    function loadData() {
+        fetch('formas_pagamento.php')
+            .then(response => response.json())
+            .then(data => {
+                allData = data;
+                filteredData = [...allData];
+                renderTable();
+            })
+            .catch(error => console.error('Erro ao carregar dados:', error));
     }
 
     // Função para renderizar a tabela com dados filtrados e paginados
@@ -51,21 +48,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const nomeCell = document.createElement('td');
             const actionsCell = document.createElement('td');
 
-            idCell.textContent = data.id;
-            nomeCell.textContent = data.name;
+            idCell.textContent = data.idFormaPag;
+            nomeCell.textContent = data.nome;
 
             const editButton = document.createElement('button');
             editButton.textContent = 'Alterar';
             editButton.classList.add('btn', 'btn-edit');
             editButton.addEventListener('click', function() {
-                openEditModal(newRow);
+                openEditModal(newRow, data.idFormaPag);
             });
 
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Excluir';
             deleteButton.classList.add('btn', 'btn-delete');
             deleteButton.addEventListener('click', function() {
-                rowToDelete = newRow;
+                rowToDelete = data.idFormaPag;
                 confirmationModal.style.display = 'flex';
             });
 
@@ -84,8 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
         pageNumberSpan.textContent = `Página ${currentPage}`;
     }
 
-    function openEditModal(row) {
-        rowToEdit = row;
+    function openEditModal(row, id) {
+        rowToEdit = id;
         editInput.value = row.children[1].textContent;
         editModal.style.display = 'flex';
     }
@@ -94,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterTable() {
         const searchValue = searchInput.value.toLowerCase();
         filteredData = allData.filter(data =>
-            data.name.toLowerCase().includes(searchValue)
+            data.nome.toLowerCase().includes(searchValue)
         );
         currentPage = 1; // Reset to first page after search
         renderTable();
@@ -109,25 +106,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const formaPagamentoValue = formaPagamentoInput.value.trim();
 
         if (formaPagamentoValue) {
-            const newData = {
-                id: allData.length + 1,
-                name: formaPagamentoValue
-            };
-            allData.push(newData);
-            filteredData = [...allData]; // Atualiza filteredData com os novos dados
-
-            renderTable(); // Atualiza a tabela com o novo registro
-
-            saveTableToLocalStorage(); // Salva no localStorage
-            formaPagamentoInput.value = '';
+            fetch('formas_pagamento.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ formasPagamento: formaPagamentoValue })
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadData();  // Recarrega os dados
+                formaPagamentoInput.value = '';
+            })
+            .catch(error => console.error('Erro ao adicionar:', error));
         } else {
             alert('Por favor, insira o nome da forma de pagamento.');
-        }
-    });
-
-    editInput.addEventListener('input', function() {
-        if (editInput.value.length > 50) {
-            editInput.value = editInput.value.slice(0, 50); // Trunca o valor para 50 caracteres
         }
     });
 
@@ -136,17 +129,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const updatedValue = editInput.value.trim();
 
         if (updatedValue) {
-            rowToEdit.children[1].textContent = updatedValue;
-            const rowId = rowToEdit.children[0].textContent;
-            allData = allData.map(data =>
-                data.id == rowId ? { id: data.id, name: updatedValue } : data
-            );
-            filteredData = filteredData.map(data =>
-                data.id == rowId ? { id: data.id, name: updatedValue } : data
-            );
-            editModal.style.display = 'none';
-            saveTableToLocalStorage(); // Salva no localStorage
-            renderTable();
+            fetch(`formas_pagamento.php?id=${rowToEdit}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ formasPagamento: updatedValue })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                editModal.style.display = 'none';
+                loadData();  // Recarrega os dados
+            })
+            .catch(error => console.error('Erro ao atualizar:', error));
         } else {
             alert('Por favor, insira o nome da forma de pagamento.');
         }
@@ -158,13 +154,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     confirmYes.addEventListener('click', function() {
         if (rowToDelete) {
-            const rowId = rowToDelete.children[0].textContent;
-            allData = allData.filter(data => data.id != rowId);
-            filteredData = filteredData.filter(data => data.id != rowId);
-            tableBody.removeChild(rowToDelete);
-            saveTableToLocalStorage(); // Salva no localStorage
-            confirmationModal.style.display = 'none';
-            renderTable();
+            fetch('formas_pagamento.php', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: rowToDelete })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                confirmationModal.style.display = 'none';
+                loadData();  // Recarrega os dados
+            })
+            .catch(error => console.error('Erro ao excluir:', error));
         }
     });
 
@@ -186,6 +189,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Carrega a tabela do localStorage quando a página é carregada
-    loadTableFromLocalStorage();
+    // Carrega a tabela do servidor quando a página é carregada
+    loadData();
 });

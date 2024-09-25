@@ -13,46 +13,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevPageButton = document.getElementById('prevPage');
     const nextPageButton = document.getElementById('nextPage');
     const pageNumberSpan = document.getElementById('pageNumber');
-    let rowToDelete;
-    let rowToEdit;
+
     let currentPage = 1;
     const rowsPerPage = 10;
     let brinquedos = [];
+    let rowToEdit = null;
+    let rowToDelete = null;
+
+    function loadData() {
+        fetch('brinquedos.php')
+            .then(response => response.json())
+            .then(data => {
+                brinquedos = data;
+                renderTable();
+            })
+            .catch(error => console.error('Erro ao carregar dados:', error));
+    }
 
     function renderTable() {
         tableBody.innerHTML = '';
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const filteredBrinquedos = brinquedos.filter(b => b.name.toLowerCase().includes(searchInput.value.toLowerCase()));
-        const paginatedBrinquedos = filteredBrinquedos.slice(start, end);
+        const startIndex = (currentPage - 1) * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        const filteredBrinquedos = brinquedos.filter(b => b.nome.toLowerCase().includes(searchInput.value.toLowerCase()));
+        const paginatedBrinquedos = filteredBrinquedos.slice(startIndex, endIndex);
 
-        if (filteredBrinquedos.length === 0) {
-            noResultsMessage.style.display = 'block';
-        } else {
-            noResultsMessage.style.display = 'none';
-        }
+        noResultsMessage.style.display = filteredBrinquedos.length === 0 ? 'block' : 'none';
 
-        paginatedBrinquedos.forEach((data, index) => {
+        paginatedBrinquedos.forEach(data => {
             const newRow = document.createElement('tr');
             const idCell = document.createElement('td');
             const nomeCell = document.createElement('td');
             const actionsCell = document.createElement('td');
 
-            idCell.textContent = start + index + 1;
-            nomeCell.textContent = data.name;
+            idCell.textContent = data.idBrinquedos;
+            nomeCell.textContent = data.nome;
 
             const editButton = document.createElement('button');
             editButton.textContent = 'Alterar';
             editButton.classList.add('btn', 'btn-edit');
             editButton.addEventListener('click', function() {
-                openEditModal(newRow);
+                openEditModal(data.idBrinquedos, data.nome);
             });
 
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Excluir';
             deleteButton.classList.add('btn', 'btn-delete');
             deleteButton.addEventListener('click', function() {
-                rowToDelete = newRow;
+                rowToDelete = data.idBrinquedos;
                 confirmationModal.style.display = 'flex';
             });
 
@@ -66,29 +73,14 @@ document.addEventListener('DOMContentLoaded', function() {
             tableBody.appendChild(newRow);
         });
 
-        updatePaginationControls();
+        updatePaginationControls(filteredBrinquedos.length);
     }
 
-    function updatePaginationControls() {
-        const filteredBrinquedos = brinquedos.filter(b => b.name.toLowerCase().includes(searchInput.value.toLowerCase()));
+    function updatePaginationControls(totalItems) {
         prevPageButton.disabled = currentPage === 1;
-        nextPageButton.disabled = currentPage * rowsPerPage >= filteredBrinquedos.length;
+        nextPageButton.disabled = currentPage * rowsPerPage >= totalItems;
         pageNumberSpan.textContent = `Página ${currentPage}`;
     }
-
-    function saveTableToLocalStorage() {
-        localStorage.setItem('brinquedos', JSON.stringify(brinquedos));
-    }
-
-    function loadTableFromLocalStorage() {
-        const storedData = localStorage.getItem('brinquedos');
-        if (storedData) {
-            brinquedos = JSON.parse(storedData);
-            renderTable();
-        }
-    }
-
-    loadTableFromLocalStorage();
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -97,39 +89,46 @@ document.addEventListener('DOMContentLoaded', function() {
         const brinquedoValue = brinquedoInput.value.trim();
 
         if (brinquedoValue) {
-            brinquedos.push({ id: brinquedos.length + 1, name: brinquedoValue });
-            saveTableToLocalStorage();
-            renderTable();
-            brinquedoInput.value = '';
-        } else {
-            alert('Por favor, insira o nome do brinquedo.');
+            fetch('brinquedos.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ brinquedos: brinquedoValue })
+            })
+            .then(response => response.json())
+            .then(() => {
+                loadData();
+                brinquedoInput.value = '';
+            })
+            .catch(error => console.error('Erro ao adicionar:', error));
         }
     });
 
-    function openEditModal(row) {
-        rowToEdit = row;
-        editInput.value = row.children[1].textContent;
+    function openEditModal(id, nome) {
+        rowToEdit = id;
+        editInput.value = nome;
         editModal.style.display = 'flex';
     }
-
-    editInput.addEventListener('input', function() {
-        if (editInput.value.length > 50) {
-            editInput.value = editInput.value.slice(0, 50); // Trunca o valor para 50 caracteres
-        }
-    });
 
     editForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const updatedValue = editInput.value.trim();
 
         if (updatedValue) {
-            const index = Array.from(tableBody.children).indexOf(rowToEdit);
-            brinquedos[(currentPage - 1) * rowsPerPage + index].name = updatedValue;
-            renderTable();
-            editModal.style.display = 'none';
-            saveTableToLocalStorage();
-        } else {
-            alert('Por favor, insira o nome do brinquedo.');
+            fetch(`brinquedos.php?id=${rowToEdit}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ brinquedos: updatedValue })
+            })
+            .then(response => response.json())
+            .then(() => {
+                editModal.style.display = 'none';
+                loadData();
+            })
+            .catch(error => console.error('Erro ao atualizar:', error));
         }
     });
 
@@ -139,11 +138,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     confirmYes.addEventListener('click', function() {
         if (rowToDelete) {
-            const index = Array.from(tableBody.children).indexOf(rowToDelete);
-            brinquedos.splice((currentPage - 1) * rowsPerPage + index, 1);
-            renderTable();
-            saveTableToLocalStorage();
-            confirmationModal.style.display = 'none';
+            fetch('brinquedos.php', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: rowToDelete })
+            })
+            .then(response => response.json())
+            .then(() => {
+                confirmationModal.style.display = 'none';
+                loadData();
+            })
+            .catch(error => console.error('Erro ao excluir:', error));
         }
     });
 
@@ -152,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     searchInput.addEventListener('input', function() {
-        currentPage = 1; // Reset to the first page on search
+        currentPage = 1;
         renderTable();
     });
 
@@ -164,10 +171,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     nextPageButton.addEventListener('click', function() {
-        const filteredBrinquedos = brinquedos.filter(b => b.name.toLowerCase().includes(searchInput.value.toLowerCase()));
+        const filteredBrinquedos = brinquedos.filter(b => b.nome.toLowerCase().includes(searchInput.value.toLowerCase()));
         if (currentPage * rowsPerPage < filteredBrinquedos.length) {
             currentPage++;
             renderTable();
         }
     });
+
+    loadData();
 });
