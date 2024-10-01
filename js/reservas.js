@@ -1,32 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('clientForm');
-    const addClienteBtn = document.getElementById('addCliente');
-    const addTemaBtn = document.getElementById('addTema');
-    const addServicoBtn = document.getElementById('addServico');
-    const addBrinquedoBtn = document.getElementById('addBrinquedo');
-    const addFormaPagBtn = document.getElementById('addFormaPag');
+    if (!form) {
+        console.error('Formulário não encontrado');
+        return;
+    }
+    
     const valorInput = document.getElementById('valor');
-
-    // Adiciona funcionalidades aos botões de adicionar
-    addClienteBtn.addEventListener('click', function() {
-        // Aqui você pode adicionar a lógica para sugestões de clientes
-    });
-
-    addTemaBtn.addEventListener('click', function() {
-        // Aqui você pode adicionar a lógica para sugestões de temas
-    });
-
-    addServicoBtn.addEventListener('click', function() {
-        // Aqui você pode adicionar a lógica para sugestões de serviços
-    });
-
-    addBrinquedoBtn.addEventListener('click', function() {
-        // Aqui você pode adicionar a lógica para sugestões de brinquedos
-    });
-
-    addFormaPagBtn.addEventListener('click', function() {
-        // Aqui você pode adicionar a lógica para sugestões de formas de pagamento
-    });
+    if (!valorInput) {
+        console.error('Campo de valor não encontrado');
+        return;
+    }
 
     // Função para aplicar máscara de moeda (R$)
     function formatCurrency(value) {
@@ -48,53 +31,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Manipula o envio do formulário
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', function (event) {
         event.preventDefault();
 
         // Coleta os dados do formulário
         const cliente = document.getElementById('cliente').value;
         const tema = document.getElementById('tema').value;
-        const servico = document.getElementById('servico').value;
-        const brinquedos = document.getElementById('brinquedo').value; // Ajustado para plural
         const formaPag = document.getElementById('formaPag').value;
         const day = document.getElementById('day').value;
-        const valor = parseCurrency(valorInput.value); // Converte para valor numérico
-        const obs = document.getElementById('obs').value;
+        const valor = parseCurrency(valorInput.value);
 
-        // Cria um objeto de reserva
-        const newReservation = {
-            cliente,
-            tema,
-            servico,
-            brinquedos, // Ajustado para plural
-            formaPag,
-            day,
-            valor,
-            obs
+        // Envia os dados para o PHP via AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'reservas.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText); // Exibe a mensagem de sucesso ou erro
+            // Limpa o formulário após o envio
+            }
         };
 
-        // Adiciona a reserva ao localStorage
-        let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-        reservations.push(newReservation);
-        localStorage.setItem('reservations', JSON.stringify(reservations));
-
-        // Limpa o formulário
-        form.reset();
-
-        // Atualiza o calendário apenas se o elemento estiver presente
-        const calendarEl = document.getElementById('calendar');
-        if (calendarEl) {
-            const calendar = FullCalendar.getCalendar(calendarEl);
-            if (calendar) {
-                calendar.refetchEvents(); // Atualiza os eventos do calendário
-            } else {
-                console.error('Instância do calendário não encontrada.');
-            }
-        } else {
-            console.warn('Elemento de calendário não encontrado. O calendário não será atualizado.');
-        }
-
-        // Redireciona para a página calendario.html
-        window.location.href = 'calendario.html';
+        // Formata os dados para envio
+        const data = `cliente=${encodeURIComponent(cliente)}&tema=${encodeURIComponent(tema)}&formaPag=${encodeURIComponent(formaPag)}&day=${encodeURIComponent(day)}&valor=${encodeURIComponent(valor)}`;
+        xhr.send(data);
     });
 });
