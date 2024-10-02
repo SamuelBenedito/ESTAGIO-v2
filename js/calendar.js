@@ -22,26 +22,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 week: 'Semana',
                 day: 'Dia'
             },
-            timeZone: 'local',
+            timeZone: 'America/Sao_Paulo',
             navLinks: true,
             editable: false,
             dayMaxEvents: true,
             events: function (fetchInfo, successCallback, failureCallback) {
-                const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-                const events = reservations.map(reservation => ({
-                    title: reservation.cliente,
-                    start: reservation.day,
-                    extendedProps: {
-                        tema: reservation.tema,
-                        servico: reservation.servico,
-                        brinquedos: reservation.brinquedos || 'NÃO',
-                        formaPag: reservation.formaPag,
-                        valor: reservation.valor,
-                        obs: reservation.obs || ''
-                    }
-                }));
-                successCallback(events);
+                // Faz a requisição para o PHP
+                fetch('calendar.php')  // Altere para o caminho correto do seu arquivo PHP
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Eventos recebidos do servidor:", data);  // Exibe os dados no console
+                        successCallback(data);  // Passa os dados para o calendário
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar os eventos: ', error);  // Exibe erros no console
+                        failureCallback(error);
+                    });
             },
+            
             eventClick: function (info) {
                 const modal = document.getElementById('eventModal');
                 const modalCliente = document.getElementById('modalCliente');
@@ -52,58 +50,93 @@ document.addEventListener('DOMContentLoaded', function () {
                 const modalDay = document.getElementById('modalDay');
                 const modalValor = document.getElementById('modalValor');
                 const modalObs = document.getElementById('modalObs');
-
+            
                 // Preenche o formulário com as informações do evento
                 modalCliente.value = info.event.title;
                 modalTema.value = info.event.extendedProps.tema;
                 modalServico.value = info.event.extendedProps.servico;
                 modalBrinquedos.value = info.event.extendedProps.brinquedos || ''; 
                 modalFormaPag.value = info.event.extendedProps.formaPag;
-                modalDay.value = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
+                // Cria uma nova data a partir de info.event.start e adiciona 3 horas
+                const eventStart = new Date(info.event.start);
+                eventStart.setHours(eventStart.getHours() + 3); // Adiciona 3 horas
+
+                // Formata a data no formato desejado (YYYY-MM-DDTHH:MM)
+                modalDay.value = eventStart.toISOString().split('T')[0] + 'T' + eventStart.toTimeString().split(' ')[0];
+
                 modalValor.value = info.event.extendedProps.valor;
                 modalObs.value = info.event.extendedProps.obs || '';
-
+            
                 modal.style.display = 'block';
-
+            
                 const closeModal = document.querySelector('.close');
                 closeModal.onclick = function () {
                     modal.style.display = 'none';
                 };
-
+            
                 // Manipula o envio do formulário de edição
                 const editButton = document.querySelector('.modal-actions button[type="submit"]');
                 editButton.onclick = function (e) {
                     e.preventDefault();
-
-                    let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-                    let reservation = reservations.find(r => r.cliente === info.event.title);
-
-                    if (reservation) {
-                        reservation.cliente = modalCliente.value;
-                        reservation.tema = modalTema.value;
-                        reservation.servico = modalServico.value;
-                        reservation.brinquedos = modalBrinquedos.value;
-                        reservation.formaPag = modalFormaPag.value;
-                        reservation.day = modalDay.value;
-                        reservation.valor = modalValor.value;
-                        reservation.obs = modalObs.value;
-
-                        localStorage.setItem('reservations', JSON.stringify(reservations));
-                        calendar.refetchEvents();
-                        modal.style.display = 'none';
-                    }
+            
+                    const updatedData = {
+                        cliente: modalCliente.value,
+                        tema: modalTema.value,
+                        servico: modalServico.value,
+                        brinquedos: modalBrinquedos.value,
+                        formaPag: modalFormaPag.value,
+                        day: modalDay.value,
+                        valor: modalValor.value,
+                        obs: modalObs.value,
+                        originalCliente: info.event.title  // Adiciona o cliente original para identificar qual reserva atualizar
+                    };
+            
+                    fetch('updateReservation.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(updatedData)
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            calendar.refetchEvents();
+                            modal.style.display = 'none';
+                        } else {
+                            console.error('Erro ao atualizar a reserva: ', result.error);
+                        }
+                    })
+                    .catch(error => console.error('Erro ao atualizar: ', error));
                 };
-
+            
+                // Função para deletar a reserva
                 const deleteButton = document.querySelector('.delete-button');
                 deleteButton.onclick = function () {
-                    let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-                    reservations = reservations.filter(r => r.cliente !== info.event.title);
-                    localStorage.setItem('reservations', JSON.stringify(reservations));
-                    calendar.refetchEvents();
-                    modal.style.display = 'none';
+                    const deleteData = {
+                        cliente: info.event.title  // Identifica o cliente da reserva a ser excluída
+                    };
+            
+                    fetch('deleteReservation.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(deleteData)
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            calendar.refetchEvents();
+                            modal.style.display = 'none';
+                        } else {
+                            console.error('Erro ao deletar a reserva: ', result.error);
+                        }
+                    })
+                    .catch(error => console.error('Erro ao deletar: ', error));
                 };
             }
-        });
+        });            
 
         calendar.render();
     }
