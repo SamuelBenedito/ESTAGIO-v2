@@ -34,7 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             if (result.success) {
-    
+                // Armazena o tipo de usuário no localStorage
+                localStorage.setItem('tipoUsuario', result.tipoUsuario);
+                
+                // Alerta para exibir o tipo de usuário
+                alert(`Login bem-sucedido! Tipo de usuário: ${result.tipoUsuario}`);
+                
+                // Redireciona para a tela do calendário
                 window.location.href = 'calendario.html';
             } else {
                 // Exibe mensagem de erro

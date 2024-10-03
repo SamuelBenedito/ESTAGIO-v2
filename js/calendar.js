@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     const calendarEl = document.getElementById('calendar');
-    const userType = localStorage.getItem('userType');
+    const tipoUsuario = localStorage.getItem('tipoUsuario');
     const btnRelatorios = document.getElementById('btnRelatorios');
 
+    // Mostra ou oculta o botão de relatórios com base no tipo de usuário
     if (btnRelatorios) {
-        btnRelatorios.style.display = (userType === 'GERENCIAL') ? 'block' : 'none';
+        btnRelatorios.style.display = (tipoUsuario === 'GERENCIAL') ? 'block' : 'none';
     }
 
     if (calendarEl) {

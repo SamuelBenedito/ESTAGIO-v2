@@ -18,7 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Verifica se encontrou um usuário
             if ($result->num_rows > 0) {
-                echo json_encode(['success' => true]);
+                // Obtém os dados do usuário
+                $userData = $result->fetch_assoc();
+                $tipoUsuario = $userData['tipoUsuario']; // Aqui pegamos o tipo de usuário
+                echo json_encode(['success' => true, 'tipoUsuario' => $tipoUsuario]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Usuário ou senha incorretos']);
             }
