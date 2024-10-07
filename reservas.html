@@ -21,7 +21,7 @@
         <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
     </div>
 
-    <div id="dropdown" class="dropdown-content"></div>
+    <div id="dropdown" class="dropdown-content">
         <a href="clientes.html">👨‍💼- Consulta de Clientes</a>
         <a href="temas.html">🎉- Consulta de Temas</a>
         <a href="servicos.html">🧩- Consulta de Serviços</a>
@@ -29,13 +29,13 @@
         <a href="formas_pagamento.html">💳- Consulta de Formas de pagamento</a>
     </div>
 
-    <div id="dropdownRelatorios" class="dropdown-content"></div>
+    <div id="dropdownRelatorios" class="dropdown-content">
         <a href="re_reserv.html">📗- Relatórios de Reservas e Serviços Cadastradas</a>
         <a href="re_cliente.html">📕- Relatórios de Clientes Cadastrados</a>
         <a href="re_master-detail.html">📘- Relatórios de Geral</a>
     </div>
 
-    <div id="userDropdown" class="dropdown-content"></div>
+    <div id="userDropdown" class="dropdown-content">
         <a href="login.html">Sair</a>
     </div>
     
@@ -52,6 +52,14 @@
                     <input type="text" id="tema" name="tema" required autocomplete="off">
                 </div>
                 <div class="form-group">
+                    <label for="servico">Serviço:</label>
+                    <input type="text" id="servico" name="servico" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="brinquedo">Brinquedos:</label>
+                    <input type="text" id="brinquedo" name="brinquedo" required autocomplete="off">
+                </div>
+                <div class="form-group">
                     <label for="formaPag">Forma de Pagamento:</label>
                     <input type="text" id="formaPag" name="formaPag" required autocomplete="off">
                 </div>
@@ -63,6 +71,10 @@
                     <label for="valor">Valor da Reserva:</label>
                     <input type="text" id="valor" name="valor" required autocomplete="off">
                 </div>
+                <div class="form-group">
+                    <label for="obs">Observações:</label>
+                    <input type="text" id="obs" name="obs" autocomplete="off">
+                </div>
             </div>
 
             <div class="button-container">
@@ -72,5 +84,6 @@
     </div>
 
     <script src="js/reservas.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
