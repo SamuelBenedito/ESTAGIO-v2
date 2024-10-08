@@ -11,8 +11,9 @@ if ($conn->connect_error) {
     die('Erro de conexão: ' . $conn->connect_error);
 }
 
-// Consulta para buscar as reservas, incluindo brinquedos e serviços
-$sql = "SELECT r.data_reserva AS day, 
+// Consulta para buscar as reservas, incluindo o idReserva, brinquedos e serviços
+$sql = "SELECT r.idReserva, 
+               r.data_reserva AS day, 
                c.nome AS cliente, 
                t.nome AS tema, 
                f.nome AS formaPag, 
@@ -34,12 +35,13 @@ $events = [];
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $events[] = [
+            'id' => $row['idReserva'], // Adiciona o idReserva como 'id'
             'title' => $row['cliente'],
             'start' => $row['day'],
             'extendedProps' => [
                 'tema' => $row['tema'],
                 'servico' => $row['servico'],    // Incluindo serviço
-                'brinquedos' => $row['brinquedos'], // Incluindo brinquedo
+                'brinquedo' => $row['brinquedos'], // Incluindo brinquedo
                 'formaPag' => $row['formaPag'],
                 'valor' => $row['valor'],
                 'obs' => $row['observacao'] ? $row['observacao'] : ''
@@ -53,5 +55,4 @@ header('Content-Type: application/json');
 echo json_encode($events);
 
 $conn->close();
-
 ?>

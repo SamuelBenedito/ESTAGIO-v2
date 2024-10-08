@@ -14,6 +14,7 @@ if ($conn->connect_error) {
 // Recebe os dados da requisição
 $data = json_decode(file_get_contents("php://input"), true);
 
+$idReserva = $data['idReserva']; // Pega o idReserva do evento a ser atualizado
 $cliente = $data['cliente'];
 $tema = $data['tema'];
 $servico = $data['servico'];
@@ -22,19 +23,18 @@ $formaPag = $data['formaPag'];
 $day = $data['day'];
 $valor = $data['valor'];
 $obs = $data['obs'];
-$originalCliente = $data['originalCliente'];
 
-// Atualiza os dados da reserva no banco
-$sql = "UPDATE RESERVA r
-        JOIN CLIENTES c ON r.idClientes = c.idClientes
-        JOIN FORMA_PAGAMENTO f ON r.idFormaPag = f.idFormaPag
-        JOIN TEMA t ON r.idTema = t.idTema
-        SET r.data_reserva = '$day',
-            r.vlr_reserva = '$valor',
-            r.obs = '$obs',
-            r.idFormaPag = (SELECT idFormaPag FROM FORMA_PAGAMENTO WHERE nome = '$formaPag'),
-            r.idTema = (SELECT idTema FROM TEMA WHERE nome = '$tema')
-        WHERE c.nome = '$originalCliente'";
+// Atualiza os dados da reserva no banco usando o idReserva
+$sql = "UPDATE RESERVA 
+        SET data_reserva = '$day',
+            vlr_reserva = '$valor',
+            obs = '$obs',
+            idClientes = (SELECT idClientes FROM CLIENTES WHERE nome = '$cliente'),
+            idFormaPag = (SELECT idFormaPag FROM FORMA_PAGAMENTO WHERE nome = '$formaPag'),
+            idBrinquedos = (SELECT idBrinquedos FROM BRINQUEDOS WHERE nome = '$brinquedos'),
+            idServico = (SELECT idServico FROM SERVICO WHERE nome = '$servico'),
+            idTema = (SELECT idTema FROM TEMA WHERE nome = '$tema')
+        WHERE idReserva = '$idReserva'";
 
 if ($conn->query($sql) === TRUE) {
     echo json_encode(['success' => true]);
