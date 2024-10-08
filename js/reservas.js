@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('etste')
     const form = document.getElementById('clientForm');
     if (!form) {
         console.error('Formulário não encontrado');
@@ -6,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     const valorInput = document.getElementById('valor');
+    const brinquedoInput = document.getElementById('brinquedo'); // Adiciona o campo de brinquedos
+
     if (!valorInput) {
         console.error('Campo de valor não encontrado');
         return;
@@ -39,6 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const tema = document.getElementById('tema').value;
         const formaPag = document.getElementById('formaPag').value;
         const day = document.getElementById('day').value;
+        const brinquedo = document.getElementById('brinquedo').value; // Coleta o valor do campo brinquedo
+        const servico = document.getElementById('servico').value;
+        
         const valor = parseCurrency(valorInput.value);
 
         // Envia os dados para o PHP via AJAX
@@ -48,12 +54,17 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 console.log(xhr.responseText); // Exibe a mensagem de sucesso ou erro
-            // Limpa o formulário após o envio
+                // Limpa o formulário após o envio
+                form.reset();
             }
         };
 
         // Formata os dados para envio
-        const data = `cliente=${encodeURIComponent(cliente)}&tema=${encodeURIComponent(tema)}&formaPag=${encodeURIComponent(formaPag)}&day=${encodeURIComponent(day)}&valor=${encodeURIComponent(valor)}`;
+        const data = `cliente=${encodeURIComponent(cliente)}&tema=${encodeURIComponent(tema)}&formaPag=${encodeURIComponent(formaPag)}&day=${encodeURIComponent(day)}&valor=${encodeURIComponent(valor)}&brinquedo=${encodeURIComponent(brinquedo)}&servico=${encodeURIComponent(servico)}`;
+
+        // Loga os dados antes do envio
+        console.log("Dados enviados: ", data); // Aqui você verá os dados que estão sendo enviados
+
         xhr.send(data);
     });
 });
