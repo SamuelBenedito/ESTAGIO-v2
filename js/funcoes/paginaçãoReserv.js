@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const prevPageBtn = document.getElementById('prevPage');
     const nextPageBtn = document.getElementById('nextPage');
     const pageNumbersSpan = document.getElementById('pageNumbers');
@@ -9,7 +9,20 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentPage = 1;
     const recordsPerPage = 15;
     let totalPages = 1;
-    let reservations = JSON.parse(localStorage.getItem('reservations')) || []; // Carrega reservas do localStorage
+    let reservations = [];
+
+    // Função para carregar as reservas do banco de dados
+    async function loadReservations() {
+        try {
+            const response = await fetch('get_reservas.php');
+            if (!response.ok) throw new Error('Erro ao carregar reservas');
+            reservations = await response.json();
+            applyPagination(); // Chama a função de paginação após carregar as reservas
+        } catch (error) {
+            console.error(error);
+            alert('Não foi possível carregar as reservas.'); // Exibe erro ao usuário
+        }
+    }
 
     function updatePaginationControls() {
         prevPageBtn.disabled = currentPage === 1;
@@ -20,17 +33,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function renderPage(pageReservations) {
         tableBody.innerHTML = '';
-
+    
         pageReservations.forEach(reservation => {
             const row = document.createElement('tr');
+            // Converte vlr_reserva para número, caso não seja
+            const valor = Number(reservation.vlr_reserva); // Converte para número
             row.innerHTML = `
                 <td>${reservation.cliente}</td>
                 <td>${reservation.tema}</td>
                 <td>${reservation.servico}</td>
                 <td>${reservation.brinquedo}</td>
                 <td>${reservation.formaPag}</td>
-                <td>${reservation.day}</td>
-                <td>${reservation.valor}</td>
+                <td>${new Date(reservation.data_reserva).toLocaleString('pt-BR')}</td>
+                <td>${!isNaN(valor) ? valor.toFixed(2).replace('.', ',') : '0,00'}</td> <!-- Verifica se é um número -->
                 <td>${reservation.obs}</td>
             `;
             tableBody.appendChild(row);
@@ -85,6 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Inicializa a paginação
-    applyPagination();
+    // Carrega as reservas ao iniciar a página
+    loadReservations();
 });
