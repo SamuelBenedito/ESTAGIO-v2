@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const day = document.getElementById('day').value;
         const brinquedo = document.getElementById('brinquedo').value; // Coleta o valor do campo brinquedo
         const servico = document.getElementById('servico').value;
+        const obs = document.getElementById('obs').value;
         
         const valor = parseCurrency(valorInput.value);
 
@@ -60,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Formata os dados para envio
-        const data = `cliente=${encodeURIComponent(cliente)}&tema=${encodeURIComponent(tema)}&formaPag=${encodeURIComponent(formaPag)}&day=${encodeURIComponent(day)}&valor=${encodeURIComponent(valor)}&brinquedo=${encodeURIComponent(brinquedo)}&servico=${encodeURIComponent(servico)}`;
+        const data = `cliente=${encodeURIComponent(cliente)}&tema=${encodeURIComponent(tema)}&formaPag=${encodeURIComponent(formaPag)}&day=${encodeURIComponent(day)}&valor=${encodeURIComponent(valor)}&brinquedo=${encodeURIComponent(brinquedo)}&servico=${encodeURIComponent(servico)}&obs=${encodeURIComponent(obs)}`;
 
         // Loga os dados antes do envio
         console.log("Dados enviados: ", data); // Aqui você verá os dados que estão sendo enviados

@@ -19,6 +19,7 @@ $day = $_POST['day'];
 $valor = $_POST['valor'];
 $brinquedo = $_POST['brinquedo'];
 $servico = $_POST['servico'];
+$obs = $_POST['obs'];
 
 // Verificação de preenchimento dos dados (opcional)
 if (empty($cliente) || empty($tema) || empty($formaPag) || empty($day) || empty($valor)) {
@@ -26,14 +27,15 @@ if (empty($cliente) || empty($tema) || empty($formaPag) || empty($day) || empty(
 }
 
 // Validação e inserção no banco de dados
-$sql = "INSERT INTO RESERVA (data_reserva, idClientes, idFormaPag, idTema, idBrinquedos, idServico, vlr_reserva) 
+$sql = "INSERT INTO RESERVA (data_reserva, idClientes, idFormaPag, idTema, idBrinquedos, idServico, vlr_reserva, obs) 
         VALUES ('$day', 
                 (SELECT idClientes FROM CLIENTES WHERE nome = '$cliente'),
                 (SELECT idFormaPag FROM FORMA_PAGAMENTO WHERE nome = '$formaPag'),
                 (SELECT idTema FROM TEMA WHERE nome = '$tema'),
                 (SELECT idBrinquedos FROM BRINQUEDOS WHERE nome = '$brinquedo'),
                 (SELECT idServico FROM SERVICO WHERE nome = '$servico'),
-                '$valor')";
+                '$valor',
+                '$obs')";
 
 if ($conn->query($sql) === TRUE) {
     echo "Reserva cadastrada com sucesso!";
