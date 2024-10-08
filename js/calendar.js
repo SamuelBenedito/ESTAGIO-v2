@@ -56,22 +56,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 modalCliente.value = info.event.title;
                 modalTema.value = info.event.extendedProps.tema;
                 modalServico.value = info.event.extendedProps.servico;
-                modalBrinquedos.value = info.event.extendedProps.brinquedo || ''; // Ajuste para "brinquedo"
+                modalBrinquedos.value = info.event.extendedProps.brinquedos || ''; 
                 modalFormaPag.value = info.event.extendedProps.formaPag;
-            
                 // Cria uma nova data a partir de info.event.start e adiciona 3 horas
                 const eventStart = new Date(info.event.start);
-                eventStart.setHours(eventStart.getHours() + 3); // Adiciona 3 horas para ajustar o fuso horário
-            
+                eventStart.setHours(eventStart.getHours() + 3); // Adiciona 3 horas
+
                 // Formata a data no formato desejado (YYYY-MM-DDTHH:MM)
                 modalDay.value = eventStart.toISOString().split('T')[0] + 'T' + eventStart.toTimeString().split(' ')[0];
-            
-                // Formata o valor para exibição
-                const valorFormatado = formatCurrency(info.event.extendedProps.valor.toString());
-                modalValor.value = valorFormatado;
-            
+
+                modalValor.value = info.event.extendedProps.valor;
                 modalObs.value = info.event.extendedProps.obs || '';
-                
+            
                 modal.style.display = 'block';
             
                 const closeModal = document.querySelector('.close');
@@ -88,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         cliente: modalCliente.value,
                         tema: modalTema.value,
                         servico: modalServico.value,
-                        brinquedo: modalBrinquedos.value,
+                        brinquedos: modalBrinquedos.value,
                         formaPag: modalFormaPag.value,
                         day: modalDay.value,
                         valor: modalValor.value,
