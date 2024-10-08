@@ -117,8 +117,9 @@ function formatDateTime(dateTime) {
     return new Date(dateTime).toLocaleDateString('pt-BR', options).replace(',', '');
 }
 
-function exportToExcel() {
-    const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
+async function exportToExcel() {
+    const response = await fetch('get_reservas.php');
+    const reservations = await response.json();
     const ws = XLSX.utils.json_to_sheet(reservations);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Reservas");
@@ -129,7 +130,9 @@ async function exportToPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('l', 'mm', 'a4');
 
-    const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
+    const response = await fetch('get_reservas.php');
+    const reservations = await response.json();
+    
     const margin = 10;
     const lineHeight = 10;
     const columnWidth = {
@@ -183,8 +186,8 @@ async function exportToPDF() {
         doc.text(reservation.servico, margin + columnWidth.cliente + columnWidth.tema, y);
         doc.text(reservation.brinquedo, margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico, y);
         doc.text(reservation.formaPag, margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo, y);
-        doc.text(formatDateTime(reservation.day), margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo + columnWidth.formaPag + 20, y);
-        doc.text(reservation.valor.toString(), margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo + columnWidth.formaPag + columnWidth.dataHora + 20, y);
+        doc.text(formatDateTime(reservation.data_reserva), margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo + columnWidth.formaPag + 20, y);
+        doc.text(reservation.vlr_reserva.toString(), margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo + columnWidth.formaPag + columnWidth.dataHora + 20, y);
         doc.text(reservation.obs, margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo + columnWidth.formaPag + columnWidth.dataHora + columnWidth.valor + 20, y);
         y += lineHeight;
 
