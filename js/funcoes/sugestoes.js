@@ -1,120 +1,83 @@
-const clientInput = document.getElementById("cliente");
-const suggestionsContainer = document.getElementById("suggestions");
-const temaInput = document.getElementById("tema");
-const temaSuggestionsContainer = document.getElementById("temaSuggestions");
-const servicoInput = document.getElementById("servico");
-const servicoSuggestionsContainer = document.getElementById("servicoSuggestions");
-const brinquedoInput = document.getElementById("brinquedo");
-const brinquedoSuggestionsContainer = document.getElementById("brinquedoSuggestions");
-const formasPagamentoInput = document.getElementById("formaPag");
-const formasPagamentoSuggestionsContainer = document.getElementById("formasPagamentoSuggestions");
+document.addEventListener('DOMContentLoaded', function () {
+    const clientInput = document.getElementById("cliente");
+    const suggestionsContainer = document.getElementById("suggestions");
+    const temaInput = document.getElementById("tema");
+    const temaSuggestionsContainer = document.getElementById("temaSuggestions");
+    const servicoInput = document.getElementById("servico");
+    const servicoSuggestionsContainer = document.getElementById("servicoSuggestions");
+    const brinquedoInput = document.getElementById("brinquedo");
+    const brinquedoSuggestionsContainer = document.getElementById("brinquedoSuggestions");
+    const formasPagamentoInput = document.getElementById("formaPag");
+    const formasPagamentoSuggestionsContainer = document.getElementById("formasPagamentoSuggestions");
 
-// Obtém os dados do localStorage ou inicializa com arrays vazios
-let temas = JSON.parse(localStorage.getItem("temas")) || [];
-let clients = JSON.parse(localStorage.getItem("clients")) || [];
-let servicos = JSON.parse(localStorage.getItem("servicos")) || [];
-let brinquedos = JSON.parse(localStorage.getItem("brinquedos")) || [];
-let formasPagamento = JSON.parse(localStorage.getItem("formasPagamento")) || [];
+    // Função para buscar sugestões a partir do banco de dados
+    function fetchSuggestions(table, query, container, input) {
+        fetch(`buscar_dados.php?table=${table}&term=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => showSuggestions(data, container, input))
+            .catch(error => console.error('Erro:', error));
+    }
 
-// Funções para filtrar os dados
-function filterClients(query) {
-    return clients.filter(client => {
-        const cliente = client.cliente || ""; // Garante que cliente é uma string
-        return cliente.toLowerCase().includes(query.toLowerCase());
-    });
-}
-
-function filterTemas(query) {
-    return temas.filter(tema => {
-        const name = tema.name || ""; // Garante que name é uma string
-        return name.toLowerCase().includes(query.toLowerCase());
-    });
-}
-
-function filterServices(query) {
-    return servicos.filter(service => {
-        const name = service.name || ""; // Garante que name é uma string
-        return name.toLowerCase().includes(query.toLowerCase());
-    });
-}
-
-function filterBrinquedos(query) {
-    return brinquedos.filter(brinquedo => {
-        const name = brinquedo.name || ""; // Garante que name é uma string
-        return name.toLowerCase().includes(query.toLowerCase());
-    });
-}
-
-
-function filterFormasPagamento(query) {
-    return formasPagamento.filter(forma => forma.name.toLowerCase().includes(query.toLowerCase()));
-}
-
-
-// Função para mostrar as sugestões
-function showSuggestions(suggestions, container, input) {
-    container.innerHTML = "";
-    if (suggestions.length > 0) {
-        suggestions.forEach(item => {
-            const suggestionItem = document.createElement("div");
-            suggestionItem.className = "autocomplete-suggestion";
-            suggestionItem.textContent = item.cliente || item.name || item.nome;
-            suggestionItem.addEventListener("click", () => {
-                input.value = item.cliente || item.name || item.nome;
-                container.innerHTML = "";
+    // Função para mostrar as sugestões
+    function showSuggestions(suggestions, container, input) {
+        container.innerHTML = "";
+        if (suggestions.length > 0) {
+            suggestions.forEach(item => {
+                const suggestionItem = document.createElement("div");
+                suggestionItem.className = "autocomplete-suggestion";
+                suggestionItem.textContent = item.nome;
+                suggestionItem.addEventListener("click", () => {
+                    input.value = item.nome;
+                    container.innerHTML = "";
+                });
+                container.appendChild(suggestionItem);
             });
-            container.appendChild(suggestionItem);
-        });
+        }
     }
-}
 
-// Adiciona os eventos de input para os campos
-clientInput.addEventListener("input", () => {
-    const query = clientInput.value;
-    if (query.length > 0) {
-        const suggestions = filterClients(query);
-        showSuggestions(suggestions, suggestionsContainer, clientInput);
-    } else {
-        suggestionsContainer.innerHTML = "";
-    }
-});
+    // Adiciona os eventos de input para os campos
+    clientInput.addEventListener("input", () => {
+        const query = clientInput.value;
+        if (query.length > 0) {
+            fetchSuggestions('clientes', query, suggestionsContainer, clientInput);
+        } else {
+            suggestionsContainer.innerHTML = "";
+        }
+    });
 
-temaInput.addEventListener("input", () => {
-    const query = temaInput.value;
-    if (query.length > 0) {
-        const suggestions = filterTemas(query);
-        showSuggestions(suggestions, temaSuggestionsContainer, temaInput);
-    } else {
-        temaSuggestionsContainer.innerHTML = "";
-    }
-});
+    temaInput.addEventListener("input", () => {
+        const query = temaInput.value;
+        if (query.length > 0) {
+            fetchSuggestions('temas', query, temaSuggestionsContainer, temaInput);
+        } else {
+            temaSuggestionsContainer.innerHTML = "";
+        }
+    });
 
-servicoInput.addEventListener("input", () => {
-    const query = servicoInput.value;
-    if (query.length > 0) {
-        const suggestions = filterServices(query);
-        showSuggestions(suggestions, servicoSuggestionsContainer, servicoInput);
-    } else {
-        servicoSuggestionsContainer.innerHTML = "";
-    }
-});
+    servicoInput.addEventListener("input", () => {
+        const query = servicoInput.value;
+        if (query.length > 0) {
+            fetchSuggestions('servicos', query, servicoSuggestionsContainer, servicoInput);
+        } else {
+            servicoSuggestionsContainer.innerHTML = "";
+        }
+    });
 
-brinquedoInput.addEventListener("input", () => {
-    const query = brinquedoInput.value;
-    if (query.length > 0) {
-        const suggestions = filterBrinquedos(query);
-        showSuggestions(suggestions, brinquedoSuggestionsContainer, brinquedoInput);
-    } else {
-        brinquedoSuggestionsContainer.innerHTML = "";
-    }
-});
+    brinquedoInput.addEventListener("input", () => {
+        const query = brinquedoInput.value;
+        if (query.length > 0) {
+            fetchSuggestions('brinquedos', query, brinquedoSuggestionsContainer, brinquedoInput);
+        } else {
+            brinquedoSuggestionsContainer.innerHTML = "";
+        }
+    });
 
-formasPagamentoInput.addEventListener("input", () => {
-    const query = formasPagamentoInput.value;
-    if (query.length > 0) {
-        const suggestions = filterFormasPagamento(query);
-        showSuggestions(suggestions, formasPagamentoSuggestionsContainer, formasPagamentoInput);
-    } else {
-        formasPagamentoSuggestionsContainer.innerHTML = "";
-    }
+    formasPagamentoInput.addEventListener("input", () => {
+        const query = formasPagamentoInput.value;
+        if (query.length > 0) {
+            fetchSuggestions('formas_pagamento', query, formasPagamentoSuggestionsContainer, formasPagamentoInput);
+        } else {
+            formasPagamentoSuggestionsContainer.innerHTML = "";
+        }
+    });
 });

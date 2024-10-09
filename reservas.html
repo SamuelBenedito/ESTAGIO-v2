@@ -46,39 +46,42 @@
                 <div class="form-group">
                     <label for="cliente">Cliente:</label>
                     <div class="input-container">
-                        <input type="text" id="cliente" name="cliente" required autocomplete="off">
+                        <input type="text" id="cliente" name="cliente" required autocomplete="off" maxlength="50">
                         <button type="button" id="addCliente"><img src="image/adicionar.png" alt="adicionarCliente"></button>
                     </div>
+                    <div id="suggestions" class="suggestions-container"></div> <!-- Adicione esta linha -->
                 </div>
                 <div class="form-group">
                     <label for="tema">Tema:</label>
                     <div class="input-container">
-                        <input type="text" id="tema" name="tema" required autocomplete="off">
+                        <input type="text" id="tema" name="tema" required autocomplete="off" maxlength="30">
                         <button type="button" id="addTema"><img src="image/adicionar.png" alt="adicionarTema"></button>
                     </div>
+                    <div id="temaSuggestions" class="suggestions-container"></div> <!-- Adicione esta linha -->
                 </div>
                 <div class="form-group">
                     <label for="servico">Serviço:</label>
                     <div class="input-container">
-                        <input type="text" id="servico" name="servico" required autocomplete="off">
+                        <input type="text" id="servico" name="servico" required autocomplete="off" maxlength="30">
                         <button type="button" id="addServico"><img src="image/adicionar.png" alt="adicionarServico"></button>
-                
                     </div>
+                    <div id="servicoSuggestions" class="suggestions-container"></div> <!-- Adicione esta linha -->
                 </div>
                 <div class="form-group">
                     <label for="brinquedo">Brinquedos:</label>
                     <div class="input-container">
-                        <input type="text" id="brinquedo" name="brinquedo" required autocomplete="off">
+                        <input type="text" id="brinquedo" name="brinquedo" required autocomplete="off" maxlength="30">
                         <button type="button" id="addBrinquedo"><img src="image/adicionar.png" alt="adicionarBrinquedo"></button>
                     </div>
-                </div>                
+                    <div id="brinquedoSuggestions" class="suggestions-container"></div> <!-- Adicione esta linha -->
+                </div>
                 <div class="form-group">
                     <label for="formaPag">Forma de Pagamento:</label>
                     <div class="input-container">
-                        <input type="text" id="formaPag" name="formaPag" required autocomplete="off">
-                    <button type="button" id="addFormaPag"><img src="image/adicionar.png" alt="adicionarFormaPag"></button>
-                
+                        <input type="text" id="formaPag" name="formaPag" required autocomplete="off" maxlength="15">
+                        <button type="button" id="addFormaPag"><img src="image/adicionar.png" alt="adicionarFormaPag"></button>
                     </div>
+                    <div id="formasPagamentoSuggestions" class="suggestions-container"></div> <!-- Adicione esta linha -->
                 </div>
                 <div class="form-group">
                     <label for="day">Selecione o dia e horário da reserva:</label>
@@ -90,7 +93,7 @@
                 </div>
                 <div class="form-group">
                     <label for="obs">Observações:</label>
-                    <input type="text" id="obs" name="obs" autocomplete="off">
+                    <input type="text" id="obs" name="obs" autocomplete="off" maxlength="30">
                 </div>
             </div>
 
@@ -103,5 +106,6 @@
     <script src="js/reservas.js"></script>
     <script src="js/script.js"></script>
     <script src="js/funcoes/atalhos.js"></script>
+    <script src="js/funcoes/sugestoes.js"></script>
 </body>
 </html>

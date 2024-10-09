@@ -9,32 +9,12 @@ const brinquedoSuggestionsContainer = document.getElementById("brinquedoSuggesti
 const formasPagamentoInput = document.getElementById("modalFormaPag");
 const formasPagamentoSuggestionsContainer = document.getElementById("formasPagamentoSuggestions");
 
-// Obtém os dados do localStorage ou inicializa com arrays vazios
-let temas = JSON.parse(localStorage.getItem("temas")) || [];
-let clients = JSON.parse(localStorage.getItem("clients")) || [];
-let servicos = JSON.parse(localStorage.getItem("servicos")) || [];
-let brinquedos = JSON.parse(localStorage.getItem("brinquedos")) || [];
-let formasPagamento = JSON.parse(localStorage.getItem("formasPagamento")) || [];
-
-// Funções para filtrar os dados
-function filterClients(query) {
-    return clients.filter(client => client.cliente.toLowerCase().includes(query.toLowerCase()));
-}
-
-function filterTemas(query) {
-    return temas.filter(tema => tema.name.toLowerCase().includes(query.toLowerCase()));
-}
-
-function filterServices(query) {
-    return servicos.filter(service => service.name.toLowerCase().includes(query.toLowerCase()));
-}
-
-function filterBrinquedos(query) {
-    return brinquedos.filter(brinquedo => brinquedo.name.toLowerCase().includes(query.toLowerCase()));
-}
-
-function filterFormasPagamento(query) {
-    return formasPagamento.filter(forma => forma.name.toLowerCase().includes(query.toLowerCase()));
+// Função para buscar sugestões
+function fetchSuggestions(table, query, container, input) {
+    fetch(`buscar_dados_modal.php?table=${table}&term=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => showSuggestions(data, container, input))
+        .catch(error => console.error('Erro:', error));
 }
 
 // Função para mostrar as sugestões
@@ -44,9 +24,9 @@ function showSuggestions(suggestions, container, input) {
         suggestions.forEach(item => {
             const suggestionItem = document.createElement("div");
             suggestionItem.className = "autocomplete-suggestion";
-            suggestionItem.textContent = item.cliente || item.name || item.nome;
+            suggestionItem.textContent = item.cliente || item.name;
             suggestionItem.addEventListener("click", () => {
-                input.value = item.cliente || item.name || item.nome;
+                input.value = item.cliente || item.name;
                 container.innerHTML = "";
             });
             container.appendChild(suggestionItem);
@@ -58,8 +38,7 @@ function showSuggestions(suggestions, container, input) {
 clientInput.addEventListener("input", () => {
     const query = clientInput.value;
     if (query.length > 0) {
-        const suggestions = filterClients(query);
-        showSuggestions(suggestions, suggestionsContainer, clientInput);
+        fetchSuggestions('clientes', query, suggestionsContainer, clientInput);
     } else {
         suggestionsContainer.innerHTML = "";
     }
@@ -68,8 +47,7 @@ clientInput.addEventListener("input", () => {
 temaInput.addEventListener("input", () => {
     const query = temaInput.value;
     if (query.length > 0) {
-        const suggestions = filterTemas(query);
-        showSuggestions(suggestions, temaSuggestionsContainer, temaInput);
+        fetchSuggestions('temas', query, temaSuggestionsContainer, temaInput);
     } else {
         temaSuggestionsContainer.innerHTML = "";
     }
@@ -78,8 +56,7 @@ temaInput.addEventListener("input", () => {
 servicoInput.addEventListener("input", () => {
     const query = servicoInput.value;
     if (query.length > 0) {
-        const suggestions = filterServices(query);
-        showSuggestions(suggestions, servicoSuggestionsContainer, servicoInput);
+        fetchSuggestions('servicos', query, servicoSuggestionsContainer, servicoInput);
     } else {
         servicoSuggestionsContainer.innerHTML = "";
     }
@@ -88,8 +65,7 @@ servicoInput.addEventListener("input", () => {
 brinquedoInput.addEventListener("input", () => {
     const query = brinquedoInput.value;
     if (query.length > 0) {
-        const suggestions = filterBrinquedos(query);
-        showSuggestions(suggestions, brinquedoSuggestionsContainer, brinquedoInput);
+        fetchSuggestions('brinquedos', query, brinquedoSuggestionsContainer, brinquedoInput);
     } else {
         brinquedoSuggestionsContainer.innerHTML = "";
     }
@@ -98,8 +74,7 @@ brinquedoInput.addEventListener("input", () => {
 formasPagamentoInput.addEventListener("input", () => {
     const query = formasPagamentoInput.value;
     if (query.length > 0) {
-        const suggestions = filterFormasPagamento(query);
-        showSuggestions(suggestions, formasPagamentoSuggestionsContainer, formasPagamentoInput);
+        fetchSuggestions('formas_pagamento', query, formasPagamentoSuggestionsContainer, formasPagamentoInput);
     } else {
         formasPagamentoSuggestionsContainer.innerHTML = "";
     }
