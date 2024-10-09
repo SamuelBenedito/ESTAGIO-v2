@@ -91,9 +91,26 @@
             <i class="fas fa-info-circle"></i> Nenhum cliente cadastrado encontrado.
         </div>
 
-        <button id="exportExcelButton">Exportar para Excel</button>
-        <button id="exportPDFButton">Exportar para PDF</button>
+        <style>
+            .hidden {
+                display: none;
+            }
+        </style>
 
+<button id="exportExcelButton" class="hidden">Exportar para Excel</button>
+<button id="exportPDFButton" class="hidden">Exportar para PDF</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tipoUsuario = localStorage.getItem('tipoUsuario');
+
+        if (tipoUsuario === "GERENCIAL") {
+            document.getElementById('exportExcelButton').classList.remove('hidden');
+            document.getElementById('exportPDFButton').classList.remove('hidden');
+        }
+    });
+</script>
+        
         <!-- Mensagem de Notificação -->
         <div id="notification" class="notification">
             <p id="notificationMessage"></p>
