@@ -1,150 +1,242 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Salão System - Serviços</title>
-    <link rel="stylesheet" href="css/consultar/styleServicos.css">
-    <link rel="stylesheet" href="css/calendar.css">
-</head>
+    <link rel="stylesheet" href="css/consultar/styleServicos.css" />
+    <link rel="stylesheet" href="css/calendar.css" />
+  </head>
 
-<body>
+  <body>
     <div class="navbar">
-        <a class="logo" href="calendario.html">
-            <img src="image/Logo.png" alt="Logo" class="logo-image">
-        </a>
-        <a onclick="toggleDropdown()">Consultar</a>
-        <a id="btnRelatorios" onclick="toggleRelatorioDropdown()" style="display: none;">Relatórios</a>
-        <div class="button-bar">
-            <a onclick="window.location.href='reservas.html';">Cadastrar Reserva</a>
-        </div>
-        <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
+      <a class="logo" href="calendario.html">
+        <img src="image/Logo.png" alt="Logo" class="logo-image" />
+      </a>
+      <a onclick="toggleDropdown()">Consultar</a>
+      <a
+        id="btnRelatorios"
+        onclick="toggleRelatorioDropdown()"
+        style="display: none"
+        >Relatórios</a
+      >
+      <div class="button-bar">
+        <a onclick="window.location.href='reservas.html';">Cadastrar Reserva</a>
+      </div>
+      <a onclick="toggleUserDropdown()" class="menu-button">☰</a>
     </div>
 
     <div id="dropdown" class="dropdown-content">
-        <a href="clientes.html">👨‍💼- Consulta de Clientes</a>
-        <a href="temas.html">🎉- Consulta de Temas</a>
-        <a href="servicos.html">🧩- Consulta de Serviços</a>
-        <a href="brinquedos.html">🛝- Consulta de Brinquedos</a>
-        <a href="formas_pagamento.html">💳- Consulta de Formas de pagamento</a>
+      <a href="clientes.html">👨‍💼- Consulta de Clientes</a>
+      <a href="temas.html">🎉- Consulta de Temas</a>
+      <a href="servicos.html">🧩- Consulta de Serviços</a>
+      <a href="brinquedos.html">🛝- Consulta de Brinquedos</a>
+      <a href="formas_pagamento.html">💳- Consulta de Formas de pagamento</a>
     </div>
 
     <div id="dropdownRelatorios" class="dropdown-content">
-        <a href="re_reserv.html">📗- Relatórios de Reservas e Serviços Cadastradas</a>
-        <a href="re_cliente.html">📕- Relatórios de Clientes Cadastrados</a>
-        <a href="re_master-detail.html">📘- Relatórios de Geral</a>
+      <a href="re_reserv.html"
+        >📗- Relatórios de Reservas e Serviços Cadastradas</a
+      >
+      <a href="re_cliente.html">📕- Relatórios de Clientes Cadastrados</a>
+      <a href="re_master-detail.html">📘- Relatórios de Geral</a>
     </div>
 
     <div id="userDropdown" class="dropdown-content">
-        <a href="login.html">Sair</a>
+      <a href="login.html">Sair</a>
     </div>
 
     <div class="container">
-        <h1>Cadastro de Serviços</h1>
-        <form id="servicosForm">
-            <div class="form-group">
-                <label for="servicos">Serviço:</label>
-                <input type="text" id="servicos" name="servicos" placeholder="Nome do Serviço" maxlength="50" required autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label for="valor">Valor:</label>
-                <input type="text" id="valor" name="valor" placeholder="Valor do Serviço" required autocomplete="off">
-            </div>            
-            <div class="form-group">
-                <label for="descricao">Descrição:</label>
-                <input type="text" id="descricao" name="descricao" placeholder="Descrição do Serviço" maxlength="50" required autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label>Brinquedos Liberados?</label>
-                <div class="radio-group">
-                    <input type="radio" id="sim" name="brinquedosLiberados" value="sim" required>
-                    <label for="sim">SIM</label>
-                    <input type="radio" id="nao" name="brinquedosLiberados" value="nao">
-                    <label for="nao">NÃO</label>
-                </div>
-            </div>
-            <button type="submit">Cadastrar Serviço</button>
-        </form>
-
-        <h2>Lista de Serviços</h2>
+      <h1>Cadastro de Serviços</h1>
+      <form id="servicosForm">
         <div class="form-group">
-            <label for="searchSevico">Pesquisar Serviço:</label>
-            <input type="text" id="searchSevico" placeholder="Digite um dado do serviço para pesquisar" autocomplete="off">
+          <label for="servicos">Serviço:</label>
+          <input
+            type="text"
+            id="servicos"
+            name="servicos"
+            placeholder="Nome do Serviço"
+            maxlength="50"
+            required
+            autocomplete="off"
+          />
         </div>
-        <table class="servicos-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome do Serviço</th>
-                    <th>Valor</th>
-                    <th>Descrição</th>
-                    <th>Brinquedos Liberados</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aqui serão listados dinamicamente os serviços cadastrados -->
-            </tbody>
-        </table>
+        <div class="form-group">
+          <label for="valor">Valor:</label>
+          <input
+            type="text"
+            id="valor"
+            name="valor"
+            placeholder="Valor do Serviço"
+            required
+            autocomplete="off"
+          />
+        </div>
+        <div class="form-group">
+          <label for="descricao">Descrição:</label>
+          <input
+            type="text"
+            id="descricao"
+            name="descricao"
+            placeholder="Descrição do Serviço"
+            maxlength="50"
+            required
+            autocomplete="off"
+          />
+        </div>
+        <div class="form-group">
+          <label>Brinquedos Liberados?</label>
+          <div class="radio-group">
+            <input
+              type="radio"
+              id="sim"
+              name="brinquedosLiberados"
+              value="sim"
+              required
+            />
+            <label for="sim">SIM</label>
+            <input
+              type="radio"
+              id="nao"
+              name="brinquedosLiberados"
+              value="nao"
+            />
+            <label for="nao">NÃO</label>
+          </div>
+        </div>
+        <button type="submit">Cadastrar Serviço</button>
+      </form>
 
-        <div id="noResultsMessage" class="no-results-message" style="display: none;">
-            <i class="fas fa-info-circle"></i> Nenhum serviço cadastrado encontrado.
-        </div>
-        
+      <h2>Lista de Serviços</h2>
+      <div class="form-group">
+        <label for="searchSevico">Pesquisar Serviço:</label>
+        <input
+          type="text"
+          id="searchSevico"
+          placeholder="Digite um dado do serviço para pesquisar"
+          autocomplete="off"
+        />
+      </div>
+      <table class="servicos-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome do Serviço</th>
+            <th>Valor</th>
+            <th>Descrição</th>
+            <th>Brinquedos Liberados</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Aqui serão listados dinamicamente os serviços cadastrados -->
+        </tbody>
+      </table>
 
-        <!-- Navegação da paginação -->
-        <div class="pagination">
-            <button id="prevPage" disabled>« Anterior</button>
-            <span id="pageNumber">Página 1</span>
-            <button id="nextPage">Próxima »</button>
-        </div>
+      <div
+        id="noResultsMessage"
+        class="no-results-message"
+        style="display: none"
+      >
+        <i class="fas fa-info-circle"></i> Nenhum serviço cadastrado encontrado.
+      </div>
+
+      <style>
+        .hidden {
+          display: none;
+        }
+      </style>
+
+      <button id="exportExcelButton" class="hidden">Exportar para Excel</button>
+      <button id="exportPDFButton" class="hidden">Exportar para PDF</button>
+    
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const tipoUsuario = localStorage.getItem("tipoUsuario");
+
+          if (tipoUsuario === "GERENCIAL") {
+            document
+              .getElementById("exportExcelButton")
+              .classList.remove("hidden");
+            document
+              .getElementById("exportPDFButton")
+              .classList.remove("hidden");
+          }
+        });
+      </script>
+
+      <!-- Navegação da paginação -->
+      <div class="pagination">
+        <button id="prevPage" disabled>« Anterior</button>
+        <span id="pageNumber">Página 1</span>
+        <button id="nextPage">Próxima »</button>
+      </div>
     </div>
 
     <!-- Modal para Alterar Serviço -->
     <div id="editModal" class="modal">
-        <div class="modal-content">
-            <h2>Alterar Serviço</h2>
-            <form id="editForm">
-                <div class="form-group">
-                    <label for="editServico">Serviço:</label>
-                    <input type="text" id="editServico" name="editServico" required>
-                </div>
-                <div class="form-group">
-                    <label for="editValor">Valor:</label>
-                    <input type="text" id="editValor" name="editValor" required>
-                </div>
-                <div class="form-group">
-                    <label for="editDescricao">Descrição:</label>
-                    <input type="text" id="editDescricao" name="editDescricao" required>
-                </div>
-                <div class="form-group">
-                    <label>Brinquedos Liberados?</label>
-                    <div class="radio-group">
-                        <input type="radio" id="editBrinquedosSim" name="editBrinquedosLiberados" value="sim" required>
-                        <label for="editBrinquedosSim">SIM</label>
-                        <input type="radio" id="editBrinquedosNao" name="editBrinquedosLiberados" value="nao">
-                        <label for="editBrinquedosNao">NÃO</label>
-                    </div>
-                </div>
-                <button type="submit">Salvar</button>
-                <button type="button" id="closeEditModal" class="close-modal">Fechar</button>
-            </form>
-        </div>
+      <div class="modal-content">
+        <h2>Alterar Serviço</h2>
+        <form id="editForm">
+          <div class="form-group">
+            <label for="editServico">Serviço:</label>
+            <input type="text" id="editServico" name="editServico" required />
+          </div>
+          <div class="form-group">
+            <label for="editValor">Valor:</label>
+            <input type="text" id="editValor" name="editValor" required />
+          </div>
+          <div class="form-group">
+            <label for="editDescricao">Descrição:</label>
+            <input
+              type="text"
+              id="editDescricao"
+              name="editDescricao"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Brinquedos Liberados?</label>
+            <div class="radio-group">
+              <input
+                type="radio"
+                id="editBrinquedosSim"
+                name="editBrinquedosLiberados"
+                value="sim"
+                required
+              />
+              <label for="editBrinquedosSim">SIM</label>
+              <input
+                type="radio"
+                id="editBrinquedosNao"
+                name="editBrinquedosLiberados"
+                value="nao"
+              />
+              <label for="editBrinquedosNao">NÃO</label>
+            </div>
+          </div>
+          <button type="submit">Salvar</button>
+          <button type="button" id="closeEditModal" class="close-modal">
+            Fechar
+          </button>
+        </form>
+      </div>
     </div>
 
     <!-- Modal de Confirmação de Exclusão -->
     <div id="confirmationModal" class="confirmation-dialog">
-        <div class="confirmation-dialog-content">
-            <p>Tem certeza de que deseja excluir este serviço?</p>
-            <button id="confirm-yes" class="btn">SIM</button>
-            <button id="confirm-no" class="btn">NÃO</button>
-        </div>
+      <div class="confirmation-dialog-content">
+        <p>Tem certeza de que deseja excluir este serviço?</p>
+        <button id="confirm-yes" class="btn">SIM</button>
+        <button id="confirm-no" class="btn">NÃO</button>
+      </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="js/consultar/scriptServicos.js"></script>
     <script src="js/calendar.js"></script>
     <script src="js/script.js"></script>
-</body>
-
+    <script src="js/relatorios/scriptRelatorioServico.js"></script>
+  </body>
 </html>
