@@ -45,23 +45,40 @@
             <div class="infoReserva">
                 <div class="form-group">
                     <label for="cliente">Cliente:</label>
-                    <input type="text" id="cliente" name="cliente" required autocomplete="off">
+                    <div class="input-container">
+                        <input type="text" id="cliente" name="cliente" required autocomplete="off">
+                        <button type="button" id="addCliente"><img src="image/adicionar.png" alt="adicionarCliente"></button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="tema">Tema:</label>
-                    <input type="text" id="tema" name="tema" required autocomplete="off">
+                    <div class="input-container">
+                        <input type="text" id="tema" name="tema" required autocomplete="off">
+                        <button type="button" id="addTema"><img src="image/adicionar.png" alt="adicionarTema"></button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="servico">Serviço:</label>
-                    <input type="text" id="servico" name="servico" required autocomplete="off">
+                    <div class="input-container">
+                        <input type="text" id="servico" name="servico" required autocomplete="off">
+                        <button type="button" id="addServico"><img src="image/adicionar.png" alt="adicionarServico"></button>
+                
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="brinquedo">Brinquedos:</label>
-                    <input type="text" id="brinquedo" name="brinquedo" required autocomplete="off">
+                    <div class="input-container">
+                        <input type="text" id="brinquedo" name="brinquedo" required autocomplete="off">
+                        <button type="button" id="addBrinquedo"><img src="image/adicionar.png" alt="adicionarBrinquedo"></button>
+                    </div>
                 </div>                
                 <div class="form-group">
                     <label for="formaPag">Forma de Pagamento:</label>
-                    <input type="text" id="formaPag" name="formaPag" required autocomplete="off">
+                    <div class="input-container">
+                        <input type="text" id="formaPag" name="formaPag" required autocomplete="off">
+                    <button type="button" id="addFormaPag"><img src="image/adicionar.png" alt="adicionarFormaPag"></button>
+                
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="day">Selecione o dia e horário da reserva:</label>
@@ -85,5 +102,6 @@
 
     <script src="js/reservas.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/funcoes/atalhos.js"></script>
 </body>
 </html>
