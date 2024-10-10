@@ -7,3 +7,7 @@
 2024-10-08 21:48:39 - Tentativa de cadastrar: ttt, 12343234323, 18401505054, ttt@tt.com
 2024-10-08 21:50:20 - Tentativa de cadastrar: Saaa, 56478987654, 97085603089, samue@teste.com
 2024-10-08 22:02:31 - Tentativa de cadastrar: Joao, 87278427842, 91335436074, joao@gmail.com
+2024-10-09 20:40:32 - Tentativa de cadastrar: Livia, 45678987654, 68496849849, livia@gmail.com
+2024-10-09 20:41:12 - Tentativa de cadastrar: teste, 22345652345, 11111111111, teste@gmail.com
+2024-10-10 00:34:44 - Tentativa de cadastrar: Alison, 17992459258, 45678913256, alison@gmail.com
+2024-10-10 00:58:31 - Tentativa de cadastrar: Augusto, 34567898765, 66465244144, augusto@gmail.com
