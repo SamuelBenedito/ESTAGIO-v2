@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('teste relatorio')
     const filterType = document.getElementById('filterType');
     const filterDate = document.getElementById('filterDate');
     const searchInput = document.getElementById('searchInput');
@@ -136,14 +137,14 @@ async function exportToPDF() {
     const margin = 10;
     const lineHeight = 10;
     const columnWidth = {
-        cliente: 35,
-        tema: 25,
-        servico: 25,
-        brinquedo: 25,
-        formaPag: 30,
-        dataHora: 60,
-        valor: 30,
-        obs: 50
+        cliente: 30,
+        tema: 33,
+        servico: 35,
+        brinquedo: 35,
+        formaPag: 10,
+        dataHora: 40,
+        valor: 20,
+        obs: 30
     };
     const pageWidth = 297;
     const pageHeight = 210;
@@ -156,7 +157,7 @@ async function exportToPDF() {
         doc.text("Tema", margin + columnWidth.cliente, y);
         doc.text("Serviço", margin + columnWidth.cliente + columnWidth.tema, y);
         doc.text("Brinquedo", margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico, y);
-        doc.text("Forma de Pagamento", margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo, y);
+        doc.text("Pagamento", margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo, y);
         doc.text("Data e Horário", margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo + columnWidth.formaPag + 20, y);
         doc.text("Valor", margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo + columnWidth.formaPag + columnWidth.dataHora + 20, y);
         doc.text("Observações", margin + columnWidth.cliente + columnWidth.tema + columnWidth.servico + columnWidth.brinquedo + columnWidth.formaPag + columnWidth.dataHora + columnWidth.valor + 20, y);
