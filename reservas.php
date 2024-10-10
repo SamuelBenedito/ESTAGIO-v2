@@ -23,12 +23,15 @@ $action = $data['action']; // Adicione um campo de ação
 if ($action === 'check') {
     $day = $conn->real_escape_string($data['day']);
     
-    // Verifica se já existe uma reserva no mesmo dia e horário
-    $sql_check = "SELECT * FROM RESERVA WHERE data_reserva = '$day'";
+    $dateOnly = date('Y-m-d', strtotime($day));
+
+    // Check if there is already a reservation on the same day
+    $sql_check = "SELECT * FROM RESERVA WHERE DATE(data_reserva) = '$dateOnly'";
+
     $result_check = $conn->query($sql_check);
 
     if ($result_check->num_rows > 0) {
-        echo json_encode(['available' => false, 'message' => 'Já existe uma reserva nesse dia e horário.']);
+        echo json_encode(['available' => false, 'message' => 'Já existe uma reserva nesse dia.']);
     } else {
         echo json_encode(['available' => true]);
     }

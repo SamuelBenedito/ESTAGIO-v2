@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log('teste')
+    console.log('teste novo')
   const calendarEl = document.getElementById("calendar");
   const tipoUsuario = localStorage.getItem("tipoUsuario");
   const btnRelatorios = document.getElementById("btnRelatorios");
@@ -91,38 +91,38 @@ document.addEventListener("DOMContentLoaded", function () {
           '.modal-actions button[type="submit"]'
         );
         editButton.onclick = function (e) {
-            e.preventDefault();
-        
-            const updatedData = {
-                idReserva: info.event.id, // Agora estamos usando o idReserva
-                cliente: modalCliente.value,
-                tema: modalTema.value,
-                servico: modalServico.value,
-                brinquedos: modalBrinquedos.value, // Correção aqui: o campo é "brinquedos"
-                formaPag: modalFormaPag.value,
-                day: modalDay.value,
-                valor: modalValor.value.replace("R$ ", "").replace(".", "").replace(",", "."), // Certifique-se de enviar o valor correto para o banco de dados
-                obs: modalObs.value
-            };
-        
-            fetch("updateReservation.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(updatedData),
-            })
-            .then((response) => response.json())
-            .then((result) => {
-                if (result.success) {
-                    calendar.refetchEvents();
-                    modal.style.display = "none";
-                } else {
-                    console.error("Erro ao atualizar a reserva: ", result.error);
-                }
-            })
-            .catch((error) => console.error("Erro ao atualizar: ", error));
-        };
+          e.preventDefault();
+      
+          const updatedData = {
+              idReserva: info.event.id,
+              cliente: modalCliente.value,
+              tema: modalTema.value,
+              servico: modalServico.value,
+              brinquedos: modalBrinquedos.value,
+              formaPag: modalFormaPag.value,
+              day: modalDay.value,
+              valor: modalValor.value.replace("R$ ", "").replace(".", "").replace(",", "."),
+              obs: modalObs.value
+          };
+      
+          fetch("updateReservation.php", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify(updatedData),
+          })
+          .then((response) => response.json())
+          .then((result) => {
+              if (result.success) {
+                  calendar.refetchEvents();
+                  modal.style.display = "none";
+              } else {
+                  alert(result.message || "Erro ao atualizar a reserva.");
+              }
+          })
+          .catch((error) => console.error("Erro ao atualizar: ", error));
+      };
         
         
 

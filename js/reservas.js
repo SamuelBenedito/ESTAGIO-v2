@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('teste');
     const form = document.getElementById('clientForm');
     if (!form) {
         console.error('Formulário não encontrado');
