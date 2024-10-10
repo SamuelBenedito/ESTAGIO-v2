@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('etste')
+    console.log('teste');
     const form = document.getElementById('clientForm');
     if (!form) {
         console.error('Formulário não encontrado');
@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     const valorInput = document.getElementById('valor');
-    const brinquedoInput = document.getElementById('brinquedo'); // Adiciona o campo de brinquedos
-
     if (!valorInput) {
         console.error('Campo de valor não encontrado');
         return;
@@ -42,30 +40,58 @@ document.addEventListener('DOMContentLoaded', function () {
         const tema = document.getElementById('tema').value;
         const formaPag = document.getElementById('formaPag').value;
         const day = document.getElementById('day').value;
-        const brinquedo = document.getElementById('brinquedo').value; // Coleta o valor do campo brinquedo
+        const brinquedo = document.getElementById('brinquedo').value;
         const servico = document.getElementById('servico').value;
         const obs = document.getElementById('obs').value;
         
         const valor = parseCurrency(valorInput.value);
 
-        // Envia os dados para o PHP via AJAX
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'reservas.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(xhr.responseText); // Exibe a mensagem de sucesso ou erro
-                // Limpa o formulário após o envio
-                form.reset();
+        // Verifica a disponibilidade da reserva
+        fetch("reservas.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ action: 'check', day, cliente }), // Envia a data e o cliente para checar
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.available) {
+                // Se a reserva estiver disponível, continue com a inserção
+                return fetch("reservas.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        action: 'add',
+                        cliente,
+                        tema,
+                        formaPag,
+                        day,
+                        valor,
+                        brinquedo,
+                        servico,
+                        obs
+                    }),
+                });
+            } else {
+                alert("Já existe uma reserva nesse dia e horário.");
             }
-        };
-
-        // Formata os dados para envio
-        const data = `cliente=${encodeURIComponent(cliente)}&tema=${encodeURIComponent(tema)}&formaPag=${encodeURIComponent(formaPag)}&day=${encodeURIComponent(day)}&valor=${encodeURIComponent(valor)}&brinquedo=${encodeURIComponent(brinquedo)}&servico=${encodeURIComponent(servico)}&obs=${encodeURIComponent(obs)}`;
-
-        // Loga os dados antes do envio
-        console.log("Dados enviados: ", data); // Aqui você verá os dados que estão sendo enviados
-
-        xhr.send(data);
+        })
+        .then(response => {
+            if (response) {
+                return response.json();
+            }
+        })
+        .then(result => {
+            if (result && result.success) {
+                alert(result.message);
+                form.reset();
+            } else if (result) {
+                alert(result.message);
+            }
+        })
+        .catch(error => console.error("Erro ao verificar a disponibilidade: ", error));
     });
 });
