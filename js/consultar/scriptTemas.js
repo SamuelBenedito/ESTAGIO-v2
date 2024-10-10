@@ -81,6 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         const temaData = { temas: event.target.temas.value };
 
+        // Verifica se o tema já existe
+        if (temas.some(tema => tema.nome.toLowerCase() === temaData.temas.toLowerCase())) {
+            alert("Tema já existe!");
+            return;
+        }
+
         fetch('temas.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -115,6 +121,12 @@ document.addEventListener("DOMContentLoaded", () => {
     editForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const temaData = { temas: event.target.editTema.value };
+
+        // Verifica se o tema já existe (excluindo o atual)
+        if (temas.some(tema => tema.nome.toLowerCase() === temaData.temas.toLowerCase() && tema.idTema !== editingTemaId)) {
+            alert("Tema já existe!");
+            return;
+        }
 
         fetch(`temas.php?id=${editingTemaId}`, {
             method: 'PUT',

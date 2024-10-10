@@ -124,6 +124,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const brinquedosValue = document.getElementById('sim').checked ? 'SIM' : 'NÃO';
 
         if (nomeValue && valorValue && descricaoValue && brinquedosValue) {
+            // Verifica se o nome já existe
+            if (filteredData.some(data => data.nome.toLowerCase() === nomeValue.toLowerCase())) {
+                alert('Serviço com este nome já cadastrado!');
+                return;
+            }
+
             const newService = {
                 nome: nomeValue,
                 descricao: descricaoValue,
@@ -171,6 +177,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const updatedBrinquedos = editInputBrinquedosSim.checked ? 'SIM' : 'NÃO';
 
         if (updatedNome && updatedValor && updatedDescricao && updatedBrinquedos) {
+            // Verifica se o nome já existe (exceto o atual)
+            if (filteredData.some(data => data.nome.toLowerCase() === updatedNome.toLowerCase() && data.idServico !== rowToEdit)) {
+                alert('Serviço com este nome já cadastrado!');
+                return;
+            }
+
             const updatedService = {
                 id: rowToEdit,
                 nome: updatedNome,

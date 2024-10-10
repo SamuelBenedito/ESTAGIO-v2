@@ -21,6 +21,14 @@ switch ($request_method) {
         $data = json_decode(file_get_contents("php://input"), true);
         $nome = $conn->real_escape_string($data['formasPagamento']);
         
+        // Verifica se a forma de pagamento já existe
+        $checkSQL = "SELECT * FROM FORMA_PAGAMENTO WHERE nome='$nome'";
+        $checkResult = $conn->query($checkSQL);
+        if ($checkResult->num_rows > 0) {
+            echo json_encode(["message" => "Forma de pagamento já cadastrada!"]);
+            exit;
+        }
+
         $sql = "INSERT INTO FORMA_PAGAMENTO (nome) VALUES ('$nome')";
         
         if ($conn->query($sql) === TRUE) {
@@ -35,6 +43,14 @@ switch ($request_method) {
         $id = $_GET['id'];
         $nome = $conn->real_escape_string($data['formasPagamento']);
         
+        // Verifica se a forma de pagamento já existe (exceto a atual)
+        $checkSQL = "SELECT * FROM FORMA_PAGAMENTO WHERE nome='$nome' AND idFormaPag != $id";
+        $checkResult = $conn->query($checkSQL);
+        if ($checkResult->num_rows > 0) {
+            echo json_encode(["message" => "Forma de pagamento já cadastrada!"]);
+            exit;
+        }
+
         $sql = "UPDATE FORMA_PAGAMENTO SET nome='$nome' WHERE idFormaPag=$id";
         
         if ($conn->query($sql) === TRUE) {

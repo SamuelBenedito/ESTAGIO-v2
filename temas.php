@@ -19,7 +19,15 @@ switch ($request_method) {
 
     case 'POST':
         $data = json_decode(file_get_contents("php://input"), true);
-        $nome = $conn->real_escape_string($data['temas']); // Correct field name
+        $nome = $conn->real_escape_string($data['temas']);
+
+        // Verifica se o tema já existe
+        $checkSQL = "SELECT * FROM TEMA WHERE nome='$nome'";
+        $checkResult = $conn->query($checkSQL);
+        if ($checkResult->num_rows > 0) {
+            echo json_encode(["message" => "Tema já existe!"]);
+            exit;
+        }
         
         $sql = "INSERT INTO TEMA (nome) VALUES ('$nome')";
         
@@ -33,7 +41,15 @@ switch ($request_method) {
     case 'PUT':
         $data = json_decode(file_get_contents("php://input"), true);
         $id = $_GET['id'];
-        $nome = $conn->real_escape_string($data['temas']); // Correct field name
+        $nome = $conn->real_escape_string($data['temas']);
+
+        // Verifica se o tema já existe (exceto o atual)
+        $checkSQL = "SELECT * FROM TEMA WHERE nome='$nome' AND idTema != $id";
+        $checkResult = $conn->query($checkSQL);
+        if ($checkResult->num_rows > 0) {
+            echo json_encode(["message" => "Tema já existe!"]);
+            exit;
+        }
         
         $sql = "UPDATE TEMA SET nome='$nome' WHERE idTema=$id";
         

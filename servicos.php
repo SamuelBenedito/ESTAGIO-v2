@@ -23,6 +23,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $valor = $data['valor'];
         $brinquedos = $data['brinquedos'];
 
+        // Verifica se o serviço já existe
+        $checkSQL = "SELECT * FROM SERVICO WHERE nome='$nome'";
+        $checkResult = $conn->query($checkSQL);
+        if ($checkResult->num_rows > 0) {
+            echo json_encode(["message" => "Serviço já cadastrado!"]);
+            exit;
+        }
+
         $sql = "INSERT INTO SERVICO (nome, valor, descricao, liberacao_brinquedos) VALUES ('$nome', '$valor', '$descricao', '$brinquedos')";
         $conn->query($sql);
 
@@ -36,6 +44,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $descricao = $data['descricao'];
         $valor = $data['valor'];
         $brinquedos = $data['brinquedos'];
+
+        // Verifica se o serviço já existe (exceto o atual)
+        $checkSQL = "SELECT * FROM SERVICO WHERE nome='$nome' AND idServico != $id";
+        $checkResult = $conn->query($checkSQL);
+        if ($checkResult->num_rows > 0) {
+            echo json_encode(["message" => "Serviço já cadastrado!"]);
+            exit;
+        }
 
         $sql = "UPDATE SERVICO SET nome='$nome', valor='$valor', descricao='$descricao', liberacao_brinquedos='$brinquedos' WHERE idServico=$id";
         $conn->query($sql);

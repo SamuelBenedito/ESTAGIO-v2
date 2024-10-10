@@ -11,3 +11,11 @@
 2024-10-09 20:41:12 - Tentativa de cadastrar: teste, 22345652345, 11111111111, teste@gmail.com
 2024-10-10 00:34:44 - Tentativa de cadastrar: Alison, 17992459258, 45678913256, alison@gmail.com
 2024-10-10 00:58:31 - Tentativa de cadastrar: Augusto, 34567898765, 66465244144, augusto@gmail.com
+2024-10-10 13:37:34 - Tentativa de cadastrar: Teste, 42343242342, 11111111111, samuelbenedito2017@gmail.com
+2024-10-10 13:38:43 - Tentativa de cadastrar: Teste, 22222222222, 42194858059, ttt@ttt.com
+2024-10-10 13:42:48 - Tentativa de cadastrar: teste2, 44444444444, 77777777777, sss@sss.com
+2024-10-10 13:43:10 - Tentativa de cadastrar: ewew, 24242242424, 34235235235, samuelbenedito2017@gmail.com
+2024-10-10 13:47:29 - Tentativa de cadastrar: dddddd, 11111111111, 77777777777, fef@fe.com
+2024-10-10 13:50:11 - Tentativa de cadastrar: eeeeeeeeeeeeeeeeee, 33333333333, 11044063068, ds@ds.com
+2024-10-10 14:07:57 - Tentativa de cadastrar: aaaaaaaaaaaaaa, 22222222222, 88105887037, aa@aa.com
+2024-10-10 14:08:24 - Tentativa de cadastrar: sassasas, 79485728975, 77777512048, jksai@kfb.com

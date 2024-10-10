@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             editButton.textContent = 'Alterar';
             editButton.classList.add('btn', 'btn-edit');
             editButton.addEventListener('click', function() {
-                openEditModal(newRow, data.idFormaPag);
+                openEditModal(data.idFormaPag);
             });
 
             const deleteButton = document.createElement('button');
@@ -81,9 +81,10 @@ document.addEventListener('DOMContentLoaded', function() {
         pageNumberSpan.textContent = `Página ${currentPage}`;
     }
 
-    function openEditModal(row, id) {
+    function openEditModal(id) {
         rowToEdit = id;
-        editInput.value = row.children[1].textContent;
+        const formaPagamento = allData.find(data => data.idFormaPag === id);
+        editInput.value = formaPagamento.nome;
         editModal.style.display = 'flex';
     }
 
@@ -106,6 +107,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const formaPagamentoValue = formaPagamentoInput.value.trim();
 
         if (formaPagamentoValue) {
+            // Verifica se o nome já existe
+            if (allData.some(data => data.nome.toLowerCase() === formaPagamentoValue.toLowerCase())) {
+                alert('Forma de pagamento já cadastrada!');
+                return;
+            }
+
             fetch('formas_pagamento.php', {
                 method: 'POST',
                 headers: {
@@ -115,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
+                alert(data.message);
                 loadData();  // Recarrega os dados
                 formaPagamentoInput.value = '';
             })
@@ -129,6 +137,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const updatedValue = editInput.value.trim();
 
         if (updatedValue) {
+            // Verifica se o nome já existe (exceto o atual)
+            if (allData.some(data => data.nome.toLowerCase() === updatedValue.toLowerCase() && data.idFormaPag !== rowToEdit)) {
+                alert('Forma de pagamento já cadastrada!');
+                return;
+            }
+
             fetch(`formas_pagamento.php?id=${rowToEdit}`, {
                 method: 'PUT',
                 headers: {

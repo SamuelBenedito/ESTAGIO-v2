@@ -21,6 +21,14 @@ switch ($request_method) {
         $data = json_decode(file_get_contents("php://input"), true);
         $nome = $conn->real_escape_string($data['brinquedos']);
 
+        // Verifica se o brinquedo já existe
+        $checkSQL = "SELECT * FROM BRINQUEDOS WHERE nome='$nome'";
+        $checkResult = $conn->query($checkSQL);
+        if ($checkResult->num_rows > 0) {
+            echo json_encode(["message" => "Brinquedo já cadastrado!"]);
+            exit;
+        }
+
         $sql = "INSERT INTO BRINQUEDOS (nome) VALUES ('$nome')";
         
         if ($conn->query($sql) === TRUE) {
@@ -34,6 +42,14 @@ switch ($request_method) {
         $data = json_decode(file_get_contents("php://input"), true);
         $id = $_GET['id'];
         $nome = $conn->real_escape_string($data['brinquedos']);
+
+        // Verifica se o brinquedo já existe (exceto o atual)
+        $checkSQL = "SELECT * FROM BRINQUEDOS WHERE nome='$nome' AND idBrinquedos != $id";
+        $checkResult = $conn->query($checkSQL);
+        if ($checkResult->num_rows > 0) {
+            echo json_encode(["message" => "Brinquedo já cadastrado!"]);
+            exit;
+        }
 
         $sql = "UPDATE BRINQUEDOS SET nome='$nome' WHERE idBrinquedos=$id";
         

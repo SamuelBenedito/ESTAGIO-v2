@@ -8,6 +8,41 @@ document.addEventListener("DOMContentLoaded", () => {
     let clients = [];
     let editingClientId = null;
 
+    // Função para validar CPF
+    function isValidCPF(cpf) {
+        cpf = cpf.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+            return false; // CPF com tamanho diferente de 11 ou todos os dígitos iguais
+        }
+
+        let sum = 0;
+        let remainder;
+
+        // Validação do primeiro dígito verificador
+        for (let i = 1; i <= 9; i++) {
+            sum += parseInt(cpf[i - 1]) * (11 - i);
+        }
+        remainder = (sum * 10) % 11;
+        if (remainder === 10 || remainder === 11) {
+            remainder = 0;
+        }
+        if (remainder !== parseInt(cpf[9])) {
+            return false;
+        }
+
+        // Validação do segundo dígito verificador
+        sum = 0;
+        for (let i = 1; i <= 10; i++) {
+            sum += parseInt(cpf[i - 1]) * (12 - i);
+        }
+        remainder = (sum * 10) % 11;
+        if (remainder === 10 || remainder === 11) {
+            remainder = 0;
+        }
+        return remainder === parseInt(cpf[10]);
+    }
+
     // Função para buscar clientes
     function fetchClients() {
         return fetch('clientes.php')
@@ -83,11 +118,19 @@ document.addEventListener("DOMContentLoaded", () => {
     clientForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
+        const cpf = event.target.cpf.value;
+
+        // Valida o CPF
+        if (!isValidCPF(cpf)) {
+            alert("CPF inválido!"); // Exibe alerta se o CPF não for válido
+            return;
+        }
+
         const clientData = {
             nome: event.target.cliente.value,
             telefone: event.target.telefone.value,
             email: event.target.email.value,
-            cpf: event.target.cpf.value
+            cpf: cpf
         };
 
         const method = editingClientId ? 'PUT' : 'POST';
@@ -102,6 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(response => response.json())
         .then(data => {
+            if (data.message) {
+                alert(data.message); // Exibe a mensagem de erro ou sucesso
+            }
             fetchClients();
             clientForm.reset();
             editingClientId = null;
@@ -245,6 +291,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 cpf: event.target.cpf.value
             };
 
+            // Valida o CPF antes de enviar
+            if (!isValidCPF(updatedClient.cpf)) {
+                alert("CPF inválido!");
+                return;
+            }
+
             fetch(`clientes.php?id=${editingClientId}`, {
                 method: 'PUT',
                 headers: {
@@ -254,6 +306,9 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(response => response.json())
             .then(data => {
+                if (data.message) {
+                    alert(data.message); // Exibe a mensagem de erro ou sucesso
+                }
                 fetchClients();
                 closeEditClientModal();
             })

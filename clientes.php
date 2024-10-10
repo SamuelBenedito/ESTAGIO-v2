@@ -3,6 +3,26 @@ include 'config.php';
 
 header('Content-Type: application/json');
 
+// Função para validar CPF
+function isValidCPF($cpf) {
+    $cpf = preg_replace('/\D/', '', $cpf); // Remove caracteres não numéricos
+    if (strlen($cpf) != 11 || preg_match('/^(\d)\1{10}$/', $cpf)) {
+        return false; // Verifica se o CPF tem 11 dígitos e não é uma sequência repetida
+    }
+
+    // Validação do CPF
+    for ($t = 9; $t < 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+            return false;
+        }
+    }
+    return true;
+}
+
 $request_method = $_SERVER['REQUEST_METHOD'];
 
 switch ($request_method) {
@@ -27,11 +47,18 @@ switch ($request_method) {
         // Adiciona log para verificar quando a requisição chega
         file_put_contents('log.txt', date('Y-m-d H:i:s') . " - Tentativa de cadastrar: $nome, $telefone, $cpf, $email\n", FILE_APPEND);
 
+        // Validação do CPF
+        if (!isValidCPF($cpf)) {
+            echo json_encode(["message" => "CPF inválido!"]);
+            break;
+        }
+
+        // Verifica se o CPF já existe
         $checkSql = "SELECT * FROM CLIENTES WHERE cpf = '$cpf'";
         $checkResult = $conn->query($checkSql);
 
         if ($checkResult->num_rows > 0) {
-            echo json_encode(["message" => "Cliente já existe!"]);
+            echo json_encode(["message" => "Cliente com este CPF já existe!"]);
             break;
         }
 
@@ -44,15 +71,28 @@ switch ($request_method) {
         }
         break;
 
-
-
     case 'PUT':
         $data = json_decode(file_get_contents("php://input"), true);
-        $id = $_GET['id'];
-        $nome = $conn->real_escape_string($data['nome']); // Corrigido para 'nome'
+        $id = $conn->real_escape_string($_GET['id']);
+        $nome = $conn->real_escape_string($data['nome']);
         $telefone = $conn->real_escape_string($data['telefone']);
         $cpf = $conn->real_escape_string($data['cpf']);
         $email = $conn->real_escape_string($data['email']);
+
+        // Validação do CPF
+        if (!isValidCPF($cpf)) {
+            echo json_encode(["message" => "CPF inválido!"]);
+            break;
+        }
+
+        // Verifica se o CPF já existe para outro cliente
+        $checkSql = "SELECT * FROM CLIENTES WHERE cpf = '$cpf' AND idClientes != $id";
+        $checkResult = $conn->query($checkSql);
+
+        if ($checkResult->num_rows > 0) {
+            echo json_encode(["message" => "Cliente com este CPF já existe!"]);
+            break;
+        }
 
         $sql = "UPDATE CLIENTES SET nome='$nome', telefone='$telefone', cpf='$cpf', email='$email' WHERE idClientes=$id";
 
@@ -65,7 +105,7 @@ switch ($request_method) {
 
     case 'DELETE':
         $data = json_decode(file_get_contents("php://input"), true);
-        $id = $data['id'];
+        $id = $conn->real_escape_string($data['id']);
 
         $sql = "DELETE FROM CLIENTES WHERE idClientes = $id";
 

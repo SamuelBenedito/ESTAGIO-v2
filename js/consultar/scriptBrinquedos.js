@@ -89,6 +89,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const brinquedoValue = brinquedoInput.value.trim();
 
         if (brinquedoValue) {
+            // Verifica se o nome já existe
+            if (brinquedos.some(b => b.nome.toLowerCase() === brinquedoValue.toLowerCase())) {
+                alert('Brinquedo com este nome já cadastrado!');
+                return;
+            }
+
             fetch('brinquedos.php', {
                 method: 'POST',
                 headers: {
@@ -116,6 +122,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const updatedValue = editInput.value.trim();
 
         if (updatedValue) {
+            // Verifica se o nome já existe (exceto o atual)
+            if (brinquedos.some(b => b.nome.toLowerCase() === updatedValue.toLowerCase() && b.idBrinquedos !== rowToEdit)) {
+                alert('Brinquedo com este nome já cadastrado!');
+                return;
+            }
+
             fetch(`brinquedos.php?id=${rowToEdit}`, {
                 method: 'PUT',
                 headers: {
