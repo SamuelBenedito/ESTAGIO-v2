@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log('teste novo')
+    console.log('teste novo 2')
   const calendarEl = document.getElementById("calendar");
   const tipoUsuario = localStorage.getItem("tipoUsuario");
   const btnRelatorios = document.getElementById("btnRelatorios");
@@ -92,17 +92,32 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         editButton.onclick = function (e) {
           e.preventDefault();
-      
+          
+          // Trim whitespace from values
+          const clienteValue = modalCliente.value.trim();
+          const temaValue = modalTema.value.trim();
+          const servicoValue = modalServico.value.trim();
+          const brinquedoValue = modalBrinquedos.value.trim();
+          const formaPagValue = modalFormaPag.value.trim();
+          const dayValue = modalDay.value.trim();
+          const valorValue = modalValor.value.trim();
+          
+          // Validate required fields
+          if (!clienteValue || !temaValue || !servicoValue || !brinquedoValue || !formaPagValue || !dayValue || !valorValue) {
+              alert("Por favor, preencha todos os campos obrigatórios.");
+              return; // Stop the function if validation fails
+          }
+          
           const updatedData = {
               idReserva: info.event.id,
-              cliente: modalCliente.value,
-              tema: modalTema.value,
-              servico: modalServico.value,
-              brinquedos: modalBrinquedos.value,
-              formaPag: modalFormaPag.value,
-              day: modalDay.value,
-              valor: modalValor.value.replace("R$ ", "").replace(".", "").replace(",", "."),
-              obs: modalObs.value
+              cliente: clienteValue,
+              tema: temaValue,
+              servico: servicoValue,
+              brinquedos: brinquedoValue,
+              formaPag: formaPagValue,
+              day: dayValue,
+              valor: valorValue.replace("R$ ", "").replace(".", "").replace(",", "."),
+              obs: modalObs.value.trim()
           };
       
           fetch("updateReservation.php", {
