@@ -21,3 +21,9 @@
 2024-10-10 14:08:24 - Tentativa de cadastrar: sassasas, 79485728975, 77777512048, jksai@kfb.com
 2024-10-10 17:55:42 - Tentativa de cadastrar: sandro, 34567898765, 64706182000, sandro@sandro.com
 2024-10-12 05:03:02 - Tentativa de cadastrar: Debora, 48345654323, 37626144821, debora@debora.com
+2024-10-23 05:17:16 - Tentativa de cadastrar: samuel, 97823465872, 50409007838, samuel@samuel.com
+2024-10-24 01:28:21 - Tentativa de cadastrar: augusto, 34567898765, 83666169082, augustojon@gmail.com
+2024-11-14 00:27:52 - Tentativa de cadastrar: Coisin, 34567876543, 47819828838, coisin@coisin.com
+2024-11-14 00:38:24 - Tentativa de cadastrar: Samuel, 17981500337, 47819828838, samuelbenedito2017@gmail.com
+2024-11-14 00:42:34 - Tentativa de cadastrar: Joao, 17992452958, 50409007838, joao@joao.com
+2024-11-14 01:35:51 - Tentativa de cadastrar: Augusto, 18791919819, 17922251726, augusto@augusto.com
